@@ -1,0 +1,363 @@
+﻿@model EagleApp.Models.JobLogModel
+@{
+    ViewData["Title"] = "Create Job Log";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+        BindControls();
+        $("#EagleBidPrice").blur(function () {
+            var amt = parseFloat(this.value);
+            $(this).val(amt.toFixed(2));
+          //  $('#EagleBidSales').val($("#EagleBidPrice").val());
+        });
+        $("#CompetitorPrice").blur(function () {
+            var amt = parseFloat(this.value);
+            $(this).val(amt.toFixed(2));
+        });
+        $('#clientName').change(function () {
+           // console.log(this.value);
+            if(this.value != "") {
+                $.ajax({
+                   type: "GET",
+                   url: "@Url.Action("GetJobLogs", "JobLog")",
+                   data: "clientName=" +this.value,
+                    success: function (data) {
+                        var s = '';
+                        if (data.length > 0) {
+                            s = '<option value="">Please Select a Parent Bid#</option>';
+                        }
+                        else {
+                            s = '<option value="">There is no Parent Bid#</option>';
+                        }
+                       for (var i = 0; i < data.length; i++) {
+                           s += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+                       }
+                       $("#ParentBidNumber").html(s);
+                   }
+                });
+            }
+
+        }).change();
+    });
+
+    function BindControls() {
+        $("#clientName").autocomplete({
+            source: function (request, response) {
+
+                var val = request.term;
+                $.ajax({
+                   // url: "Customer/GetCustomerList?name=" + val,
+                    url: "@Url.Action("GetCustomerList", "Customer")",
+                    type: "GET",
+                    data: "name="+val,
+                    success: function (data) {
+
+                        response($.map(data, function (item) {
+                            return { value: item }
+                        }))
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(textStatus);
+                    }
+                });
+            },
+            minLength: 2   // MINIMUM 1 CHARACTER TO START WITH.
+        });
+    }
+</script>
+<style>
+    input.input-validation-error {
+        border-color: red;
+    }
+
+    select.input-validation-error {
+        border-color: red;
+    }
+
+    .required {
+        color: red;
+        font-weight: 500;
+    }
+</style>
+
+<form method="post" enctype="multipart/form-data" asp-controller="JobLog" asp-action="create">
+    <!-- BEGIN container -->
+    <div class="container">
+        <!-- BEGIN row -->
+        <div class="row justify-content-center">
+            <!-- BEGIN col-10 -->
+            <div class="col-xl-10">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-9 -->
+                    <div class="col-xl-9" style="background-color: #fff; padding: 30px;">
+
+                        <div id="formControls" class="mb-5">
+                            <h4>Critical Data Section</h4>
+
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Client Name<span class="required">*</span></label>
+
+                                                    <input type="text" class="form-control" value="" id="clientName" asp-for="ClientName" />
+                                                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="Department">Department <span class="required">*</span></label>
+                                                <select class="form-control" id="Department" asp-for="Department" asp-items="@(new SelectList(ViewBag.departments,"Id","Name"))">
+                                                    <option disabled selected>--- SELECT ---</option>
+                                                </select>
+
+                                                <span asp-validation-for="Department" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="Rep">Estimator <span class="required">*</span></label>
+                                                <select class="form-control" id="Rep" asp-for="Rep" asp-items="@(new SelectList(ViewBag.Users,"FullName","FullName"))">
+                                                    <option disabled selected>--- SELECT ---</option>
+                                                </select>
+                                                <span asp-validation-for="Rep" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect1">Project OC/AWA <span class="required">*</span></label>
+                                                <select class="form-control" id="ProjectOc" asp-for="ProjectOc" asp-items="@(new SelectList(ViewBag.ProjectOc,"Id","Ocawaname"))">
+                                                    <option disabled selected>--- SELECT ---</option>
+                                                </select>
+
+
+                                                <span asp-validation-for="ProjectOc" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="JobName">Job Name<span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="JobName" asp-for="JobName" />
+                                                    <span asp-validation-for="JobName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        @*<div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Status</label>
+                                                    <select class="form-control" id="Status" asp-for="Status" asp-items="@(new SelectList(ViewBag.JobStatus,"Id","Status"))">
+                                                        <option disabled selected>--- SELECT ---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>*@
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Parent Project Bid#</label>
+                                                    <select class="form-control" id="ParentBidNumber" asp-for="ParentBidNumber" asp-items="@(new SelectList(ViewBag.ProjectBids))">
+                                                        <option selected>--- SELECT ---</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3" style="margin-top: 12px;text-align: left;">
+                                                <div class="form-group mb-3">
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck1" asp-for="Rejected" />
+                                                    <label class="form-check-label" for="defaultCheck1">Is Rejected</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div id="formControls2" class="mb-5">
+                            <h4>Sales</h4>
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect1">Contact <span class="required">*</span></label>
+                                                <select class="form-control" id="Contact" asp-for="Contact" asp-items="@(new SelectList(ViewBag.Contact,"Id","Type"))">
+                                                    <option disabled selected>--- SELECT ---</option>
+                                                </select>
+
+                                                <span asp-validation-for="Contact" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect2">Product Type <span class="required">*</span></label>
+                                                <select class="form-control" id="ProductType" asp-for="ProductType">
+                                                    <option value="" selected>-- Select --</option>
+                                                    <option value="Asbestos">Asbestos</option>
+                                                    <option value="Lead">Lead</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                                <span asp-validation-for="ProductType" class="text-danger"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect1">Awarded To</label>
+                                                <select class="form-control" id="AwardedTo" asp-for="AwardedTo">
+                                                    <option value="" selected>-- Select --</option>
+                                                    <option value="Eagle">Eagle</option>
+                                                    <option value="Other">Other</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Competitor Price <span class="required">*</span></label>
+                                                    <input type="number" class="form-control" id="CompetitorPrice" asp-for="CompetitorPrice" />
+                                                    <span asp-validation-for="CompetitorPrice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                    <input type="number" class="form-control" id="EagleBidPrice" asp-for="EagleBidPrice" />
+                                                    <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Eagle Bid Form Sales <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="EagleBidSales" asp-for="EagleBidSales" />
+                                                    <span asp-validation-for="EagleBidSales" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Missed By (Calculated) <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="MissedBy" asp-for="MissedBy" />
+                                                    <span asp-validation-for="MissedBy" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Open Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="OpenDate" asp-for="OpenDate" />
+                                                    <span asp-validation-for="OpenDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Gen Info Section -->
+                        <div id="formControls2" class="mb-5">
+                            <h4>General Info Section</h4>
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Job Folder Link</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="JobFolderLink" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlTextarea1">Notes</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" asp-for="Notes"></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group mb-3">
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END col-10 -->
+        </div>
+        <!-- END row -->
+    </div>
+    <!-- END container -->
+</form>
+@section scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

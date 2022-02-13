@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@section Scripts {
+    
+
+    <script type="text/javascript">
+        function autoResize(iframe) {
+            $(iframe).height($(iframe).contents().find('html').height());
+        }
+        function resizer(id) {
+
+            var doc = document.getElementById(id).contentWindow.document;
+            var body_ = doc.body, html_ = doc.documentElement;
+
+            var height = Math.max(body_.scrollHeight, body_.offsetHeight, html_.clientHeight, html_.scrollHeight, html_.offsetHeight);
+            var width = Math.max(body_.scrollWidth, body_.offsetWidth, html_.clientWidth, html_.scrollWidth, html_.offsetWidth);
+
+            document.getElementById(id).style.height = height;
+            document.getElementById(id).style.width = width;
+
+        }
+    </script>
+}
+
+
+
+
+
+
+    <div style="height: 1191px; !important;">
+        <iframe src="https://portal.fieldflo.com/eagle/login" width="100%" height="100%" marginheight="0" frameborder="0" border="0" scrolling="auto" id="iframe1" onLoad="resizer('iframe1');"></iframe>
+    </div>
+

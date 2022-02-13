@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "Users";
+}
+
+@section Scripts {
+    <link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+
+}
+
+<style>
+    .bootstrap-table.bootstrap5 .float-right {
+        right: 14px !important;
+    }
+</style>
+
+<h1>Users</h1>
+
+<div class="row">
+    <div class="col-xl-12" style="text-align: right;">
+        <a   class="btn btn-primary" href="/Identity/Account/Register">Add New User</a>
+        @*<button type="button" class="btn btn-primary" >Add New User</button>*@
+    </div>
+
+
+</div>
+<div class="row">
+        <table id="example" class="table" data-toggle="table"
+               data-sort-class="table-active"
+               data-sortable="true"
+               data-search="true"
+               data-pagination="true"
+           
+               data-height="460">
+            <thead>
+                <tr>
+                    <th data-sortable="true">First Name</th>
+                    <th data-sortable="true">Last Name</th>
+                    <th data-sortable="true">Email</th>
+                    <th data-sortable="false"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Email</td>
+                        <td>
+                            @*<a href="#modalEdit" data-bs-toggle="modal" data-id="@user.Id"  data-bs class="btn btn-default w-100px">Edit</a>*@
+                            <a href="/Users/Edit?id=@user.Id" class="btn btn-default w-50px">Edit</a>
+                            @Html.ActionLink("Delete", "Delete", new {  id=user.Id  }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>

@@ -1,0 +1,75 @@
+﻿@model EagleApp.Models.Department
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    input.input-validation-error {
+        border-color: red;
+    }
+
+    select.input-validation-error {
+        border-color: red;
+    }
+
+    .required {
+        color: red;
+        font-weight: 500;
+    }
+</style>
+
+<h1>Create</h1>
+
+<h4>Department</h4>
+<hr />
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<form asp-action="Create">
+    <div class="container">
+        <!-- BEGIN row -->
+        <div class="row justify-content-center">
+            <!-- BEGIN col-10 -->
+            <div class="col-xl-10">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-9 -->
+                    <div class="col-xl-9" style="background-color: #fff; padding: 30px;">
+
+                        <div id="formControls" class="mb-5">
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="form-group mb-3">
+                                                <label asp-for="Name" class="control-label">Name <span class="required">*</span></label>
+                                                <input asp-for="Name" class="form-control" />
+                                                <span asp-validation-for="Name" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="form-group mb-3" style="text-align: center">
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+

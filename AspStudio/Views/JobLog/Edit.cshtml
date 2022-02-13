@@ -1,0 +1,1165 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, EagleApp
+@model EagleApp.Models.JobLogModel
+
+@{
+    ViewData["Title"] = "Edit";
+    ViewData["AppContentClass"] = "test";
+
+}
+
+
+
+<h1>Edit</h1>
+
+<h4>JobLog</h4>
+<hr />
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css" />
+@*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>*@
+@*<script src="~/js/edit.js"></script>*@
+<script>
+        function onlyNumberKey(evt) {
+          
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+
+        $(document).ready(function () {
+
+            
+
+            BindControls();
+            $("#EagleBidPrice").blur(function () {
+                var amt = parseFloat(this.value);
+                $(this).val(amt.toFixed(2));
+                $('#EagleBidSales').val($("#EagleBidPrice").val());
+            });
+
+            $("#AcceptedDate").blur(function () {
+                $('#EagleBidSales').val($("#EagleBidPrice").val());
+            });
+            $("#CompetitorPrice").blur(function () {
+                var amt = parseFloat(this.value);
+                $(this).val(amt.toFixed(2));
+            });
+
+            // chkBoxMobilization
+            $('#chkBoxMobilization').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+                    $('#txtMobilization').removeAttr('readonly');
+                    $('#dtMobilization').removeAttr('readonly');
+                }
+                else {
+
+
+                    $('#txtMobilization').attr('readonly', 'readonly');
+                    $('#dtMobilization').attr('readonly', 'readonly');
+
+                }
+
+            });
+
+
+            $("#txtMobilization").blur(function () {
+               var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtMobilization').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+
+             // chkBoxMobilization end
+
+            // Prep 1/4
+            $('#chkBoxPrep14').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtPrep14').removeAttr('readonly');
+                    $('#dtPrep14').removeAttr('readonly');
+                }
+                else {
+                    $('#txtPrep14').attr('readonly', 'readonly');
+                    $('#dtPrep14').attr('readonly', 'readonly');
+
+                }
+
+            });
+            $("#txtPrep14").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtPrep14').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+
+             // Prep 1/4 end
+
+            // Prep 1/2
+            $('#chkBoxPrep12').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtPrep12').removeAttr('readonly');
+                    $('#dtPrep12').removeAttr('readonly');
+                }
+                else {
+                    $('#txtPrep12').attr('readonly', 'readonly');
+                    $('#dtPrep12').attr('readonly', 'readonly');
+
+                }
+
+            });
+
+            $("#txtPrep12").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtPrep12').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+              // Prep 1/2 end
+
+            // Prep 3/4
+            $('#chkBoxPrep34').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtPrep34').removeAttr('readonly');
+                    $('#Prep34Date').removeAttr('readonly');
+                }
+                else {
+                    $('#txtPrep34').attr('readonly', 'readonly');
+                    $('#Prep34Date').attr('readonly', 'readonly');
+
+                }
+
+            });
+
+            $("#txtPrep34").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#Prep34Date').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+              // Prep 3/4 end
+
+            // Prep Done
+            $('#chkBoxPrepDone').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtPrepDone').removeAttr('readonly');
+                    $('#dtPrepDone').removeAttr('readonly');
+                }
+                else {
+                    $('#txtPrepDone').attr('readonly', 'readonly');
+                    $('#dtPrepDone').attr('readonly', 'readonly');
+
+                }
+
+            });
+            $("#txtPrepDone").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtPrepDone').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+             // Prep Done end
+
+            // Removal 1/2
+            $('#chkBoxRemoval12').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtRemoval12').removeAttr('readonly');
+                    $('#dtRemoval12').removeAttr('readonly');
+                }
+                else {
+                    $('#txtRemoval12').attr('readonly', 'readonly');
+                    $('#dtRemoval12').attr('readonly', 'readonly');
+
+                }
+
+            });
+            $("#txtRemoval12").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtRemoval12').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+             //Removal 1/2 end
+
+            // Removal 3/4
+            $('#chkBoxRemoval12').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtRemoval12').removeAttr('readonly');
+                    $('#dtRemoval12').removeAttr('readonly');
+                }
+                else {
+                    $('#txtRemoval12').attr('readonly', 'readonly');
+                    $('#dtRemoval12').attr('readonly', 'readonly');
+
+                }
+
+            });
+            $("#txtRemoval12").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtRemoval12').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+             //Removal 3/4 end
+
+            // Demo done
+            $('#chkBoxDemoDone').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+
+                    $('#txtDemoDone').removeAttr('readonly');
+                    $('#dtDemoDone').removeAttr('readonly');
+                }
+                else {
+                    $('#txtDemoDone').attr('readonly', 'readonly');
+                    $('#dtDemoDone').attr('readonly', 'readonly');
+
+                }
+
+            });
+            $("#txtDemoDone").blur(function () {
+                var mobilization = $(this).val();
+                if (mobilization != '') {
+                    $('#dtDemoDone').val(new Date().toLocaleDateString('en-CA'));
+                }
+            });
+             // Demo done end
+
+
+            // Inventory Return
+            $('#chkBoxInventory').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+                    $('#dtInventory').removeAttr('readonly');
+                }
+                else {
+                    $('#dtInventory').attr('readonly', 'readonly');
+
+                }
+
+            });
+
+             // Inventory Return end
+
+            // Equipment  Return
+            $('#chkBoxEquipment').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+                    $('#dtEquipment').removeAttr('readonly');
+                }
+                else {
+                    $('#dtEquipment').attr('readonly', 'readonly');
+
+                }
+
+            });
+
+             // Equipment  Return end
+            // Total  Return
+            $('#chkBoxTotal').change(function () {
+                var isChecked = $(this).is(':checked');
+
+                if (isChecked) {
+                    $('#dtTotal').removeAttr('readonly');
+                }
+                else {
+                    $('#dtTotal').attr('readonly', 'readonly');
+
+                }
+
+            });
+
+             // Total  Return end
+
+        });
+
+        function BindControls() {
+            $("#clientName").autocomplete({
+                source: function (request, response) {
+
+                    var val = request.term;
+                    $.ajax({
+                       // url: "Customer/GetCustomerList?name=" + val,
+                        url: "@Url.Action("GetCustomerList", "Customer")",
+                        type: "GET",
+                        data: "name="+val,
+                        success: function (data) {
+
+                            response($.map(data, function (item) {
+                                return { value: item }
+                            }))
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert(textStatus);
+                        }
+                    });
+                },
+                minLength: 2   // MINIMUM 1 CHARACTER TO START WITH.
+            });
+        }
+    </script>
+<div>
+    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-all-route-data="@(new Dictionary<string, string> { { "joblogId", Context.Request.Query["id"].ToString() } })" asp-controller="AuditLog" asp-action="Index">Audit Log</a>
+</div>
+
+<style>
+    input.input-validation-error {
+        border-color: red;
+    }
+
+    select.input-validation-error {
+        border-color: red;
+    }
+
+    .required {
+        color: red;
+        font-weight: 500;
+    }
+</style>
+
+<form method="post" enctype="multipart/form-data" asp-controller="JobLog" asp-action="Edit">
+    <input asp-for="Id" class="form-control" type="hidden" />
+    <!-- BEGIN container -->
+    <div class="container">
+        <!-- BEGIN row -->
+        <div class="row justify-content-center">
+            <!-- BEGIN col-10 -->
+            <div class="col-xl-10">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-9 -->
+                    <div class="col-xl-9" style="background-color: #fff; padding: 30px;">
+
+                        <div id="formControls" class="mb-5">
+                            <h4>Critical Data Section</h4>
+
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Bid # <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="BidNumber" readonly />
+                                                    <span asp-validation-for="BidNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Client Name<span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="clientName" asp-for="ClientName" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="ClientName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="Department">Department <span class="required">*</span></label>
+                                                <select class="form-control" id="Department" asp-for="Department" asp-items="ViewBag.departments" asp-is-readonly="Model.CommPaidDate != null">
+                                                    <option selected>--- SELECT ---</option>
+                                                </select>
+
+                                                <span asp-validation-for="Department" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="Rep">Estimator <span class="required">*</span></label>
+                                                <select class="form-control" id="Department" asp-for="Rep" asp-items="ViewBag.Users" asp-is-readonly="Model.CommPaidDate != null">
+                                                    <option selected>--- SELECT ---</option>
+                                                </select>
+                                                <span asp-validation-for="Rep" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect1">Project OC/AWA <span class="required">*</span></label>
+                                                <select class="form-control" id="ProjectOc" asp-for="ProjectOc" asp-items="ViewBag.ProjectOc" asp-is-readonly="Model.CommPaidDate != null">
+                                                    <option selected>--- SELECT ---</option>
+                                                </select>
+
+
+                                                <span asp-validation-for="ProjectOc" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="JobName">Job Name<span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="JobName" asp-for="JobName" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="JobName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Status</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="Status" readonly />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3" style="margin-top: 31px;text-align: center;">
+                                                <div class="form-group mb-3">
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck1" asp-for="Rejected" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <label class="form-check-label" for="defaultCheck1">Is Rejected</label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div id="formControls2" class="mb-5">
+                            <h4>Sales</h4>
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect1">Contact <span class="required">*</span></label>
+
+                                                <select class="form-control" id="Contact" asp-for="Contact" asp-items="ViewBag.Contact" asp-is-readonly="Model.CommPaidDate != null">
+                                                    <option disabled selected>--- SELECT ---</option>
+                                                </select>
+
+                                                <span asp-validation-for="Contact" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect2">Product Type <span class="required">*</span></label>
+                                                <select class="form-control" id="exampleFormControlSelect2" asp-for="ProductType" asp-items="ViewBag.ProductType" asp-is-readonly="Model.CommPaidDate != null">
+                                                    <option value="" selected>-- Select --</option>
+                                                    @*<option value="Asbestos">Asbestos</option>
+                                                        <option value="Lead">Lead</option>
+                                                        <option value="Other">Other</option>*@
+                                                </select>
+                                                <span asp-validation-for="ProductType" class="text-danger"></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlSelect1">Awarded To</label>
+                                                <select class="form-control" id="exampleFormControlSelect1" asp-for="AwardedTo" asp-items="ViewBag.AwardedTo" asp-is-readonly="Model.CommPaidDate != null">
+                                                    <option value="" selected>-- Select --</option>
+                                                    @*<option value="Eagle">Eagle</option>
+                                                        <option value="Other">Other</option>*@
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="CompetitorPrice">Competitor Price <span class="required">* </span></label>
+                                                    <input type="text" class="form-control" id="CompetitorPrice"   onkeypress="return onlyNumberKey(event)" asp-format="{0:0.00}"  asp-for="CompetitorPrice" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="CompetitorPrice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="EagleBidSales">Eagle Bid Form Sales <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="EagleBidSales"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidSales" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="EagleBidSales"  class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="MissedBy">Missed By (Calculated) <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="MissedBy" asp-for="MissedBy" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="MissedBy" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="OpenDate">Open Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="OpenDate" asp-for="OpenDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="OpenDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="AcceptedDate">Accepted Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="AcceptedDate" asp-for="AcceptedDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="AcceptedDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="StartDate">Start Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="StartDate" asp-for="StartDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="FinishDate">Finish Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="FinishDate" asp-for="FinishDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="FinishDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="FinalInvoiceDate">Final Invoice Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="FinalInvoiceDate" asp-for="FinalInvoiceDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="FinalInvoiceDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="ClosedDate">Closeout Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="ClosedDate" asp-for="ClosedDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="ClosedDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="JeipmeetingDate">JEIP Meeting Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="JeipmeetingDate" asp-for="JeipmeetingDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="JeipmeetingDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="PaidInFullDate">Paid In Full Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="PaidInFullDate" asp-for="PaidInFullDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="PaidInFullDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="CommPaidDate">Comm Paid Date <span class="required">*</span></label>
+                                                    <input type="date" class="form-control" id="CommPaidDate" asp-for="CommPaidDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="CommPaidDate" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="col-xl-6" style="display:none;">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="FinalInvoice">Final Invoice # <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="FinalInvoice" asp-for="FinalInvoice" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="FinalInvoice" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        @if (ViewBag.CurrentRole == "Estimator" || ViewBag.CurrentRole == "Admin")
+                        {
+
+
+                            <!-- WIP -->
+                            <div id="formControls" class="mb-5">
+                                <h4>WIP</h4>
+
+                                <div class="card">
+                                    <div class="card-body pb-2">
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Mobilization</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxMobilization" asp-for="IsCheckedMobilazation" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsCheckedMobilazation)
+                                                        {
+                                                            <input type="number" class="form-control" asp-for="Mobilization" id="txtMobilization" placeholder="Percent Complete 5%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" asp-for="Mobilization" id="txtMobilization" placeholder="Percent Complete 5%" readonly />
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsCheckedMobilazation)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtMobilization" asp-for="MobilizationDate" placeholder="Effective Date" />
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtMobilization" asp-for="MobilizationDate" placeholder="Effective Date" readonly />
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Prep 1/4</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrep14" asp-for="IsCheckedPrep12" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsCheckedPrep12)
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrep14" asp-for="Prep14" placeholder="Percent Complete 15%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrep14" asp-for="Prep14" placeholder="Percent Complete 15%" readonly />
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsCheckedPrep12)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtPrep14" asp-for="Prep14Date" placeholder="Effective Date" />
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtPrep14" asp-for="Prep14Date" placeholder="Effective Date" readonly />
+
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Prep 1/2</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrep12" asp-for="IsCheckedPrep14" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsCheckedPrep14)
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrep12" asp-for="Prep12" placeholder="Percent Complete 15%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrep12" asp-for="Prep12" placeholder="Percent Complete 15%" readonly />
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsCheckedPrep14)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtPrep12" asp-for="Prep12Date" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtPrep12" asp-for="Prep12Date" placeholder="Effective Date" readonly />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Prep 3/4</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrep34" asp-for="IsCheckedPrep34" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsCheckedPrep34)
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrep34" asp-for="Prep34" placeholder="Percent Complete 15%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrep34" asp-for="Prep34" placeholder="Percent Complete 15%" readonly />
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsCheckedPrep34)
+                                                    {
+                                                        <input type="date" class="form-control" asp-for="Prep34Date" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" asp-for="Prep34Date" placeholder="Effective Date" readonly />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Prep Done</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrepDone" asp-for="IsPrepDone" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsPrepDone)
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrepDone" asp-for="PrepDone" placeholder="Percent Complete 15%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" id="txtPrepDone" asp-for="PrepDone" placeholder="Percent Complete 15%" readonly />
+                                                        }
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsPrepDone)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtPrepDone" asp-for="PrepDoneDate" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtPrepDone" asp-for="PrepDoneDate" placeholder="Effective Date" readonly />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Removal 1/2</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval12" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsRemoval12)
+                                                        {
+                                                            <input type="number" class="form-control" asp-for="Removal12" id="txtRemoval12" placeholder="Percent Complete 15%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" asp-for="Removal12" id="txtRemoval12" placeholder="Percent Complete 15%" readonly />
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsRemoval12)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtRemoval12" asp-for="Removal12Date" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtRemoval12" asp-for="Removal12Date" placeholder="Effective Date" readonly />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Removal 3/4</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval34" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsRemoval34)
+                                                        {
+                                                            <input type="number" class="form-control" asp-for="RemovalDone" id="txtRemoval12" placeholder="Percent Complete 15%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" asp-for="RemovalDone" id="txtRemoval12" placeholder="Percent Complete 15%" readonly />
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsRemoval34)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtRemoval12" asp-for="RemovalDoneDate" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtRemoval12" asp-for="RemovalDoneDate" placeholder="Effective Date" readonly />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Demo done</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxDemoDone" asp-for="IsDemoDone" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        @if (Model.IsDemoDone)
+                                                        {
+                                                            <input type="number" class="form-control" id="txtDemoDone" asp-for="DemoDone" placeholder="Percent Complete 5%" />
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="number" class="form-control" id="txtDemoDone" asp-for="DemoDone" placeholder="Percent Complete 5%" readonly />
+
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsDemoDone)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtDemoDone" asp-for="DemoDoneDate" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtDemoDone" asp-for="DemoDoneDate" placeholder="Effective Date" readonly />
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Inventory Return</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxInventory" asp-for="IsInvReturnDate" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsInvReturnDate)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtInventory" asp-for="InvReturnDate" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtInventory" asp-for="InvReturnDate" placeholder="Effective Date" readonly />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Equipment Return</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxEquipment" asp-for="IsEquipReturnDate" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsEquipReturnDate)
+                                                    {
+                                                        <input type="date" class="form-control" id="dtEquipment" asp-for="EquipReturnDate" placeholder="Effective Date" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="date" class="form-control" id="dtEquipment" asp-for="EquipReturnDate" placeholder="Effective Date" readonly />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Total Percent -->
+                                    <div class="row">
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    <div class="form-group mb-3">
+                                                        <label class="form-check-label" for="exampleFormControlInput1">Total %</label>
+                                                        <input type="checkbox" class="form-check-input" id="chkBoxTotal" asp-for="IsTotalComplete" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4">
+                                                <div class="form-group mb-3">
+                                                    @if (Model.IsTotalComplete)
+                                                    {
+                                                        <input type="text" class="form-control" id="dtTotal" asp-for="TotalComplete" placeholder="Total % Complete" />
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text" class="form-control" id="dtTotal" asp-for="TotalComplete" placeholder="Total % Complete" readonly />
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+                        <!-- Gen Info Section -->
+                        <div id="formControls2" class="mb-5">
+                            <h4>General Info Section</h4>
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-5">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="project#">Project # <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="project#" asp-for="ProjectNumber" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <span asp-validation-for="ProjectNumber" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Job Folder Link</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="JobFolderLink" asp-is-readonly="Model.CommPaidDate != null" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-1">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <a href="@Model.JobFolderLink" target="_blank"> <i class="fas fa-folder-open" style="margin-top:2.3rem;">  </i></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlTextarea1">Notes</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" asp-for="Notes" asp-is-readonly="Model.CommPaidDate != null"></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group mb-3">
+                                    <div class="form-group">
+                                        @if (Model.CommPaidDate != null)
+                                        {
+                                            <input type="submit" value="Save" class="btn btn-primary" disabled />
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END col-10 -->
+        </div>
+        <!-- END row -->
+    </div>
+    <!-- END container -->
+</form>
+@section scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,67 @@
+﻿<!-- BEGIN #header -->
+<div id="header" class="app-header">
+    <!-- BEGIN mobile-toggler -->
+    <div class="mobile-toggler">
+        <button type="button" class="menu-toggler" data-toggle="sidebar-mobile">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </div>
+    <!-- END mobile-toggler -->
+    <!-- BEGIN brand -->
+    <div class="brand">
+        <div class="desktop-toggler">
+            <button type="button" class="menu-toggler" data-toggle="sidebar-minify">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+
+       @* <a href="/" class="brand-logo">
+            <img src="~/img/logo.png" alt="" height="20" />
+        </a>*@
+    </div>
+    <!-- END brand -->
+    <!-- BEGIN menu -->
+    <div class="menu">
+        <form class="menu-search" method="POST" name="header_search_form">
+            <div class="menu-search-icon"  style="visibility:hidden;"><i class="fa fa-search"></i></div>
+            <div class="menu-search-input">
+                <input style="visibility:hidden;" type="text" class="form-control" placeholder="Search menu..." />
+            </div>
+        </form>
+        <div class="menu-item dropdown">
+            <a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
+                <div class="menu-icon"><i class="fa fa-bell nav-icon"></i></div>
+                <div class="menu-label">0</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-notification">
+                <h6 class="dropdown-header text-gray-900 mb-1">Notifications</h6>
+                <div class="dropdown-notification-item bg-white">
+                	No record found
+                </div>
+                <div class="p-2 text-center mb-n1">
+                    <a href="#" class="text-gray-800 text-decoration-none">See all</a>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item dropdown">
+            <a href="#" data-bs-toggle="dropdown" data-bs-display="static" class="menu-link">
+                <div class="menu-img online">
+										<div class="d-flex align-items-center justify-content-center w-100 h-100 bg-gray-800 text-gray-300 rounded-circle overflow-hidden">
+												<i class="fa fa-user fa-2x mb-n3"></i>
+										</div>
+								</div>
+                <div class="menu-text">@User.Identity.Name</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end me-lg-3">
+      
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END menu -->
+</div>
+<!-- END #header -->

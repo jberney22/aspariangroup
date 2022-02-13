@@ -1,0 +1,25 @@
+﻿@using NonFactors.Mvc.Grid;
+@model IEnumerable<VGetJobLog>
+@* Should only include grid declaration *@
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.BidNumber).Titled("Bid Number");
+        columns.Add(model => model.DeptName).Titled("Dept Name");
+        columns.Add(model => model.Rep).Titled("Rep");
+
+        columns.Add(model => model.ContactType).Titled("Client");
+        columns.Add(model => model.JobName).Titled("Job Name").Formatted("{0:d}");
+        columns.Add(model => model.ProductType).Titled("Product Type");
+    })
+    .Empty("No data found")
+    .Pageable(pager =>
+    {
+        pager.PagesToDisplay = 2;
+        pager.RowsPerPage = 2;
+    })
+    .Filterable()
+    .Sortable()
+)

@@ -1,0 +1,122 @@
+﻿@model InputEditModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-controller="Users" asp-action="edit" style="background-color: white;">
+    
+
+    <!-- BEGIN container -->
+    <div class="container">
+        
+        <!-- BEGIN row -->
+        <div class="row justify-content-center">
+            
+            <!-- BEGIN col-10 -->
+            <div class="col-xl-10">
+                <!-- BEGIN row -->
+                <div class="row">
+                    <!-- BEGIN col-9 -->
+                    <div class="col-xl-9" style="background-color: #fff; padding: 30px;">
+                        @if (ViewBag.Message == "Success")
+                        {
+                            <div class="alert alert-success alert-dismissable fade show p-3">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Well done!</strong> You successfully updated your profile.
+                            </div>
+                        }
+                        @if (ViewBag.Message == "Error")
+                        {
+                            <div class="alert alert-danger alert-dismissable fade show p-3">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                            </div>
+                        }
+
+                        <!-- Gen Info Section -->
+                        <div id="formControls2" class="mb-5">
+                            <h4>Edit Profile</h4>
+                            <div class="card">
+                                <div class="card-body pb-2">
+
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="project#">First name # <span class="required">*</span></label>
+                                                    <input type="text" class="form-control" id="project#" asp-for="FirstName" />
+                                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">LastName</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="LastName" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label class="form-label" for="exampleFormControlInput1">Email</label>
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="Email" readonly />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Role -->
+                                        <div class="col-xl-6">
+                                            <div class="form-group mb-3">
+                                                <div class="form-group mb-3">
+                                                    <label asp-for="Role" class="form-label"></label>
+                                                    <select class="form-control" id="Role" asp-for="Role">
+                                                        <option value="">-- Select --</option>
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Estimator">Estimator</option>
+                                                        <option value="Production">Production</option>
+                                                    </select>
+                                                    <span asp-validation-for="Role" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="form-group mb-3">
+                                    <div class="form-group">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END row -->
+            </div>
+            <!-- END col-10 -->
+        </div>
+        <!-- END row -->
+    </div>
+    <!-- END container -->
+</form>

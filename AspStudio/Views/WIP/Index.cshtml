@@ -1,0 +1,253 @@
+﻿@model WIPReportModel
+@{
+    ViewData["Title"] = "WIP Report";
+}
+
+@section Scripts {
+    <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+    @*<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+    <script>
+        $('#datepicker').datepicker({
+            autoclose: true
+        });
+    </script>
+
+    <script>
+        var $table = $('#table')
+
+      
+
+        $(function () {
+            $table.bootstrapTable('destroy').bootstrapTable({
+                exportDataType: $(this).val(),
+                exportTypes: ['csv', 'excel'],
+               
+            })
+        })
+    </script>
+    <style>
+         table {
+              overflow-x: auto;
+        }
+
+         table > * > tr > th:first-child,
+         table > * > tr > td:first-child {
+              position: sticky;
+                left: 0;
+                z-index: 2;
+                background-color: lightgrey;
+        }
+    </style>
+}
+
+
+
+<h1 class="page-header mb-3">
+    Hi, @User.Identity.Name.
+</h1>
+
+ <form method="post" enctype="multipart/form-data" asp-controller="WIP" asp-action="Index" style="margin-top: 1rem;">
+<div class="container">
+
+    <div class="row" >
+        <div class="col-xl-10">
+				<!-- BEGIN row -->
+				<div class="row">
+					<!-- BEGIN col-6 -->
+					<div class="col-sm-4">
+						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-orange" style="min-height: 120px;">
+								<!-- BEGIN card-img-overlay -->
+								<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+									<img src="assets/img/icon/order.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+								</div>
+								<!-- END card-img-overlay -->
+								
+								<!-- BEGIN card-body -->
+								<div class="card-body position-relative">
+									<h1 class="text-white-transparent-8  mb-3 fs-30px">WIP Sub Totals</h1>
+									<h3 class="text-white mt-n1">@(String.Format("{0:C2}", Model.WIPSubTotalFormSales))</h3>
+									
+									
+								</div>
+								<!-- BEGIN card-body -->
+							</div>
+
+					</div>
+					<!-- END col-6 -->
+						
+					<!-- BEGIN col-6 -->
+					<div class="col-sm-4">
+						<!-- BEGIN card -->
+						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-pink"  style="min-height: 120px;">
+							<!-- BEGIN card-img-overlay -->
+							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+								<img src="assets/img/icon/email.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+							</div>
+							<!-- END card-img-overlay -->
+								
+							<!-- BEGIN card-body -->
+							<div class="card-body position-relative">
+								<h1 class="text-white-transparent-8  mb-3 fs-30px">Total Amount Done</h1>
+                                <h3 class="text-white mt-n1">@(String.Format("{0:C2}", Model.WIPSubTotalAmtDone))</h3>
+							
+								
+							</div>
+							<!-- END card-body -->
+						</div>
+						<!-- END card -->
+							
+						
+					</div>
+					<!-- BEGIN col-6 -->
+
+                    <!-- BEGIN col-6 -->
+					<div class="col-sm-4">
+						<!-- BEGIN card -->
+						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-pink" style="min-height: 120px;">
+							<!-- BEGIN card-img-overlay -->
+							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+								<img src="assets/img/icon/email.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+							</div>
+							<!-- END card-img-overlay -->
+								
+								
+							<!-- BEGIN card-body -->
+							<div class="card-body position-relative">
+								<h1 class="text-white-transparent-8 mb-3 fs-30px">WIP Left to Complete</h1>
+                                <h3 class="text-white mt-n1">@(String.Format("{0:C2}", Model.WIPSubTotalAmtLeft))</h3>
+							
+								
+							</div>
+							<!-- END card-body -->
+						</div>
+						<!-- END card -->
+							
+						
+					</div>
+					<!-- BEGIN col-6 -->
+
+
+
+				</div>
+				<!-- END row -->
+			</div>
+       
+    </div>
+     
+    <div class="row" >
+    <div class="col-sm-3">
+        <strong>Filter By Date Modified</strong>
+        <div class="input-group input-daterange" id="datepicker">
+            <input type="text" class="form-control" id="datepicker"  asp-for="PostDate" name="PostDate" placeholder="Select Date" />
+            <label class="input-group-text" for="datepicker">
+                <i class="fa fa-calendar"></i>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+
+                <div class="form-group mb-3" style="margin-top:  1.3rem;">
+                    <label class="form-label" for="exampleFormControlInput1"></label>
+                    <input type="submit" value="Apply Filter Search" class="btn btn-primary" />
+                </div>
+            </div>
+</div>
+</div>
+</form>
+
+
+<div class="row">
+    <!-- BEGIN col-6 -->
+    <!-- END col-6 -->
+    <!-- BEGIN col-6 -->
+    <div class="col-xl-12">
+        <!-- BEGIN card -->
+        <!-- END card -->
+        <div id="bootstrapTable" class="mb-5">
+            <h4>WIP</h4>
+
+            <div class="card">
+                <div class="card-body">
+                    
+
+                   
+                    <table id="table" class="table-sm table-striped"
+                           data-page-size="100"
+                           data-search="true"
+                           data-toggle="table"
+                           data-pagination="true"
+                           data-height="500"
+                           data-sortable="true">
+                        <thead>
+                              <tr>
+                                <th scope="col" data-sortable="true">Project#:Job:Client</th>
+                                <th scope="col" data-sortable="true">Department</th>
+                                <th scope="col" data-sortable="true">Rep</th>
+                                <th scope="col" data-sortable="true">Start Date</th>
+                                <th scope="col" data-sortable="true">Scheduled Finish Date</th>
+                                <th scope="col" data-sortable="true">Status</th>
+                                <th scope="col" data-sortable="true">Days in WIP</th>
+                                <th scope="col" data-sortable="true">Eagle Bid Form Sales</th>
+                                <th scope="col" data-sortable="true">Amount Done</th>
+                                <th scope="col" data-sortable="true">% Done</th>
+                                <th scope="col" data-sortable="true">5% Mobilization</th>
+                                <th scope="col" data-sortable="true">15% Prep 1/4</th>
+                                <th scope="col" data-sortable="true">15% Prep 1/2</th>
+                                <th scope="col" data-sortable="true">15% Prep 3/4</th>
+                                <th scope="col" data-sortable="true">15% Prep Done</th>
+                                <th scope="col" data-sortable="true">15% Removal 1/2</th>
+                                <th scope="col" data-sortable="true">15% Removal 3/4</th>
+                                <th scope="col" data-sortable="true">5% Done</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var user in Model.JobLog2s)
+                            {
+                            <tr>
+                                 <td scope="col" title="@user.ProjectOc">
+                                    <a href="/JobLog/Edit?id=@user.Id"> @String.Format("{0} ...", user.ProjectOc.Substring(0,20))</a>
+                                </td>
+                                <td scope="col" class="col-1">@user.Department</td>
+                                <td scope="col">@user.Rep</td>
+                                @*<td scope="col">@user.ProjectOc</td>*@
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.StartDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
+                                <td scope="col">@user.Status</td>
+                                <td scope="col">@user.DaysWIP</td>
+                                <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
+                                <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
+                                <td scope="col">@user.PercentageDone</td>
+                                <td scope="col">@user.Mobilization</td>
+                                <td scope="col">@user.Prep14</td>
+                                <td scope="col">@user.Prep12</td>
+                                <td scope="col">@user.Prep34</td>
+                                <td scope="col">@user.PrepDone</td>
+                                <td scope="col">@user.Removal12</td>
+                                <td scope="col">@user.RemovalDone</td>
+                                <td scope="col">@user.DemoDone</td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                     <div>
+               
+
+            </div>
+        </div>
+    </div>
+    <!-- END col-6 -->
+</div>
+<!-- END row -->

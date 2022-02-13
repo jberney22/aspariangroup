@@ -1,0 +1,221 @@
+﻿using EagleApp.Areas.Identity.Data;
+using EagleApp.Models;
+using EagleApp.Data;
+using EagleApp.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace EagleApp.Service
+{
+    public class JobLogService
+    {
+
+        private readonly AspStudioIdentityDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+      
+
+        public JobLogService(AspStudioIdentityDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;
+        }
+
+        internal async Task<JobLogResponse> AddJobLogAsync(JobLog jobLogModel, bool isParent, string parentBidNumber)
+        {
+            JobLogResponse response = new JobLogResponse();
+            try
+            {
+                var ocawa = _context.Ocawas.Find(Convert.ToInt32(jobLogModel.ProjectOc));
+
+                jobLogModel.DateAdded = DateTime.Now;
+                jobLogModel.Status = "1"; //Pending Status
+
+                _context.Add(jobLogModel);
+                var result = await _context.SaveChangesAsync();
+                if (!isParent)
+                {
+                    jobLogModel.BidNumber = $"{jobLogModel.Id}";
+                    jobLogModel.ProjectNumber = $"{jobLogModel.Id}-{ocawa.Ocawaname} : {jobLogModel.JobName} : {jobLogModel.ClientName}";
+                }
+                else
+                {
+                    parentBidNumber = parentBidNumber.Substring(0, parentBidNumber.LastIndexOf("-") + 1).Replace("-","");
+                    jobLogModel.BidNumber = parentBidNumber;
+                    jobLogModel.ProjectNumber = $"{parentBidNumber}-{ocawa.Ocawaname} : {jobLogModel.JobName} : {jobLogModel.ClientName}";
+                }
+
+                var result2 = await _context.SaveChangesAsync(jobLogModel.UserId, jobLogModel.Id);
+                response.Sucess = result2 > 0 ? true : false;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Sucess = false;
+            }
+            response.JobLog = jobLogModel;
+            return response;
+        }
+
+        internal IQueryable<VGetJobLog> GetAllJobLogs()
+        {
+            // return _context.JobLog.ToList();
+            return _context.VGetJobLog.OrderByDescending(o=>o.DateAdded).AsQueryable();
+        }
+
+        internal IQueryable<JobLog2> GetWIPReportData()
+        {
+            var query = from post in _context.JobLog
+                        join meta in _context.JobStatus on post.Status equals meta.Id.ToString()
+                        join dept in _context.Departments on post.Department equals dept.Id.ToString()
+                        where post.StartDate != null && post.EagleBidSales !=null && meta.Status.ToLower() == "started"
+                        select new JobLog2()
+                        {
+                            Id = post.Id,
+                            Department = dept.Name,
+                            Rep = post.Rep,
+                            ProjectOc = $"{post.BidNumber} : {post.JobName} : {post.ClientName}",
+                            StartDate = post.StartDate,
+                            FinishDate = post.FinishDate,
+                            Status = meta.Status,
+                            DaysWIP = ((DateTime.Now - post.StartDate.Value).Days - 1).ToString(),
+                            EagleBidSales = post.EagleBidSales,
+                            AmountDone = (((double)post.EagleBidSales / 100) * post.TotalComplete),
+                            Mobilization = post.Mobilization,
+                            CollectedAmount = post.CollectedAmount,
+                            ClosedDate = post.ClosedDate,
+                            OpenDate = post.OpenDate,
+                            EagleBidPrice = post.EagleBidPrice,
+                            PercentageDone = post.PercentageDone,
+                            Prep12 = post.Prep12,
+                            Prep14 = post.Prep14,
+                            Prep34 = post.Prep34,
+                            PrepDone = post.PrepDone,
+                            Removal12 = post.Removal12,
+                            RemovalDone = post.RemovalDone,
+                            DemoDone = post.DemoDone,
+                            DateModified = post.DateModified
+
+                        };
+                
+            return query;
+
+        }
+
+        private string GetStatusName(string status)
+        {
+            var jbstatus = _context.JobStatus.FirstOrDefault(o => o.Id.ToString() == status);
+            return jbstatus.Status;
+
+        }
+
+        internal List<ContactType> GetContacts()
+        {
+            return _context.ContactTypes.ToList();
+        }
+
+        internal List<JobStatus> GetJobStatus()
+        {
+            return _context.JobStatus.ToList();
+        }
+
+        internal List<Ocawa> GetAllProjectOC()
+        {
+            return _context.Ocawas.ToList();
+        }
+
+        internal List<Department> GetAllDepartments()
+        {
+            return  _context.Departments.ToList();
+        }
+
+        internal string GetJobStatusIdByName(string statsName)
+        {
+
+            var obj = _context.JobStatus.FirstOrDefault(o => o.Status.ToLower() == statsName.ToLower());
+            return obj.Id.ToString();
+        }
+
+        internal JobLog GetJobLogbyId(int id)
+        {
+            var obj = _context.JobLog.Find(id);
+            var statusName = _context.JobStatus.FirstOrDefault(o => o.Id.ToString() == obj.Status);
+            obj.Status = statusName.Status;
+            return obj;
+        }
+
+        internal async Task<JobLogResponse> UpdateJobLog(JobLog jobLogModel, bool addAudit)
+        {
+            // var _context.JobLog.Update(jobLogModel);
+            JobLogResponse response = new JobLogResponse();
+            try
+            {
+                if (jobLogModel.AcceptedDate != null) jobLogModel.Status = "Accepted";
+                if (jobLogModel.StartDate != null) jobLogModel.Status = "Started";
+                if (jobLogModel.FinishDate != null) jobLogModel.Status = "Finished";
+                if (jobLogModel.FinalInvoiceDate != null) jobLogModel.Status = "Invoiced";
+                if (jobLogModel.CloseoutDoneDate != null) jobLogModel.Status = "Closed";
+                if (jobLogModel.JeipmeetingDate != null) jobLogModel.Status = "JEIP";
+                if (jobLogModel.PaidInFullDate != null) jobLogModel.Status = "Paid in Full";
+                if (jobLogModel.CommPaidDate != null) jobLogModel.Status = "Comm Paid";
+
+               // jobLogModel.ProjectOc = GetAllProjectOC().FirstOrDefault(obj => obj.Project)
+                jobLogModel.Status = GetJobStatusIdByName(jobLogModel.Status);
+                jobLogModel.DateModified = DateTime.Now;
+                _context.JobLog.Update(jobLogModel);
+                int result = 0;
+                if (!addAudit)
+                {
+                    jobLogModel.ProjectOc = _context.Ocawas.FirstOrDefault(obj => obj.Ocawaname == jobLogModel.ProjectOc).Id.ToString();
+                    result = await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    result = await _context.SaveChangesAsync(jobLogModel.UserId, jobLogModel.Id);
+                }
+
+                //var result = await _context.SaveChangesAsync(jobLogModel.UserId, jobLogModel.Id);
+                response.Sucess = result > 0 ? true : false;
+                response.JobLog = jobLogModel;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Sucess = false;
+            }
+            return response;
+        }
+
+        internal async Task<JobLogResponse> DeleteJobLog(JobLog job)
+        {
+            JobLogResponse response = new JobLogResponse();
+            try
+            {
+                _context.JobLog.Remove(job);
+                var result = _context.SaveChanges();
+                response.Sucess = result == 1 ? true : false;
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+                response.Sucess = false;
+            }
+            return response;
+        }
+
+        internal List<string> GetAllBidNumbers()
+        {
+            var jLogs = _context.JobLog.Where(o => o.BidNumber != null)
+                                       .Where(o => o.BidNumber != "0")
+                                       .OrderBy(o => o.BidNumber)
+                                       .Select(p => p.BidNumber).Distinct().ToList();
+            return jLogs;
+            
+        }
+    }
+}

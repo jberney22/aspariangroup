@@ -1,0 +1,728 @@
+﻿@model EagleApp.Models.AuditCompareModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<style>
+    .difference {
+        background-color: #ffb2af;
+        display: block;
+        width: 100%;
+        border-radius: 6px;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #e6180d;
+    }
+
+</style>
+
+<script>
+        
+    //$(document).ready(function () {
+    //    $("#revertData").click(function(e){
+    //        e.preventDefault();
+    //        var id = getUrlVars()["id"];
+
+    //        $.ajax({
+    //            url:"/AuditLog/RevertData?id="+id,
+    //            type: "POST",
+    //            success: function (data) {
+    //                window.location = '/AuditLog?joblogId='+data.id
+    //                console.log(data);
+    //            }
+    //        });
+
+    //    });
+
+
+
+    //    function getUrlVars()
+    //    {
+    //        var vars = [], hash;
+    //        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    //        for(var i = 0; i < hashes.length; i++)
+    //        {
+    //            hash = hashes[i].split('=');
+    //            vars.push(hash[0]);
+    //            vars[hash[0]] = hash[1];
+    //        }
+    //        return vars;
+    //    }
+
+    //});
+</script>
+<div>
+    <a class="btn btn-primary" asp-all-route-data="@(new Dictionary<string, string> { { "joblogId", Context.Request.Query["joblogId"].ToString() } })" asp-controller="AuditLog" asp-action="Index">Audit Log</a>
+    @*<button type="button" id="revertData" class="btn btn-primary" >Revert Data</button>*@
+    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLg">Revert Data</button>
+</div>
+<form asp-action="RevertData"  asp-all-route-data="@(new Dictionary<string, string> { { "joblogId", Context.Request.Query["joblogId"].ToString() }, { "id", Context.Request.Query["id"].ToString() }})">
+
+<div class="modal fade" id="modalLg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+         <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+    <div class="modal-body">
+            <div class="alert alert-danger">
+			    <strong>Are you sure?!</strong> You are about to revert data...Once you do this you can not go back.
+		    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+        <button type="submit" id="revertData" class="btn btn-primary">Revert</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+<div class="container">
+    <!-- BEGIN row -->
+    <div class="row justify-content-left">
+        <!-- BEGIN col-10 -->
+        <div class="col-xl">
+            <!-- BEGIN row -->
+            <div class="row">
+                <!-- BEGIN col-9 -->
+                <div class="col-xl-6" style="background-color: #fff; padding: 30px;">
+
+                    <div id="formControls" class="mb-5">
+                        <h4>Old Data</h4>
+                        <br />
+                        <h4>Critical Data Section</h4>
+
+                        <div class="card">
+                            <div class="card-body pb-2">
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Bid # <span class="required">*</span></label>
+                                                <input type="text" id="exampleFormControlInput1" asp-for="OldModel.BidNumber" class="form-control" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Client Name<span class="required">*</span></label>
+                                                <input type="text" id="clientName" asp-for="OldModel.ClientName" class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="Department">Department <span class="required">*</span></label>
+                                            <input type="text" id="department" asp-for="OldModel.Department" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="Rep">Rep <span class="required">*</span></label>
+                                            <input type="text" id="rep" asp-for="OldModel.Rep" class="form-control" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect1">Project OC/AWA <span class="required">*</span></label>
+                                            <input type="text" id="rep" asp-for="OldModel.ProjectOc" class="form-control" readonly />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="JobName">Job Name<span class="required">*</span></label>
+                                                <input type="text" id="JobName" asp-for="OldModel.JobName" class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Status</label>
+                                                <input type="text" id="JobName" asp-for="OldModel.Status" class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3" style="margin-top: 31px;text-align: center;">
+                                            <div class="form-group mb-3">
+                                                <input class="form-check-input" type="checkbox" id="defaultCheck1" asp-for="OldModel.Rejected" />
+                                                <label class="form-check-label" for="defaultCheck1">Is Rejected</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="formControls2" class="mb-5">
+                        <h4>Sales</h4>
+                        <div class="card">
+                            <div class="card-body pb-2">
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect1">Contact <span class="required">*</span></label>
+                                            <input type="text" class="form-control"  id="JobName" asp-for="OldModel.Contact" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect2">Product Type <span class="required">*</span></label>
+                                            <input type="text" class="form-control"  id="productType" asp-for="OldModel.ProductType" readonly/>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect1">Awarded To</label>
+                                            <input type="text" class="form-control"  id="productType" asp-for="OldModel.AwardedTo" readonly />
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="CompetitorPrice">Competitor Price <span class="required">*</span></label>
+                                                <input type="number" class="form-control"  id="CompetitorPrice" asp-for="OldModel.CompetitorPrice" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                <input type="number" class="form-control" id="EagleBidPrice" asp-for="OldModel.EagleBidPrice" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="EagleBidSales">Eagle Bid Form Sales <span class="required">*</span></label>
+                                                <input type="text" class="form-control"  id="EagleBidSales" asp-for="OldModel.EagleBidSales" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="MissedBy">Missed By (Calculated) <span class="required">*</span></label>
+                                                <input type="text" class="form-control"  id="MissedBy" asp-for="OldModel.MissedBy" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="OpenDate">Open Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="OpenDate" asp-for="OldModel.OpenDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="AcceptedDate">Accepted Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="AcceptedDate" asp-for="OldModel.AcceptedDate" readonly  />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="StartDate">Start Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="StartDate" asp-for="OldModel.StartDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="FinishDate">Finish Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="FinishDate" asp-for="OldModel.FinishDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="FinalInvoiceDate">Final Invoice Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="FinalInvoiceDate" asp-for="OldModel.FinalInvoiceDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="ClosedDate">Closeout Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="ClosedDate" asp-for="OldModel.ClosedDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="JeipmeetingDate">JEIP Meeting Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="JeipmeetingDate" asp-for="OldModel.JeipmeetingDate" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="PaidInFullDate">Paid In Full Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="PaidInFullDate" asp-for="OldModel.PaidInFullDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="CommPaidDate">Comm Paid Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control"  id="CommPaidDate" asp-for="OldModel.CommPaidDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="InvoiceDate">Invoice Date <span class="required">*</span></label>
+                                                <input type="date" class="form-control" id="InvoiceDate" asp-for="OldModel.InvoiceDate" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Gen Info Section -->
+                    <div id="formControls2" class="mb-5">
+                        <h4>General Info Section</h4>
+                        <div class="card">
+                            <div class="card-body pb-2">
+
+                                <div class="row">
+                                    <div class="col-xl-5">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="project#">Project # <span class="required">*</span></label>
+                                                <input type="text"  id="project#" asp-for="OldModel.ProjectNumber" class="form-control" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Job Folder Link</label>
+                                                <input type="text"  id="exampleFormControlInput1" asp-for="OldModel.JobFolderLink" class="form-control" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Notes</label>
+                                                <textarea  id="exampleFormControlTextarea1" rows="6" asp-for="OldModel.Notes" class="form-control" readonly></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BEGIN col-9 -->
+                <div class="col-xl" style="background-color: #fff; padding: 30px;">
+
+                    <div id="formControls" class="mb-5">
+                        <h4>New Data</h4>
+                        <br/>
+                        <h4>Critical Data Section</h4>
+
+                        <div class="card">
+                            <div class="card-body pb-2">
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Bid # <span class="required">*</span></label>
+                                                <input type="text" id="exampleFormControlInput1" asp-for="NewModel.BidNumber" class="@Html.Raw(Model.NewModel.BidNumber != Model.OldModel.BidNumber ? "difference" : "form-control")" readonly class="form-control" />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Client Name<span class="required">*</span></label>
+                                                <input type="text" id="clientName" asp-for="NewModel.ClientName" class="@Html.Raw(Model.NewModel.ClientName != Model.OldModel.ClientName ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="Department">Department <span class="required">*</span></label>
+                                            <input type="text" id="department" asp-for="NewModel.Department" class="@Html.Raw(Model.NewModel.Department != Model.OldModel.Department ? "difference" : "form-control")" readonly />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="Rep">Rep <span class="required">*</span></label>
+                                            <input type="text" id="rep" asp-for="NewModel.Rep" class="@Html.Raw(Model.NewModel.Rep != Model.OldModel.Rep ? "difference" : "form-control")" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect1">Project OC/AWA <span class="required">*</span></label>
+                                            <input type="text" id="rep" asp-for="NewModel.ProjectOc" class="@Html.Raw(Model.NewModel.ProjectOc != Model.OldModel.ProjectOc ? "difference" : "form-control")" readonly />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="JobName">Job Name<span class="required">*</span></label>
+                                                <input type="text" id="JobName" asp-for="NewModel.JobName" class="@Html.Raw(Model.NewModel.JobName != Model.OldModel.JobName ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Status</label>
+                                                <input type="text" id="JobName" asp-for="NewModel.Status" class="@Html.Raw(Model.NewModel.Status != Model.OldModel.Status ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3" style="margin-top: 31px;text-align: center;">
+                                            <div class="form-group mb-3">
+                                                <input class="form-check-input" type="checkbox" id="defaultCheck1" asp-for="NewModel.Rejected" />
+                                                <label class="form-check-label" for="defaultCheck1">Is Rejected</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="formControls2" class="mb-5">
+                        <h4>Sales</h4>
+                        <div class="card">
+                            <div class="card-body pb-2">
+
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect1">Contact <span class="required">*</span></label>
+                                            <input type="text"  id="JobName" asp-for="NewModel.Contact" class="@Html.Raw(Model.NewModel.Contact != Model.OldModel.Contact ? "difference" : "form-control")" readonly />
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect2">Product Type <span class="required">*</span></label>
+                                            <input type="text"  id="productType" asp-for="NewModel.ProductType" class="@Html.Raw(Model.NewModel.ProductType != Model.OldModel.ProductType ? "difference" : "form-control")" readonly />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label" for="exampleFormControlSelect1">Awarded To</label>
+                                            <input type="text"  id="productType" asp-for="NewModel.AwardedTo" class="@Html.Raw(Model.NewModel.AwardedTo != Model.OldModel.AwardedTo ? "difference" : "form-control")" readonly />
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="CompetitorPrice">Competitor Price <span class="required">*</span></label>
+                                                <input type="number"  id="CompetitorPrice" asp-for="NewModel.CompetitorPrice" class="@Html.Raw(Model.NewModel.CompetitorPrice != Model.OldModel.CompetitorPrice ? "difference" : "form-control")" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                <input type="number"  id="EagleBidPrice" asp-for="NewModel.EagleBidPrice" class="@Html.Raw(Model.NewModel.EagleBidPrice != Model.OldModel.EagleBidPrice ? "difference" : "form-control")" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="EagleBidSales">Eagle Bid Form Sales <span class="required">*</span></label>
+                                                <input type="text"  id="EagleBidSales" asp-for="NewModel.EagleBidSales" class="@Html.Raw(Model.NewModel.EagleBidSales != Model.OldModel.EagleBidSales ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="MissedBy">Missed By (Calculated) <span class="required">*</span></label>
+                                                <input type="text"  id="MissedBy" asp-for="NewModel.MissedBy" class="@Html.Raw(Model.NewModel.MissedBy != Model.OldModel.MissedBy ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="OpenDate">Open Date <span class="required">*</span></label>
+                                                <input type="date"  id="OpenDate" asp-for="NewModel.OpenDate" class="@Html.Raw(Model.NewModel.OpenDate != Model.OldModel.OpenDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="AcceptedDate">Accepted Date <span class="required">*</span></label>
+                                                <input type="date"  id="AcceptedDate" asp-for="NewModel.AcceptedDate" class="@Html.Raw(Model.NewModel.AcceptedDate != Model.OldModel.AcceptedDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="StartDate">Start Date <span class="required">*</span></label>
+                                                <input type="date"  id="StartDate" asp-for="NewModel.StartDate" class="@Html.Raw(Model.NewModel.StartDate != Model.OldModel.StartDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="FinishDate">Finish Date <span class="required">*</span></label>
+                                                <input type="date"  id="FinishDate" asp-for="NewModel.FinishDate" class="@Html.Raw(Model.NewModel.FinishDate != Model.OldModel.FinishDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="FinalInvoiceDate">Final Invoice Date <span class="required">*</span></label>
+                                                <input type="date"  id="FinalInvoiceDate" asp-for="NewModel.FinalInvoiceDate" class="@Html.Raw(Model.NewModel.FinalInvoiceDate != Model.OldModel.FinalInvoiceDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="ClosedDate">Closeout Date <span class="required">*</span></label>
+                                                <input type="date"  id="ClosedDate" asp-for="NewModel.ClosedDate" class="@Html.Raw(Model.NewModel.ClosedDate != Model.OldModel.ClosedDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="JeipmeetingDate">JEIP Meeting Date <span class="required">*</span></label>
+                                                <input type="date"  id="JeipmeetingDate" asp-for="NewModel.JeipmeetingDate" class="@Html.Raw(Model.NewModel.JeipmeetingDate != Model.OldModel.JeipmeetingDate ? "difference" : "form-control")" readonly />
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="PaidInFullDate">Paid In Full Date <span class="required">*</span></label>
+                                                <input type="date"  id="PaidInFullDate" asp-for="NewModel.PaidInFullDate"  class="@Html.Raw(Model.NewModel.PaidInFullDate != Model.OldModel.PaidInFullDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="CommPaidDate">Comm Paid Date <span class="required">*</span></label>
+                                                <input type="date"  id="CommPaidDate" asp-for="NewModel.CommPaidDate" class="@Html.Raw(Model.NewModel.CommPaidDate != Model.OldModel.CommPaidDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="InvoiceDate">Invoice Date <span class="required">*</span></label>
+                                                <input type="date"  id="InvoiceDate" asp-for="NewModel.InvoiceDate" class="@Html.Raw(Model.NewModel.InvoiceDate != Model.OldModel.InvoiceDate ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Gen Info Section -->
+                    <div id="formControls2" class="mb-5">
+                        <h4>General Info Section</h4>
+                        <div class="card">
+                            <div class="card-body pb-2">
+
+                                <div class="row">
+                                    <div class="col-xl-5">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="project#">Project # <span class="required">*</span></label>
+                                                <input type="text"  id="project#" asp-for="NewModel.ProjectNumber" class="@Html.Raw(Model.NewModel.ProjectNumber != Model.OldModel.ProjectNumber ? "difference" : "form-control")" readonly/>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlInput1">Job Folder Link</label>
+                                                <input type="text"  id="exampleFormControlInput1" asp-for="NewModel.JobFolderLink" class="@Html.Raw(Model.NewModel.JobFolderLink != Model.OldModel.JobFolderLink ? "difference" : "form-control")" readonly />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="form-group mb-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Notes</label>
+                                                <textarea  class="@Html.Raw(Model.NewModel.Notes != Model.OldModel.Notes ? "difference" : "form-control")" id="exampleFormControlTextarea1" rows="6" asp-for="NewModel.Notes" readonly></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- END row -->
+        </div>
+        <!-- END col-10 -->
+    </div>
+    <!-- END row -->
+
+    
+</div>

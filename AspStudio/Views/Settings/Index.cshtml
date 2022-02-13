@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Settings";
+}
+
+@section Scripts {
+    <script src="~/lib/highlight.js/highlight.min.js"></script>
+    <script src="~/js/demo/highlightjs.demo.js"></script>
+    <script src="~/js/demo/sidebar-scrollspy.demo.js"></script>
+}
+
+@section OutterAppContainerContent  {
+    <!-- BEGIN #modalEdit -->
+    <div class="modal fade" id="modalEdit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <div class="row row-space-10">
+                            <div class="col-4">
+                                <input class="form-control" placeholder="First" value="Jeff" />
+                            </div>
+                            <div class="col-4">
+                                <input class="form-control" placeholder="Middle" value="" />
+                            </div>
+                            <div class="col-4">
+                                <input class="form-control" placeholder="Last" value="Berney" />
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="alert alert-muted">
+                        <b>Please note:</b>
+                        If you change your name, you can't change it again for 60 days.
+                        Don't add any unusual capitalization, punctuation, characters or random words.
+                        <a href="#" class="alert-link">Learn more.</a>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Other Names</label>
+                        <div>
+                            <a href="#" class="btn btn-outline-default"><i class="fa fa-plus fa-fw"></i> Add other names</a>
+                        </div>
+                    </div>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END #modalEdit -->
+}
+
+<!-- BEGIN container -->
+<div class="container">
+    <!-- BEGIN row -->
+    <div class="row justify-content-center">
+        <!-- BEGIN col-10 -->
+        <div class="col-xl-10">
+            <!-- BEGIN row -->
+            <div class="row">
+                <!-- BEGIN col-9 -->
+                <div class="col-xl-9">
+                    <!-- BEGIN #general -->
+                    <div id="general" class="mb-5">
+                        <h4><i class="far fa-user fa-fw"></i> General</h4>
+                        <p>View and update your general account information and settings.</p>
+                        <div class="card">
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-fill">
+                                        <div>Name</div>
+                                        <div class="text-gray-700">Jeff Berney</div>
+                                    </div>
+                                    <div class="w-100px">
+                                        <a href="#modalEdit" data-bs-toggle="modal" class="btn btn-default w-100px">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-fill">
+                                        <div>Username</div>
+                                        <div class="text-gray-700">@@seantheme</div>
+                                    </div>
+                                    <div>
+                                        <a href="#modalEdit" data-bs-toggle="modal" class="btn btn-default w-100px">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-fill">
+                                        <div>Phone</div>
+                                        <div class="text-gray-700">+1-202-555-0183</div>
+                                    </div>
+                                    <div>
+                                        <a href="#modalEdit" data-bs-toggle="modal" class="btn btn-default w-100px">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-fill">
+                                        <div>Email address</div>
+                                        <div class="text-gray-700">support@aspstudio.com</div>
+                                    </div>
+                                    <div>
+                                        <a href="#modalEdit" data-bs-toggle="modal" class="btn btn-default w-100px">Edit</a>
+                                    </div>
+                                </div>
+                                <div class="list-group-item d-flex align-items-center">
+                                    <div class="flex-fill">
+                                        <div>Password</div>
+                                    </div>
+                                    <div>
+                                        <a href="#modalEdit" data-bs-toggle="modal" class="btn btn-default w-100px">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END #general -->
+                    <!-- BEGIN #notifications -->
+                    
+                    <!-- END #notifications -->
+                    <!-- BEGIN #privacyAndSecurity -->
+                    
+                    <!-- END #privacyAndSecurity -->
+                    <!-- BEGIN #payment -->
+                    
+                    <!-- END #payment -->
+                    <!-- BEGIN #shipping -->
+                    
+                    <!-- END #shipping -->
+                    <!-- BEGIN #mediaAndFiles -->
+                    
+                    <!-- END #mediaAndFiles -->
+                    <!-- BEGIN #languages -->
+                    
+                    <!-- END #languages -->
+                    <!-- BEGIN #system -->
+                    
+                    <!-- END #system -->
+                    <!-- BEGIN #resetSettings -->
+                    
+                    <!-- END #resetSettings -->
+                </div>
+                <!-- END col-9-->
+                <!-- BEGIN col-3 -->
+                <div class="col-xl-3">
+                    <!-- BEGIN #sidebar-bootstrap -->
+                    @*<nav id="sidebar-bootstrap" class="navbar navbar-sticky d-none d-xl-block">
+                        <nav class="nav">
+                            <a class="nav-link" href="#general" data-bs-toggle="scroll-to">General</a>
+                            <a class="nav-link" href="#notifications" data-bs-toggle="scroll-to">Notifications</a>
+                            <a class="nav-link" href="#privacyAndSecurity" data-bs-toggle="scroll-to">Privacy and security</a>
+                            <a class="nav-link" href="#payment" data-bs-toggle="scroll-to">Payment</a>
+                            <a class="nav-link" href="#shipping" data-bs-toggle="scroll-to">Shipping</a>
+                            <a class="nav-link" href="#mediaAndFiles" data-bs-toggle="scroll-to">Media and Files</a>
+                            <a class="nav-link" href="#languages" data-bs-toggle="scroll-to">Languages</a>
+                            <a class="nav-link" href="#system" data-bs-toggle="scroll-to">System</a>
+                            <a class="nav-link" href="#resetSettings" data-bs-toggle="scroll-to">Reset settings</a>
+                        </nav>
+                    </nav>*@
+                    <!-- END #sidebar-bootstrap -->
+                </div>
+                <!-- END col-3 -->
+            </div>
+            <!-- END row -->
+        </div>
+        <!-- END col-10 -->
+    </div>
+    <!-- END row -->
+</div>
+<!-- END container -->

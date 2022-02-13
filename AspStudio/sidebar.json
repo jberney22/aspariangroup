@@ -1,0 +1,172 @@
+﻿{
+  "sidebarMenu": [
+    {
+      "text": "Navigation",
+      "is_header": true
+    },
+    {
+      "controller": "Home",
+      "action": "Index",
+      "icon": "fa fa-home",
+      "text": "Dashboard"
+    },
+    {
+      "controller": "QuickBook",
+      "icon": "fa fa-book",
+      "text": "QuickBooks",
+      "action": "Index"
+    },
+    {
+      "controller": "FieldFlow",
+      "icon": "fa fa-file-alt",
+      "text": "FieldFlow",
+      "action": "Index"
+    },
+    {
+      "controller": "JobLog",
+      "icon": "fa fa-qrcode",
+      "text": "Job-Log",
+      "children": [
+        {
+          "controller": "JobLog",
+          "action": "create",
+          "text": "New Job"
+        },
+        {
+          "controller": "JobLog",
+          "action": "Index",
+          "text": "Job Log"
+        }
+
+      ]
+    },
+    {
+      "icon": "fa fa-edit",
+      "text": "Data Entry",
+      "children": [
+        {
+          "text": "New LO#"
+        },
+        {
+          "text": "New Contract#"
+        },
+        {
+          "text": "Forcast Board"
+        },
+        {
+          "text": "New Job Folders"
+
+        }
+
+      ]
+    },
+    {
+      "icon": "fa fa-chart-pie",
+      "text": "Reports",
+      "children": [
+        {
+          "controller": "WIP",
+          "action": "Index",
+          "text": "WIP Report"
+        },
+        {
+          "text": "New Bid Form"
+        },
+        {
+          "text": "New LO#"
+        },
+        {
+          "text": "New Contract#"
+        },
+        {
+          "text": "Forcast Board"
+        },
+        {
+          "text": "New Job Folders"
+        },
+        {
+          "text": "Existing SharePoint / Google docs"
+        },
+        {
+          "text": "Sales Report"
+        },
+        {
+          "text": "Ship Load Schedule"
+        },
+        {
+          "text": "Active TM & Util Job"
+        },
+        {
+          "text": "Existing SharePoint / Google docs"
+        }
+
+      ]
+    },
+    
+    {
+      "icon": "fa fa-qrcode",
+      "text": "Active Split Jobs",
+      "children": [
+        {
+          "text": "St.Template Job"
+        },
+        {
+          "text": "St.Airport Job"
+        },
+        {
+          "text": "You Pick"
+        },
+        {
+          "text": "Existing SharePoint / Google docs"
+        }
+
+
+      ]
+    },
+    {
+      "is_divider": true
+    },
+    {
+      "text": "Settings",
+      "is_header": true
+    },
+    {
+      "controller": "Settings",
+      "action": "Index",
+      "icon": "fa fa-cog",
+      "text": "Settings",
+      "children": [
+        {
+          "controller": "Users",
+          "action": "ListUsers",
+          "text": "Users"
+        },
+        {
+          "controller": "Departments",
+          "text": "Departments",
+          "action": "DepartmentList"
+        },
+        {
+          "text": "Products",
+          "controller": "Type",
+          "action": "ProductTypeList"
+        },
+        {
+          "controller": "Customer",
+          "text": "Customers",
+          "action": "CustomerList"
+        },
+        {
+          "text": "Status",
+          "controller": "Status",
+          "action": "JobStatusList"
+        }
+
+
+
+
+      ]
+    }
+
+  ]
+}
