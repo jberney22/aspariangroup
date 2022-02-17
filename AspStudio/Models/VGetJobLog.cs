@@ -10,6 +10,7 @@ namespace EagleApp.Models
         public int Id { get; set; }
         public string DeptName { get; set; }
         public string Rep { get; set; }
+        public string EstimatorName { get; set; }
         public string ProjectOc { get; set; }
         public string ContactType { get; set; }
         public string ProductType { get; set; }
