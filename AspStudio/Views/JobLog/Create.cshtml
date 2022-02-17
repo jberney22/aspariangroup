@@ -11,7 +11,7 @@
         $("#EagleBidPrice").blur(function () {
             var amt = parseFloat(this.value);
             $(this).val(amt.toFixed(2));
-          //  $('#EagleBidSales').val($("#EagleBidPrice").val());
+            $('#EagleBidSales').val($("#EagleBidPrice").val());
         });
         $("#CompetitorPrice").blur(function () {
             var amt = parseFloat(this.value);

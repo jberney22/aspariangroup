@@ -155,18 +155,19 @@ namespace EagleApp.Controllers
         }
 
         // GET: JobLogController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             ViewBag.departments = _jobLogService.GetAllDepartments();
             ViewBag.ProjectOc = _jobLogService.GetAllProjectOC();
             ViewBag.JobStatus = _jobLogService.GetJobStatus();
             ViewBag.Contact = _jobLogService.GetContacts();
-            ViewBag.Users = _userManager.Users.Select(o => new UsersModel() 
-                                                      { 
-                                                            FullName = o.FirstName + " " + o.LastName,
-                                                            UserId = o.Id
-                                                      }).ToList();
-            //ViewBag.ProjectBids = _jobLogService.GetAllJobLogs().OrderBy(o=>o.BidNumber).Select(o=>o.BidNumber).Distinct().ToList();
+            var users = await _userManager.GetUsersInRoleAsync("Estimator");
+            ViewBag.Users = users.Select(o => new UsersModel()
+            {
+                FullName = o.FirstName + " " + o.LastName,
+                UserId = o.Id
+            }).ToList();
+
             ViewBag.ProjectBids = _jobLogService.GetAllBidNumbers();
             return View();
         }
