@@ -7,6 +7,14 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script>
     $(document).ready(function () {
+        //Prevent users from submitting a form by hitting Enter
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+              event.preventDefault();
+              return false;
+            }
+          });
+
         BindControls();
         $("#EagleBidPrice").blur(function () {
             var amt = parseFloat(this.value);
