@@ -5,14 +5,8 @@ using System.Collections.Generic;
 
 namespace EagleApp.Models
 {
-    public partial class JobLog
+    public partial class JobLog2132022
     {
-        public JobLog()
-        {
-            AuditLogs = new HashSet<AuditLog>();
-            Wips = new HashSet<Wip>();
-        }
-
         public int Id { get; set; }
         public string Department { get; set; }
         public string Rep { get; set; }
@@ -39,7 +33,7 @@ namespace EagleApp.Models
         public DateTime? PaidInFullDate { get; set; }
         public DateTime? CommPaidDate { get; set; }
         public string BidNumber { get; set; }
-        public bool Rejected { get; set; }
+        public bool? Rejected { get; set; }
         public DateTime? FinishDate { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public DateTime? DateAdded { get; set; }
@@ -68,9 +62,5 @@ namespace EagleApp.Models
         public string PercentageDone { get; set; }
         public DateTime? Prep34Date { get; set; }
         public DateTime? RemovalDoneDate { get; set; }
-
-       // public virtual AspNetUser User { get; set; }
-        public virtual ICollection<AuditLog> AuditLogs { get; set; }
-        public virtual ICollection<Wip> Wips { get; set; }
     }
 }

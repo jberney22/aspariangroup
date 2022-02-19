@@ -7,7 +7,8 @@ namespace EagleApp.Models
 {
     public partial class Sheet3
     {
-        public string Bid { get; set; }
+        public double? OriginalOrder { get; set; }
+        public double? Bid { get; set; }
         public string Department { get; set; }
         public string Rep { get; set; }
         public string Client { get; set; }
@@ -15,11 +16,11 @@ namespace EagleApp.Models
         public string ProjectOcAwa { get; set; }
         public string Contact { get; set; }
         public string ProductType { get; set; }
-        public double? EagleSBidFormPrice { get; set; }
+        public decimal? EagleSBidFormPrice { get; set; }
         public string AwardedTo { get; set; }
-        public decimal? CompetitorPrice { get; set; }
+        public string CompetitorPrice { get; set; }
         public string MissedBy { get; set; }
-        public double? EagleSBidFormSales { get; set; }
+        public string EagleSBidFormSales { get; set; }
         public DateTime? OpenDate { get; set; }
         public bool DeadRejected { get; set; }
         public DateTime? AcceptedDate { get; set; }
@@ -31,9 +32,10 @@ namespace EagleApp.Models
         public DateTime? PaidInFullDate { get; set; }
         public DateTime? CommPaidDate { get; set; }
         public string FinalInvoice { get; set; }
-        public double? CollectedAmount { get; set; }
+        public decimal? CollectedAmount { get; set; }
         public string ProjectJobClient { get; set; }
         public string Status { get; set; }
+        public string JobFolderLink { get; set; }
         public string Notes { get; set; }
     }
 }

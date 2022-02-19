@@ -20,12 +20,56 @@ namespace EagleApp.Areas.Identity.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Wip>(entity =>
+            {
+                entity.ToTable("WIP");
+
+                entity.Property(e => e.Wipid).HasColumnName("WIPId");
+
+                entity.Property(e => e.DateAdded).HasColumnType("datetime");
+
+                entity.Property(e => e.EquipReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.InvReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.MobilizationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep12).HasColumnName("Prep1/2");
+
+                entity.Property(e => e.Prep12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep13).HasColumnName("Prep1/3");
+
+                entity.Property(e => e.Prep14).HasColumnName("Prep1/4");
+
+                entity.Property(e => e.Prep14Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep34Date).HasColumnType("datetime");
+
+                entity.Property(e => e.PrepDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Removal12).HasColumnName("Removal 1/2");
+
+                entity.Property(e => e.Removal12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.RemovalDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TotalComplete)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.HasOne(d => d.Joblog)
+                    .WithMany(p => p.Wips)
+                    .HasForeignKey(d => d.JoblogId)
+                    .HasConstraintName("FK_WIP_JobLog");
+            });
+
             builder.Entity<JobLog>(entity =>
             {
                 entity.ToTable("JobLog");
 
                 entity.Property(e => e.AcceptedDate).HasColumnType("datetime");
-
+                
                 entity.Property(e => e.AwardedTo).HasMaxLength(100);
 
                 entity.Property(e => e.BidNumber)
@@ -392,6 +436,8 @@ namespace EagleApp.Areas.Identity.Data
         public virtual DbSet<Customer> Customers { get; set; }
 
         public virtual DbSet<AuditLog> AuditLogs { get; set; }
+
+        public virtual DbSet<Wip> Wips { get; set; }
 
         public virtual async Task<int> SaveChangesAsync(string userId = null, int jobId = 0, string logAction = null)
         {

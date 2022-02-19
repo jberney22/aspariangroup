@@ -33,16 +33,20 @@ namespace EagleApp.Models
         public virtual DbSet<Job> Jobs { get; set; }
         public virtual DbSet<JobLog> JobLogs { get; set; }
         public virtual DbSet<JobLog1222021> JobLog1222021s { get; set; }
+        public virtual DbSet<JobLog2132022> JobLog2132022s { get; set; }
         public virtual DbSet<JobLogBackup> JobLogBackups { get; set; }
         public virtual DbSet<JobStatus> JobStatuses { get; set; }
         public virtual DbSet<Joblink> Joblinks { get; set; }
         public virtual DbSet<Ocawa> Ocawas { get; set; }
         public virtual DbSet<Sheet1> Sheet1s { get; set; }
         public virtual DbSet<Sheet2> Sheet2s { get; set; }
+        public virtual DbSet<Sheet3> Sheet3s { get; set; }
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<VDashboardDataBackup> VDashboardDataBackups { get; set; }
         public virtual DbSet<VDashboardDatum> VDashboardData { get; set; }
         public virtual DbSet<VGetJobLog> VGetJobLogs { get; set; }
+        public virtual DbSet<VGetJobLogs2172022> VGetJobLogs2172022s { get; set; }
+        public virtual DbSet<Wip> Wips { get; set; }
         public virtual DbSet<Wip2> Wip2s { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -522,6 +526,109 @@ namespace EagleApp.Models
                 entity.Property(e => e.UserId).HasMaxLength(450);
             });
 
+            modelBuilder.Entity<JobLog2132022>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("JobLog_2132022");
+
+                entity.Property(e => e.AcceptedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.AwardedTo).HasMaxLength(100);
+
+                entity.Property(e => e.BidNumber)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ClientName).HasMaxLength(100);
+
+                entity.Property(e => e.ClosedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CloseoutDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CollectedAmount).HasColumnType("money");
+
+                entity.Property(e => e.CommPaidDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CompetitorPrice).HasColumnType("money");
+
+                entity.Property(e => e.Contact).HasMaxLength(10);
+
+                entity.Property(e => e.DateAdded).HasColumnType("datetime");
+
+                entity.Property(e => e.DateModified).HasColumnType("datetime");
+
+                entity.Property(e => e.DemoDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Department).HasMaxLength(10);
+
+                entity.Property(e => e.EagleBidPrice).HasColumnType("money");
+
+                entity.Property(e => e.EagleBidSales).HasColumnType("money");
+
+                entity.Property(e => e.EquipReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.FinalInvoice).HasMaxLength(100);
+
+                entity.Property(e => e.FinalInvoiceDate).HasColumnType("datetime");
+
+                entity.Property(e => e.FinishDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.InvReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.InvoiceDate).HasColumnType("datetime");
+
+                entity.Property(e => e.JeipmeetingDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("JEIPMeetingDate");
+
+                entity.Property(e => e.JobName).HasMaxLength(200);
+
+                entity.Property(e => e.MissedBy).HasMaxLength(100);
+
+                entity.Property(e => e.MobilizationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OpenDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PaidInFullDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PercentageDone).HasMaxLength(10);
+
+                entity.Property(e => e.Prep12).HasColumnName("Prep1/2");
+
+                entity.Property(e => e.Prep12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep14).HasColumnName("Prep1/4");
+
+                entity.Property(e => e.Prep14Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep34).HasColumnName("Prep3/4");
+
+                entity.Property(e => e.Prep34Date).HasColumnType("datetime");
+
+                entity.Property(e => e.PrepDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ProductType).HasMaxLength(100);
+
+                entity.Property(e => e.ProjectOc)
+                    .HasMaxLength(1000)
+                    .HasColumnName("ProjectOC");
+
+                entity.Property(e => e.Removal12).HasColumnName("Removal 1/2");
+
+                entity.Property(e => e.Removal12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.RemovalDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Rep).HasMaxLength(1000);
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+            });
+
             modelBuilder.Entity<JobLogBackup>(entity =>
             {
                 entity.HasNoKey();
@@ -824,6 +931,113 @@ namespace EagleApp.Models
                 entity.Property(e => e.Status).HasMaxLength(255);
             });
 
+            modelBuilder.Entity<Sheet3>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Sheet3$");
+
+                entity.Property(e => e.AcceptedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Accepted Date");
+
+                entity.Property(e => e.AwardedTo)
+                    .HasMaxLength(255)
+                    .HasColumnName("Awarded  To");
+
+                entity.Property(e => e.Bid).HasColumnName("Bid #");
+
+                entity.Property(e => e.Client).HasMaxLength(255);
+
+                entity.Property(e => e.CloseoutsDoneDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Closeouts Done Date");
+
+                entity.Property(e => e.CollectedAmount)
+                    .HasColumnType("money")
+                    .HasColumnName("Collected Amount");
+
+                entity.Property(e => e.CommPaidDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Comm Paid Date");
+
+                entity.Property(e => e.CompetitorPrice)
+                    .HasMaxLength(255)
+                    .HasColumnName("Competitor Price");
+
+                entity.Property(e => e.Contact).HasMaxLength(255);
+
+                entity.Property(e => e.DeadRejected).HasColumnName("Dead Rejected");
+
+                entity.Property(e => e.Department).HasMaxLength(255);
+
+                entity.Property(e => e.EagleSBidFormPrice)
+                    .HasColumnType("money")
+                    .HasColumnName("Eagle's BID FORM Price");
+
+                entity.Property(e => e.EagleSBidFormSales)
+                    .HasMaxLength(255)
+                    .HasColumnName("Eagle's BID FORM Sales");
+
+                entity.Property(e => e.FinalInvoice)
+                    .HasMaxLength(255)
+                    .HasColumnName("Final Invoice #");
+
+                entity.Property(e => e.FinalInvoicedDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("FINAL Invoiced Date");
+
+                entity.Property(e => e.FinishDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Finish Date");
+
+                entity.Property(e => e.JeipMeetingDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("JEIP Meeting Date");
+
+                entity.Property(e => e.Job).HasMaxLength(255);
+
+                entity.Property(e => e.JobFolderLink)
+                    .HasMaxLength(255)
+                    .HasColumnName("Job Folder Link");
+
+                entity.Property(e => e.MissedBy)
+                    .HasMaxLength(255)
+                    .HasColumnName("Missed By %");
+
+                entity.Property(e => e.Notes).HasMaxLength(255);
+
+                entity.Property(e => e.OpenDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Open Date");
+
+                entity.Property(e => e.OriginalOrder).HasColumnName("Original Order");
+
+                entity.Property(e => e.PaidInFullDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Paid in Full Date");
+
+                entity.Property(e => e.ProductType)
+                    .HasMaxLength(255)
+                    .HasColumnName("Product Type");
+
+                entity.Property(e => e.ProjectJobClient)
+                    .HasMaxLength(255)
+                    .HasColumnName("Project # : Job : Client");
+
+                entity.Property(e => e.ProjectOcAwa)
+                    .HasMaxLength(255)
+                    .HasColumnName("Project OC / AWA");
+
+                entity.Property(e => e.Rep).HasMaxLength(255);
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("Start Date");
+
+                entity.Property(e => e.Status).HasMaxLength(255);
+            });
+
             modelBuilder.Entity<Type>(entity =>
             {
                 entity.ToTable("Type");
@@ -1012,6 +1226,8 @@ namespace EagleApp.Models
 
                 entity.Property(e => e.AcceptedDate).HasColumnType("datetime");
 
+                entity.Property(e => e.AwardedTo).HasMaxLength(100);
+
                 entity.Property(e => e.BidNumber)
                     .HasMaxLength(1000)
                     .IsUnicode(false);
@@ -1040,6 +1256,8 @@ namespace EagleApp.Models
 
                 entity.Property(e => e.EagleBidSales).HasColumnType("money");
 
+                entity.Property(e => e.FinalInvoice).HasMaxLength(100);
+
                 entity.Property(e => e.FinalInvoiceDate).HasColumnType("datetime");
 
                 entity.Property(e => e.FinishDate).HasColumnType("datetime");
@@ -1052,21 +1270,140 @@ namespace EagleApp.Models
 
                 entity.Property(e => e.JobName).HasMaxLength(200);
 
-                entity.Property(e => e.MissedBy).HasColumnType("money");
+                entity.Property(e => e.MissedBy).HasMaxLength(100);
 
                 entity.Property(e => e.OpenDate).HasColumnType("datetime");
 
                 entity.Property(e => e.PaidInFullDate).HasColumnType("datetime");
 
+                entity.Property(e => e.ProductType).HasMaxLength(100);
+
                 entity.Property(e => e.ProjectOc)
                     .HasMaxLength(200)
                     .HasColumnName("ProjectOC");
+
+                entity.Property(e => e.Rep).HasMaxLength(1000);
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<VGetJobLogs2172022>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("v_GetJobLogs_2172022");
+
+                entity.Property(e => e.AcceptedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.AwardedTo).HasMaxLength(100);
+
+                entity.Property(e => e.BidNumber)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ClosedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CloseoutDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CollectedAmount).HasColumnType("money");
+
+                entity.Property(e => e.CommPaidDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CompetitorPrice).HasColumnType("money");
+
+                entity.Property(e => e.ContactType).HasMaxLength(200);
+
+                entity.Property(e => e.DateAdded).HasColumnType("datetime");
+
+                entity.Property(e => e.DateModified).HasColumnType("datetime");
+
+                entity.Property(e => e.DeptName)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.EagleBidPrice).HasColumnType("money");
+
+                entity.Property(e => e.EagleBidSales).HasColumnType("money");
+
+                entity.Property(e => e.FinalInvoice).HasMaxLength(100);
+
+                entity.Property(e => e.FinalInvoiceDate).HasColumnType("datetime");
+
+                entity.Property(e => e.FinishDate).HasColumnType("datetime");
+
+                entity.Property(e => e.InvoiceDate).HasColumnType("datetime");
+
+                entity.Property(e => e.JeipmeetingDate)
+                    .HasColumnType("datetime")
+                    .HasColumnName("JEIPMeetingDate");
+
+                entity.Property(e => e.JobName).HasMaxLength(200);
+
+                entity.Property(e => e.MissedBy).HasMaxLength(100);
+
+                entity.Property(e => e.OpenDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PaidInFullDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ProductType).HasMaxLength(100);
+
+                entity.Property(e => e.ProjectOc)
+                    .HasMaxLength(200)
+                    .HasColumnName("ProjectOC");
+
+                entity.Property(e => e.Rep).HasMaxLength(1000);
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UserId).HasMaxLength(450);
+            });
+
+            modelBuilder.Entity<Wip>(entity =>
+            {
+                entity.ToTable("WIP");
+
+                entity.Property(e => e.Wipid).HasColumnName("WIPId");
+
+                entity.Property(e => e.DateAdded).HasColumnType("datetime");
+
+                entity.Property(e => e.EquipReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.InvReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.MobilizationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep12).HasColumnName("Prep1/2");
+
+                entity.Property(e => e.Prep12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep13).HasColumnName("Prep1/3");
+
+                entity.Property(e => e.Prep14).HasColumnName("Prep1/4");
+
+                entity.Property(e => e.Prep14Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep34Date).HasColumnType("datetime");
+
+                entity.Property(e => e.PrepDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Removal12).HasColumnName("Removal 1/2");
+
+                entity.Property(e => e.Removal12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.RemovalDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TotalComplete)
+                    .HasMaxLength(10)
+                    .IsFixedLength(true);
+
+                entity.HasOne(d => d.Joblog)
+                    .WithMany(p => p.Wips)
+                    .HasForeignKey(d => d.JoblogId)
+                    .HasConstraintName("FK_WIP_JobLog");
             });
 
             modelBuilder.Entity<Wip2>(entity =>

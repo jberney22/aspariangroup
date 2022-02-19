@@ -394,6 +394,7 @@ namespace EagleApp.Controllers
                 job.Prep14 = jobLogModel.Prep14;
                 job.Prep14Date = jobLogModel.Prep14Date;
                 job.Prep34 = jobLogModel.Prep34;
+                job.Prep34Date = jobLogModel.Prep34Date;
                 job.PrepDone = jobLogModel.PrepDone;
                 job.PrepDoneDate = jobLogModel.PrepDoneDate;
 

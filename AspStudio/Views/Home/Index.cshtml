@@ -3,295 +3,326 @@
     ViewData["AppContentClass"] = "test2";
 
 }
+<script>
+    $(document).ready(function () {
+
+        // Links 
+        $("#div_links_menu1, #div_links_menu2").hide();
+        $("#div_links").mouseenter(function () {
+            $("#div_links_menu1, #div_links_menu2").slideDown("slow");
+        });
+        $("#div_links").mouseleave(function () {
+            $("#div_links_menu1, #div_links_menu2").hide();
+        });
+
+
+        // Reports 
+        $("#div_report_menu1").hide();
+        $("#div_report").mouseenter(function () {
+            $("#div_report_menu1").slideDown("slow");
+        });
+        $("#div_report").mouseleave(function () {
+            $("#div_report_menu1").hide();
+        });
+
+        // Settings 
+        $("#div_settings > .child").hide();
+        $("#div_settings").mouseenter(function () {
+            $("#div_settings > .child").slideDown("slow");
+        });
+        $("#div_settings").mouseleave(function () {
+            $("#div_settings > .child").hide();
+        });
+
+        // JobLog 
+        $("#div_joblog > .child").hide();
+        $("#div_joblog").mouseenter(function () {
+            $("#div_joblog > .child").slideDown("slow");
+        });
+        $("#div_joblog").mouseleave(function () {
+            $("#div_joblog > .child").hide();
+        });
+
+    });
+</script>
 
 <div class="row">
-	<!-- BEGIN col-6 -->
-			<div class="col-xl-6">
-				<!-- BEGIN row -->
-				<div class="row">
-					<!-- BEGIN col-6 -->
-					<div class="col-sm-6">
-						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/order.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h1 class="text-white-transparent-8">Job Logs</h1>
-								
-								<div><a href="/JobLog/create" class="text-white d-flex align-items-center text-decoration-none">Create New Job <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
-							</div>
-							<!-- BEGIN card-body -->
-						</div>
-						<!-- END card -->
-							
-						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/email.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h1 class="text-white-transparent-8">QuickBooks</h1>
-							
-								<div><a href="https://app.qbo.intuit.com/app/login?loadCustomerAssistanceAssets=us" target="_blank" class="text-white d-flex align-items-center text-decoration-none">Go to QuickBooks <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
-							</div>
-							<!-- END card-body -->
-						</div>
-						<!-- END card -->
-					</div>
-					<!-- END col-6 -->
-						
-					<!-- BEGIN col-6 -->
-					<div class="col-sm-6">
-						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/email.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h1 class="text-white-transparent-8">FieldFlow</h1>
-							
-								<div><a href="/FieldFlow" class="text-white d-flex align-items-center text-decoration-none">Go to FieldFlow <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
-							</div>
-							<!-- END card-body -->
-						</div>
-						<!-- END card -->
-							
-						
-					</div>
-					<!-- BEGIN col-6 -->
+    <!-- BEGIN col-6 -->
+    <div class="col-xl-6">
+        <!-- BEGIN row -->
+        <div class="row">
+            <!-- BEGIN col-6 -->
+            <div class="col-sm-6" id="div_joblog">
+                <!-- BEGIN card -->
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/order.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h1 class="text-white-transparent-8">Job Logs</h1>
+
+                    </div>
+                    <!-- BEGIN card-body -->
+                </div>
+                <!-- END card -->
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-18px">
+                            <div><a href="/Users/ListUsers" class="text-white d-flex align-items-center text-decoration-none">Create Job Log <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-18px">
+                            <div><a href="/Users/ListUsers" class="text-white d-flex align-items-center text-decoration-none">View JobLogs <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+
+            </div>
 
 
-				</div>
-				<!-- END row -->
-			</div>
+            <!-- END col-6 -->
 
-			<div class="col-xl-6">
-				<!-- BEGIN row -->
-				<div class="row">
-					<div class="col-sm-6">
-						
-							
-						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h1 class="text-white-transparent-8">Settings</h1>
 
-							</div>
-							<!-- END card-body -->
-						</div>
-						<!-- END card -->
+            <div class="col-sm-6" id="div_report">
 
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-								<div><a href="/Users/ListUsers" class="text-white d-flex align-items-center text-decoration-none">Users <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
 
-									</h5>
-							
-							</div>
-							<!-- END card-body -->
-						</div>
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-								<div><a href="/Departments/DepartmentList" class="text-white d-flex align-items-center text-decoration-none">Departments <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+                <!-- BEGIN card -->
+                <div  class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h1 class="text-white-transparent-8">Reports</h1>
 
-									</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-						  <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-									<div>
-										<a href="/Type/ProductTypeList" class="text-white d-flex align-items-center text-decoration-none">Products<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
-									</div>
 
-								</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-						 <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-									<div>
-										<a href="/Customer/CustomerList" class="text-white d-flex align-items-center text-decoration-none">Customers<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
-									</div>
 
-								</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-						 <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-									<div>
-										<a href="/Status/JobStatusList" class="text-white d-flex align-items-center text-decoration-none">Status<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
-									</div>
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <!-- END card -->
 
-								</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-					</div>
-					<!-- BEGIN col-6 -->
-					<div class="col-sm-6">
-						
-							
-						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h1 class="text-white-transparent-8">Reports</h1>
-								
-								<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">View report <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+                <div id="div_report_menu1" class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div><a href="/WIP" class="text-white d-flex align-items-center text-decoration-none">Work In Progress (WIP) <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
 
-							</div>
-							<!-- END card-body -->
-						</div>
-						<!-- END card -->
+                        </h5>
 
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-								<div><a href="/WIP" class="text-white d-flex align-items-center text-decoration-none">Work In Progress (WIP) <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+                    </div>
+                    <!-- END card-body -->
+                </div>
 
-									</h5>
-							
-							</div>
-							<!-- END card-body -->
-						</div>
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-								<div><a href="#" class="text-white d-flex align-items-center text-decoration-none">Sales Team Pride <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+            </div>
 
-									</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-						  <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-									<div>
-										<a href="#" class="text-white d-flex align-items-center text-decoration-none">Sales Team Integrity<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
-									</div>
 
-								</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-						 <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
-							<!-- BEGIN card-img-overlay -->
-							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
-								<img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
-							</div>
-							<!-- END card-img-overlay -->
-								
-							<!-- BEGIN card-body -->
-							<div class="card-body position-relative">
-								<h5 class="text-white-transparent-8 mb-3 fs-16px">
-									<div>
-										<a href="#" class="text-white d-flex align-items-center text-decoration-none">Sales Team Confidence<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
-									</div>
 
-								</h5>
-							
-							</div>
-							<!-- END card-body -->
-						 </div>
-					</div>
-					<!-- END col-6 -->
-				</div>
-				<!-- END row -->
-			</div>
-	 <!-- END col-6 -->
+        </div>
+        <!-- END row -->
+    </div>
+
+    <div class="col-xl-6">
+
+        <!-- BEGIN row -->
+        <div class="row">
+            <div class="col-sm-6" id="div_links">
+
+
+                <!-- BEGIN card -->
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h1 class="text-white-transparent-8">Links</h1>
+
+
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <!-- END card -->
+
+                <div id="div_links_menu1" class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div><a href="/QuickBook" class="text-white d-flex align-items-center text-decoration-none">QuickBooks <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <div id="div_links_menu2" class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div><a href="/FieldFlow" class="text-white d-flex align-items-center text-decoration-none">FieldFlow<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+
+            </div>
+
+            <div class="col-sm-6" id="div_settings">
+
+
+                <!-- BEGIN card -->
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 199px;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h1 class="text-white-transparent-8">Settings</h1>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <!-- END card -->
+
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div><a href="/Users/ListUsers" class="text-white d-flex align-items-center text-decoration-none">Users <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div><a href="/Departments/DepartmentList" class="text-white d-flex align-items-center text-decoration-none">Departments <i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a></div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div>
+                                <a href="/Type/ProductTypeList" class="text-white d-flex align-items-center text-decoration-none">Products<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
+                            </div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div>
+                                <a href="/Customer/CustomerList" class="text-white d-flex align-items-center text-decoration-none">Customers<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
+                            </div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+                <div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue child" style="height: 3rem;text-align:center;">
+                    <!-- BEGIN card-img-overlay -->
+                    <div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
+                        <img src="assets/img/icon/visitor.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
+                    </div>
+                    <!-- END card-img-overlay -->
+                    <!-- BEGIN card-body -->
+                    <div class="card-body position-relative">
+                        <h5 class="text-white-transparent-8 mb-3 fs-16px">
+                            <div>
+                                <a href="/Status/JobStatusList" class="text-white d-flex align-items-center text-decoration-none">Status<i class="fa fa-chevron-right ms-2 text-white-transparent-5"></i></a>
+                            </div>
+
+                        </h5>
+
+                    </div>
+                    <!-- END card-body -->
+                </div>
+            </div>
+
+        </div>
+        <!-- END row -->
+    </div>
+    <!-- END col-6 -->
 </div>

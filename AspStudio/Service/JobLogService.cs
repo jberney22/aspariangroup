@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace EagleApp.Service
 {
@@ -168,6 +169,9 @@ namespace EagleApp.Service
                 jobLogModel.Status = GetJobStatusIdByName(jobLogModel.Status);
                 jobLogModel.DateModified = DateTime.Now;
                 _context.JobLog.Update(jobLogModel);
+
+                
+
                 int result = 0;
                 if (!addAudit)
                 {
@@ -178,6 +182,33 @@ namespace EagleApp.Service
                 {
                     result = await _context.SaveChangesAsync(jobLogModel.UserId, jobLogModel.Id);
                 }
+
+                _context.Wips.Add(new Wip()
+                {
+                    DateAdded = DateTime.Now,
+                    EquipReturnDate = jobLogModel.EquipReturnDate,
+                    InvReturnDate = jobLogModel.InvReturnDate,
+                    JoblogId = jobLogModel.Id,
+                    Mobilization = jobLogModel.Mobilization,
+                    MobilizationDate = jobLogModel.MobilizationDate,
+                    Prep14 = jobLogModel.Prep14,
+                    Prep14Date = jobLogModel.Prep14Date,
+                    Prep12 = jobLogModel.Prep12,
+                    Prep12Date = jobLogModel.Prep12Date,
+                    Prep13 = jobLogModel.Prep34,
+                    Prep34Date = jobLogModel.Prep34Date,
+                    PrepDone = jobLogModel.PrepDone,
+                    PrepDoneDate = jobLogModel.PrepDoneDate,
+                    Removal12 = jobLogModel.Removal12,
+                    Removal12Date = jobLogModel.Removal12Date,
+                    Removal34 = jobLogModel.RemovalDone,
+                    RemovalDoneDate = jobLogModel.RemovalDoneDate,
+
+                });
+                result = await _context.SaveChangesAsync();
+
+
+
 
                 //var result = await _context.SaveChangesAsync(jobLogModel.UserId, jobLogModel.Id);
                 response.Sucess = result > 0 ? true : false;
