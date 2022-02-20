@@ -200,25 +200,25 @@
              //Removal 1/2 end
 
             // Removal 3/4
-            $('#chkBoxRemoval12').change(function () {
+            $('#IsRemoval34').change(function () {
                 var isChecked = $(this).is(':checked');
 
                 if (isChecked) {
 
-                    $('#txtRemoval12').removeAttr('readonly');
-                    $('#dtRemoval12').removeAttr('readonly');
+                    $('#txtRemoval34').removeAttr('readonly');
+                    $('#dtRemoval34').removeAttr('readonly');
                 }
                 else {
-                    $('#txtRemoval12').attr('readonly', 'readonly');
-                    $('#dtRemoval12').attr('readonly', 'readonly');
+                    $('#txtRemoval34').attr('readonly', 'readonly');
+                    $('#dtRemoval34').attr('readonly', 'readonly');
 
                 }
 
             });
-            $("#txtRemoval12").blur(function () {
+            $("#txtRemoval34").blur(function () {
                 var mobilization = $(this).val();
                 if (mobilization != '') {
-                    $('#dtRemoval12').val(new Date().toLocaleDateString('en-CA'));
+                    $('#dtRemoval34').val(new Date().toLocaleDateString('en-CA'));
                 }
             });
              //Removal 3/4 end
@@ -915,7 +915,7 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Removal 3/4</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval34" />
+                                                        <input type="checkbox" class="form-check-input" asp-for="IsRemoval34" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -924,12 +924,12 @@
                                                     <div class="form-group mb-3">
                                                         @if (Model.IsRemoval34)
                                                         {
-                                                            <input type="number" class="form-control" asp-for="RemovalDone" id="txtRemoval12" placeholder="Percent Complete 15%" />
+                                                            <input type="number" class="form-control" asp-for="RemovalDone" id="txtRemoval34" placeholder="Percent Complete 15%" />
 
                                                         }
                                                         else
                                                         {
-                                                            <input type="number" class="form-control" asp-for="RemovalDone" id="txtRemoval12" placeholder="Percent Complete 15%" readonly />
+                                                            <input type="number" class="form-control" asp-for="RemovalDone" id="txtRemoval34" placeholder="Percent Complete 15%" readonly />
                                                         }
                                                     </div>
                                                 </div>
@@ -939,12 +939,12 @@
                                                 <div class="form-group mb-3">
                                                     @if (Model.IsRemoval34)
                                                     {
-                                                        <input type="date" class="form-control" id="dtRemoval12" asp-for="RemovalDoneDate" placeholder="Effective Date" />
+                                                        <input type="date" class="form-control" id="dtRemoval34" asp-for="RemovalDoneDate" placeholder="Effective Date" />
 
                                                     }
                                                     else
                                                     {
-                                                        <input type="date" class="form-control" id="dtRemoval12" asp-for="RemovalDoneDate" placeholder="Effective Date" readonly />
+                                                        <input type="date" class="form-control" id="dtRemoval34" asp-for="RemovalDoneDate" placeholder="Effective Date" readonly />
                                                     }
 
                                                 </div>
@@ -1001,6 +1001,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-xl-4"> </div>
                                             <div class="col-xl-4">
                                                 <div class="form-group mb-3">
                                                     @if (Model.IsInvReturnDate)
@@ -1026,6 +1027,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                              <div class="col-xl-4"> </div>
                                             <div class="col-xl-4">
                                                 <div class="form-group mb-3">
                                                     @if (Model.IsEquipReturnDate)
