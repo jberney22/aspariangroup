@@ -71,10 +71,15 @@ namespace EagleApp.Service
 
         internal IQueryable<JobLog2> GetWIPReportData()
         {
+
+             
             var query = from post in _context.JobLog
                         join meta in _context.JobStatus on post.Status equals meta.Id.ToString()
                         join dept in _context.Departments on post.Department equals dept.Id.ToString()
-                        where post.StartDate != null && post.EagleBidSales !=null && meta.Status.ToLower() == "started"
+
+                       from wip in _context.Wips.Where(o=>o.JoblogId == post.Id).DefaultIfEmpty()
+                       where post.StartDate != null && post.EagleBidSales !=null && meta.Status.ToLower() == "started"
+                      
                         select new JobLog2()
                         {
                             Id = post.Id,
@@ -100,7 +105,7 @@ namespace EagleApp.Service
                             Removal12 = post.Removal12,
                             RemovalDone = post.RemovalDone,
                             DemoDone = post.DemoDone,
-                            DateModified = post.DateModified
+                            DateAddedString = wip.DateAdded != null ? wip.DateAdded.Value.ToString("d") : null ,
 
                         };
                 

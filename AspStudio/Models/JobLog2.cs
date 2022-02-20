@@ -6,6 +6,7 @@ namespace EagleApp.Models
     {
         public string DaysWIP { get; set; }
         public double? AmountDone { get; set; }
-       
+        public string DateAddedString { get; set; }
+
     }
 }

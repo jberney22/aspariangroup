@@ -42,14 +42,17 @@ namespace EagleApp.Controllers
         [HttpPost]
         public ActionResult Index(WIPReportModel postModel)
         {
-            var data = jblogService.GetWIPReportData().Where(o=>o.DateModified == postModel.PostDate);
+            var data = jblogService.GetWIPReportData().ToList();
+
+            var newdata = data.Where(i => i.DateAddedString == postModel.PostDate.Value.ToShortDateString()).ToList();
+                                                     
 
             var model = new WIPReportModel()
             {
-                JobLog2s = data.ToList(),
-                WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
-                WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
-                WIPSubTotalAmtLeft = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
+                JobLog2s = newdata.ToList(),
+                WIPSubTotalFormSales = Convert.ToDecimal(newdata.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
+                WIPSubTotalAmtDone = Convert.ToDecimal(newdata.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
+                WIPSubTotalAmtLeft = Convert.ToDecimal(newdata.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(newdata.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
 
             };
 
