@@ -31,7 +31,7 @@ namespace AspStudio
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
             services.AddRazorPages();
             services.AddScoped<JobLogService>(); 
             services.AddScoped<DashboardService>();

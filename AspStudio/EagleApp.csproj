@@ -6,6 +6,7 @@
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <AssemblyName>EagleApp</AssemblyName>
     <RootNamespace>EagleApp</RootNamespace>
+    <TypeScriptCompileBlocked>True</TypeScriptCompileBlocked>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'ColorAdmin' " />

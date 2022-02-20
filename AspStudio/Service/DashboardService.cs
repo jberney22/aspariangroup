@@ -78,11 +78,7 @@ namespace EagleApp.Service
             DashBoardModel dashBoardModel = new DashBoardModel();
 
             if (!string.IsNullOrEmpty(viewType)){
-                if (viewType.ToLower() == "all".ToLower())
-                {
-                    viewType = null;
-                }
-                if (viewType.ToLower() == "--- SELECT ---".ToLower())
+                if (viewType.ToLower() == "all".ToLower() || viewType.ToLower() == "--- SELECT ---".ToLower())
                 {
                     viewType = null;
                 }
