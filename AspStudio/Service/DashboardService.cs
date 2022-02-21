@@ -78,7 +78,7 @@ namespace EagleApp.Service
             DashBoardModel dashBoardModel = new DashBoardModel();
 
             if (!string.IsNullOrEmpty(viewType)){
-                if (viewType.ToLower() == "all".ToLower() || viewType.ToLower() == "--- SELECT ---".ToLower())
+                if (viewType.ToLower() == "--- SELECT ---".ToLower())
                 {
                     viewType = null;
                 }
@@ -287,6 +287,10 @@ namespace EagleApp.Service
                                                                                             o.OpenDate <= endDate &&
                                                                                            o.Status == viewType).ToList();
                 }
+                else if (viewType.ToLower() == "all".ToLower())
+                {
+                    dashBoardModel.VDashboardDatum = _context.VDashboardData.Where(p => p.Status != "0").ToList();
+                }
                 else
                 {
                     dashBoardModel.VDashboardDatum = _context.VDashboardData.Where(p => p.Status == viewType).ToList();
@@ -338,6 +342,7 @@ namespace EagleApp.Service
             {
                 dashBoardModel.VDashboardDatum = baseData.Where(o => o.OpenDate >= startDate &&  o.OpenDate <= endDate).ToList();
             }
+           
 
 
 

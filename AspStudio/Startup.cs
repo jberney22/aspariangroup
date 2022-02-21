@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using EagleApp.Service;
 using EagleApp.Models;
+using EagleApp.Helpers;
 
 namespace AspStudio
 {
@@ -30,6 +31,13 @@ namespace AspStudio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            // configure DI for application services
+            services.AddScoped<IEmailService, EmailService>();
+
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddControllersWithViews().AddRazorRuntimeCompilation(); 
             services.AddRazorPages();

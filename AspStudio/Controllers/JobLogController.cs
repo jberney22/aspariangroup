@@ -95,50 +95,58 @@ namespace EagleApp.Controllers
       //  [Route("get-data-criteria")]
         public async Task<ActionResult<DataTableResponse>> GetDataCriteria(DashBoardModel model)
         {
-             var list = _dashboardService.GetDashboardDataByCriteria(model.StartDate, model.EndDate, model.ViewType, model.ViewDateType);
+            DashBoardModel list = new DashBoardModel();
             List<VGetJobLog> rtnList = new List<VGetJobLog>();
-            foreach (var item in list.VDashboardDatum)
+            //    var list = _dashboardService.GetDashboardDataByCriteria(model.StartDate, model.EndDate, model.ViewType, model.ViewDateType);
+            if (model.ViewType.ToLower() == "all".ToLower())
             {
-                VGetJobLog obj = new VGetJobLog();
-                obj.AcceptedDate = item.AcceptedDate;
-                obj.AwardedTo = item.AwardedTo;
-                obj.BidNumber = item.BidNumber;
-                obj.ClosedDate = item.ClosedDate;
-                obj.CloseoutDoneDate = item.CloseoutDoneDate;
-                obj.CollectedAmount = item.CollectedAmount;
-                obj.CommPaidDate = item.CommPaidDate;
-                obj.CompetitorPrice = item.CompetitorPrice;
-                obj.ContactType = item.Contact;
-                
-               // obj.DateModified = item.Da;
-                obj.DeptName = item.Department;
-                obj.EagleBidPrice = item.EagleBidPrice;
-                obj.EagleBidSales = item.EagleBidSales;
-                obj.FinalInvoice = item.FinalInvoice;
-                obj.FinalInvoiceDate = item.FinalInvoiceDate;
-                obj.FinishDate = item.FinishDate;
-                obj.InvoiceDate = item.InvoiceDate;
-
-                obj.JeipmeetingDate = item.JeipmeetingDate;
-                obj.JobFolderLink = item.JobFolderLink;
-                obj.JobName = item.JobName;
-                obj.MissedBy = item.MissedBy;
-                obj.Notes = item.Notes;
-                obj.OpenDate = item.OpenDate;
-                obj.PaidInFullDate = item.PaidInFullDate;
-                obj.ProductType = item.ProductType;
-                obj.ProjectNumber = item.ProjectNumber;
-                obj.ProjectOc = item.ProjectOc;
-                obj.Rejected = item.Rejected;
-                obj.Rep = item.Rep;
-                obj.StartDate = item.StartDate;
-                obj.Status = item.Status;
-                obj.Id = item.Id;
-
-                rtnList.Add(obj);
-
+                rtnList = _jobLogService.GetAllJobLogs().Where(o => o.Status != "Rejected").Where(o => o.OpenDate != null).ToList();
             }
-           
+            else
+            {
+                list = _dashboardService.GetDashboardDataByCriteria(model.StartDate, model.EndDate, model.ViewType, model.ViewDateType);
+                foreach (var item in list.VDashboardDatum)
+                {
+                    VGetJobLog obj = new VGetJobLog();
+                    obj.AcceptedDate = item.AcceptedDate;
+                    obj.AwardedTo = item.AwardedTo;
+                    obj.BidNumber = item.BidNumber;
+                    obj.ClosedDate = item.ClosedDate;
+                    obj.CloseoutDoneDate = item.CloseoutDoneDate;
+                    obj.CollectedAmount = item.CollectedAmount;
+                    obj.CommPaidDate = item.CommPaidDate;
+                    obj.CompetitorPrice = item.CompetitorPrice;
+                    obj.ContactType = item.Contact;
+
+                    // obj.DateModified = item.Da;
+                    obj.DeptName = item.Department;
+                    obj.EagleBidPrice = item.EagleBidPrice;
+                    obj.EagleBidSales = item.EagleBidSales;
+                    obj.FinalInvoice = item.FinalInvoice;
+                    obj.FinalInvoiceDate = item.FinalInvoiceDate;
+                    obj.FinishDate = item.FinishDate;
+                    obj.InvoiceDate = item.InvoiceDate;
+
+                    obj.JeipmeetingDate = item.JeipmeetingDate;
+                    obj.JobFolderLink = item.JobFolderLink;
+                    obj.JobName = item.JobName;
+                    obj.MissedBy = item.MissedBy;
+                    obj.Notes = item.Notes;
+                    obj.OpenDate = item.OpenDate;
+                    obj.PaidInFullDate = item.PaidInFullDate;
+                    obj.ProductType = item.ProductType;
+                    obj.ProjectNumber = item.ProjectNumber;
+                    obj.ProjectOc = item.ProjectOc;
+                    obj.Rejected = item.Rejected;
+                    obj.Rep = item.Rep;
+                    obj.StartDate = item.StartDate;
+                    obj.Status = item.Status;
+                    obj.Id = item.Id;
+
+                    rtnList.Add(obj);
+
+                }
+            }
 
             return new DataTableResponse
             {
