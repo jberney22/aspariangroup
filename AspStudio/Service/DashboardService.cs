@@ -101,7 +101,7 @@ namespace EagleApp.Service
 
 
             // get base- remove "rejected status" 
-            var baseData = _context.VDashboardData.Where(o => o.Status != "6").Where(o=>o.Status != "Rejected").Where(o => o.OpenDate!= null).ToList();
+            var baseData = _context.VDashboardData.Where(o => o.Status != "6").Where(o=>o.Status != "Rejected").Where(o => o.OpenDate!= null && o.Department != "VOID").ToList();
             if(!string.IsNullOrEmpty(viewType) && !string.IsNullOrEmpty(viewDataType))
             {
                 #region OLD CODE
@@ -289,11 +289,11 @@ namespace EagleApp.Service
                 }
                 else if (viewType.ToLower() == "all".ToLower())
                 {
-                    dashBoardModel.VDashboardDatum = _context.VDashboardData.Where(p => p.Status != "0").ToList();
+                    dashBoardModel.VDashboardDatum = baseData.Where(p => p.Status != "0").ToList();
                 }
                 else
                 {
-                    dashBoardModel.VDashboardDatum = _context.VDashboardData.Where(p => p.Status == viewType).ToList();
+                    dashBoardModel.VDashboardDatum = baseData.Where(p => p.Status == viewType).ToList();
                 }
 
             }
@@ -335,7 +335,7 @@ namespace EagleApp.Service
                 }
                 else
                 {
-                    dashBoardModel.VDashboardDatum = _context.VDashboardData.Where(o => o.OpenDate > DateTime.Now.AddMonths(-1)).ToList();
+                    dashBoardModel.VDashboardDatum = baseData.Where(o => o.OpenDate > DateTime.Now.AddMonths(-1)).ToList();
                 }
             }
             else if ((string.IsNullOrEmpty(viewDataType) && string.IsNullOrEmpty(viewType)) && (startDate != null && endDate != null))

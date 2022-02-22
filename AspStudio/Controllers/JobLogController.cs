@@ -73,7 +73,7 @@ namespace EagleApp.Controllers
         [HttpGet]
         public async Task<ActionResult<DataTableResponse>> GetAllJobLogs()
         {
-            var list = _jobLogService.GetAllJobLogs().Where(o => o.Status != "Rejected").Where(o => o.OpenDate != null).ToList();
+            var list = _jobLogService.GetAllJobLogs().Where(o => o.Status != "Rejected").Where(o => o.OpenDate != null && o.Rep != null).ToList();
             var newList = list.Select(item =>
                  new JobLogDTO
                  {
@@ -117,7 +117,7 @@ namespace EagleApp.Controllers
                     obj.CommPaidDate = item.CommPaidDate;
                     obj.CompetitorPrice = item.CompetitorPrice;
                     obj.ContactType = item.Contact;
-
+                    obj.EstimatorName = item.EstimatorName;
                     // obj.DateModified = item.Da;
                     obj.DeptName = item.Department;
                     obj.EagleBidPrice = item.EagleBidPrice;
@@ -283,7 +283,7 @@ namespace EagleApp.Controllers
                                 UserId = o.Id
                             }).Select(g => new SelectListItem
                             {
-                                Value = g.FullName.ToString(),
+                                Value = g.UserId.ToString(),
                                 Text = g.FullName,
                                 Selected = (g.FullName.ToLower() == job.Rep.ToLower())
                             }).ToList();
