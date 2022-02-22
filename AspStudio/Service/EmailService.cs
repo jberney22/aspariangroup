@@ -32,7 +32,7 @@ namespace EagleApp.Service
 
             // send email
             using var smtp = new SmtpClient();
-            smtp.Connect(_appSettings.SmtpHost, _appSettings.SmtpPort, SecureSocketOptions.StartTls);
+            smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
             smtp.Authenticate(_appSettings.SmtpUser, _appSettings.SmtpPass);
             smtp.Send(email);
             smtp.Disconnect(true);
