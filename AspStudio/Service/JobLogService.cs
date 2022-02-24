@@ -77,14 +77,15 @@ namespace EagleApp.Service
                         join meta in _context.JobStatus on post.Status equals meta.Id.ToString()
                         join dept in _context.Departments on post.Department equals dept.Id.ToString()
 
-                       from wip in _context.Wips.Where(o=>o.JoblogId == post.Id).DefaultIfEmpty()
-                       where post.StartDate != null && post.EagleBidSales !=null && meta.Status.ToLower() == "started"
+                        from wip in _context.Wips.Where(o=>o.JoblogId == post.Id).DefaultIfEmpty()
+                        from user in _context.Users.Where(o => o.Id == post.Rep).DefaultIfEmpty()
+                        where post.StartDate != null && post.EagleBidSales !=null && meta.Status.ToLower() == "started"
                       
                         select new JobLog2()
                         {
                             Id = post.Id,
                             Department = dept.Name,
-                            Rep = post.Rep,
+                            Rep = user.FirstName + " " + user.LastName,
                             ProjectOc = $"{post.BidNumber} : {post.JobName} : {post.ClientName}",
                             StartDate = post.StartDate,
                             FinishDate = post.FinishDate,

@@ -174,7 +174,16 @@ namespace EagleApp.Controllers
             {
                 FullName = o.FirstName + " " + o.LastName,
                 UserId = o.Id
+            }).Select(g => new SelectListItem
+            {
+                Value = g.UserId.ToString(),
+                Text = g.FullName
             }).ToList();
+            //ViewBag.Users = users.Select(o => new UsersModel()
+            //{
+            //    FullName = o.FirstName + " " + o.LastName,
+            //    UserId = o.Id
+            //}).ToList();
 
             ViewBag.ProjectBids = _jobLogService.GetAllBidNumbers();
             return View();
@@ -228,9 +237,10 @@ namespace EagleApp.Controllers
         }
 
         // GET: JobLogController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> EditAsync(int id)
         {
             JobLog job = _jobLogService.GetJobLogbyId(id);
+            job.MissedBy = string.Format("{0:P2}", int.Parse(job.MissedBy));
             ViewBag.Message = "";
 
             
@@ -277,7 +287,8 @@ namespace EagleApp.Controllers
                     }).ToList();
 
             //Users
-            ViewBag.Users = _userManager.Users.Select(o => new UsersModel()
+            var users = await _userManager.GetUsersInRoleAsync("Estimator");
+            ViewBag.Users = users.Select(o => new UsersModel()
                             {
                                 FullName = o.FirstName + " " + o.LastName,
                                 UserId = o.Id

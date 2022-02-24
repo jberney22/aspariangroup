@@ -135,7 +135,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="Rep">Estimator <span class="required">*</span></label>
-                                                <select class="form-control" id="Rep" asp-for="Rep" asp-items="@(new SelectList(ViewBag.Users,"FullName","FullName"))">
+                                                <select class="form-control" id="Rep" asp-for="Rep"  asp-items="ViewBag.Users" >
                                                     <option disabled selected>--- SELECT ---</option>
                                                 </select>
                                                 <span asp-validation-for="Rep" class="text-danger"></span>

@@ -233,7 +233,10 @@
                         //}
                     },
                   //  { "data": "finalInvoice" },
-                    { "data": "collectedAmount" },
+                    { 
+                        "data": "collectedAmount",
+                        "render": $.fn.dataTable.render.number(",", ".", 2, '$'),
+                    },
                     { "data": "projectOc" },
                     { "data": "status" },
                     { "data": "notes" },
