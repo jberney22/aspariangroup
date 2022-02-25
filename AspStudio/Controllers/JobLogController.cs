@@ -73,7 +73,7 @@ namespace EagleApp.Controllers
         [HttpGet]
         public async Task<ActionResult<DataTableResponse>> GetAllJobLogs()
         {
-            var list = _jobLogService.GetAllJobLogs().Where(o => o.Status != "Rejected").Where(o => o.OpenDate != null && o.Rep != null).ToList();
+            var list = _jobLogService.GetAllJobLogs().Where(o => o.OpenDate != null).ToList();
             var newList = list.Select(item =>
                  new JobLogDTO
                  {
@@ -240,7 +240,8 @@ namespace EagleApp.Controllers
         public async Task<ActionResult> EditAsync(int id)
         {
             JobLog job = _jobLogService.GetJobLogbyId(id);
-            job.MissedBy = string.Format("{0:P2}", int.Parse(job.MissedBy));
+           // job.MissedBy = job.MissedBy.Replace("%", "");
+          //  job.MissedBy = string.Format("{0:P2}", int.Parse(job.MissedBy));
             ViewBag.Message = "";
 
             

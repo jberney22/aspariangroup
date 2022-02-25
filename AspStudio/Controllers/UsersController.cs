@@ -74,6 +74,12 @@ namespace EagleApp.Controllers
                 {
                     var idResult = await _roleManager.CreateAsync(new IdentityRole(inputEditModel.Role));
                 }
+
+                var roles = await _userManager.GetRolesAsync(userObj);
+
+               // var oldrole = _roleManager.FindByNameAsync(roles.FirstOrDefault());
+                await _userManager.RemoveFromRolesAsync(userObj,roles);
+
                 var roleresult = await _userManager.AddToRoleAsync(userObj, inputEditModel.Role);
 
 

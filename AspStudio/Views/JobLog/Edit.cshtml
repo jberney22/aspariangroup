@@ -30,13 +30,18 @@
         }
 
         $(document).ready(function () {
-
+             $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                  event.preventDefault();
+                  return false;
+                }
+             });
             
 
             BindControls();
             $("#EagleBidPrice").blur(function () {
-                var amt = parseFloat(this.value);
-                $(this).val(amt.toFixed(2));
+               // var amt = parseFloat(this.value);
+               // $(this).val(amt.toFixed(2));
                 $('#EagleBidSales').val($("#EagleBidPrice").val());
             });
 
@@ -328,6 +333,36 @@
 </div>
 
 <style>
+    .input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 40px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+	padding-right: 0;
+}
+
+.input-icon-right > i {
+  right: 0;
+}
+
+.input-icon-right > input {
+  padding-left: 0;
+  padding-right: 25px;
+  text-align: right;
+}
+
     input.input-validation-error {
         border-color: red;
     }
@@ -473,9 +508,6 @@
                                                 <label class="form-label" for="exampleFormControlSelect2">Product Type <span class="required">*</span></label>
                                                 <select class="form-control" id="exampleFormControlSelect2" asp-for="ProductType" asp-items="ViewBag.ProductType" asp-is-readonly="Model.CommPaidDate != null">
                                                     <option value="" selected>-- Select --</option>
-                                                    @*<option value="Asbestos">Asbestos</option>
-                                                        <option value="Lead">Lead</option>
-                                                        <option value="Other">Other</option>*@
                                                 </select>
                                                 <span asp-validation-for="ProductType" class="text-danger"></span>
                                             </div>
@@ -490,16 +522,16 @@
                                                 <label class="form-label" for="exampleFormControlSelect1">Awarded To</label>
                                                 <select class="form-control" id="exampleFormControlSelect1" asp-for="AwardedTo" asp-items="ViewBag.AwardedTo" asp-is-readonly="Model.CommPaidDate != null">
                                                     <option value="" selected>-- Select --</option>
-                                                    @*<option value="Eagle">Eagle</option>
-                                                        <option value="Other">Other</option>*@
                                                 </select>
                                             </div>
 
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="CompetitorPrice">Competitor Price <span class="required">* </span></label>
+                                                <label class="form-label" for="CompetitorPrice">Competitor Price <span class="required">* </span></label>
+
+                                                 <div class="input-icon">
+                                                      <i>$</i>
                                                     <input type="text" class="form-control" id="CompetitorPrice"   onkeypress="return onlyNumberKey(event)" asp-format="{0:0.00}"  asp-for="CompetitorPrice" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="CompetitorPrice" class="text-danger"></span>
                                                 </div>
@@ -508,23 +540,36 @@
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
-                                                    <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
-                                                </div>
+                                                <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                          <div class="input-icon">
+                                                                <i>$</i>
+                                                                 <input type="text" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                                 <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
+                                                            </div>
                                             </div>
 
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
+                                              
                                                     <label class="form-label" for="EagleBidSales">Eagle Bid Form Sales <span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="EagleBidSales"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidSales" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
-                                                    <span asp-validation-for="EagleBidSales"  class="text-danger"></span>
-                                                </div>
+                                                    <div class="input-icon">
+                                                          <i>$</i>
+                                                        <input type="text" class="form-control" id="EagleBidSales"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidSales" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <span asp-validation-for="EagleBidSales"  class="text-danger"></span>
+                                                    </div>
                                             </div>
 
+                                          @*  <div class="form-group mb-3">
+                                              
+                                                    <label class="form-label" for="CollectedAmount">Collected Amount <span class="required">*</span></label>
+                                                    <div class="input-icon">
+                                                          <i>$</i>
+                                                        <input type="text" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <span asp-validation-for="CollectedAmount"  class="text-danger"></span>
+                                                    </div>
+                                            </div>
+*@
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
@@ -629,13 +674,15 @@
                                         </div>
 
 
-                                        <div class="col-xl-6" style="display:none;">
-                                            <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="FinalInvoice">Final Invoice # <span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="FinalInvoice" asp-for="FinalInvoice" asp-is-readonly="Model.CommPaidDate != null" />
-                                                    <span asp-validation-for="FinalInvoice" class="text-danger"></span>
-                                                </div>
+                                        <div class="col-xl-6">
+                                           <div class="form-group mb-3">
+                                              
+                                                    <label class="form-label" for="CollectedAmount">Collected Amount <span class="required">*</span></label>
+                                                    <div class="input-icon">
+                                                          <i>$</i>
+                                                        <input type="text" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <span asp-validation-for="CollectedAmount"  class="text-danger"></span>
+                                                    </div>
                                             </div>
 
                                         </div>
@@ -1139,12 +1186,13 @@
                                     <div class="form-group">
                                         @if (Model.CommPaidDate != null)
                                         {
-                                            <input type="submit" value="Save" class="btn btn-primary" disabled />
+                                             <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLg" disabled >Save</button>
+                                            @*<input type="submit" value="Save" class="btn btn-primary" disabled />*@
                                         }
                                         else
                                         {
-                                            <input type="submit" value="Save" class="btn btn-primary" />
-
+                                            <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLg">Save</button>
+                                            @*<input type="submit" value="Save" class="btn btn-primary" />*@
                                         }
                                     </div>
                                 </div>
@@ -1160,6 +1208,27 @@
         <!-- END row -->
     </div>
     <!-- END container -->
+    <div class="modal fade" id="modalLg" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Save Changes?</h5>
+           @* <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>*@
+          </div>
+          <div class="modal-body">
+           <div class="alert alert-warning">
+			    <strong>Are you sure you want to save changes?!</strong> 
+		    </div>
+          </div>
+          <div class="modal-footer">
+           <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </form>
 @section scripts
 {
