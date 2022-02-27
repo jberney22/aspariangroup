@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace EagleApp.Models
 {
     public partial class AuditLog
@@ -19,6 +17,6 @@ namespace EagleApp.Models
         public string Type { get; set; }
 
         public virtual JobLog JobLog { get; set; }
-        //public virtual AspNetUser User { get; set; }
+      //  public virtual AspNetUser User { get; set; }
     }
 }

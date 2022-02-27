@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace EagleApp.Models
 {
     public partial class JobLog1222021

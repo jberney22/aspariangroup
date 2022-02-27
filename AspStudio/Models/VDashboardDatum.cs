@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace EagleApp.Models
 {
     public partial class VDashboardDatum
@@ -11,7 +9,6 @@ namespace EagleApp.Models
         public string Department { get; set; }
         public string Rep { get; set; }
         public string EstimatorName { get; set; }
-
         public string ProjectOc { get; set; }
         public string Contact { get; set; }
         public string ProductType { get; set; }

@@ -77,7 +77,7 @@ namespace EagleApp.Controllers
 
                 var roles = await _userManager.GetRolesAsync(userObj);
 
-               // var oldrole = _roleManager.FindByNameAsync(roles.FirstOrDefault());
+               
                 await _userManager.RemoveFromRolesAsync(userObj,roles);
 
                 var roleresult = await _userManager.AddToRoleAsync(userObj, inputEditModel.Role);
@@ -85,7 +85,7 @@ namespace EagleApp.Controllers
 
                 ViewBag.Message = identityResult.Succeeded ? "Success" : "Error";
                 return View(inputEditModel);
-                // return Redirect($"/Users/Edit?id={userObj.Id}");
+                
             }
             catch
             {

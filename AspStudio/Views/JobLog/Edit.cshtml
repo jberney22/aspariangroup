@@ -48,10 +48,10 @@
             $("#AcceptedDate").blur(function () {
                 $('#EagleBidSales').val($("#EagleBidPrice").val());
             });
-            $("#CompetitorPrice").blur(function () {
-                var amt = parseFloat(this.value);
-                $(this).val(amt.toFixed(2));
-            });
+            //$("#CompetitorPrice").blur(function () {
+            //    var amt = parseFloat(this.value);
+            //    $(this).val(amt.toFixed(2));
+            //});
 
             // chkBoxMobilization
             $('#chkBoxMobilization').change(function () {
@@ -595,7 +595,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="AcceptedDate">Accepted Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="AcceptedDate">Accepted Date </label>
                                                     <input type="date" class="form-control" id="AcceptedDate" asp-for="AcceptedDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="AcceptedDate" class="text-danger"></span>
                                                 </div>
@@ -605,7 +605,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="StartDate">Start Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="StartDate">Start Date </label>
                                                     <input type="date" class="form-control" id="StartDate" asp-for="StartDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="StartDate" class="text-danger"></span>
                                                 </div>
@@ -615,7 +615,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="FinishDate">Finish Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="FinishDate">Finish Date </label>
                                                     <input type="date" class="form-control" id="FinishDate" asp-for="FinishDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="FinishDate" class="text-danger"></span>
                                                 </div>
@@ -625,7 +625,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="FinalInvoiceDate">Final Invoice Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="FinalInvoiceDate">Final Invoice Date </label>
                                                     <input type="date" class="form-control" id="FinalInvoiceDate" asp-for="FinalInvoiceDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="FinalInvoiceDate" class="text-danger"></span>
                                                 </div>
@@ -635,7 +635,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="ClosedDate">Closeout Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="ClosedDate">Closeout Date </label>
                                                     <input type="date" class="form-control" id="ClosedDate" asp-for="ClosedDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="ClosedDate" class="text-danger"></span>
                                                 </div>
@@ -645,7 +645,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="JeipmeetingDate">JEIP Meeting Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="JeipmeetingDate">JEIP Meeting Date </label>
                                                     <input type="date" class="form-control" id="JeipmeetingDate" asp-for="JeipmeetingDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="JeipmeetingDate" class="text-danger"></span>
                                                 </div>
@@ -655,7 +655,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="PaidInFullDate">Paid In Full Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="PaidInFullDate">Paid In Full Date <</label>
                                                     <input type="date" class="form-control" id="PaidInFullDate" asp-for="PaidInFullDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="PaidInFullDate" class="text-danger"></span>
                                                 </div>
@@ -665,7 +665,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
-                                                    <label class="form-label" for="CommPaidDate">Comm Paid Date <span class="required">*</span></label>
+                                                    <label class="form-label" for="CommPaidDate">Comm Paid Date </label>
                                                     <input type="date" class="form-control" id="CommPaidDate" asp-for="CommPaidDate" asp-is-readonly="Model.CommPaidDate != null" />
                                                     <span asp-validation-for="CommPaidDate" class="text-danger"></span>
                                                 </div>
@@ -677,7 +677,7 @@
                                         <div class="col-xl-6">
                                            <div class="form-group mb-3">
                                               
-                                                    <label class="form-label" for="CollectedAmount">Collected Amount <span class="required">*</span></label>
+                                                    <label class="form-label" for="CollectedAmount">Collected Amount</label>
                                                     <div class="input-icon">
                                                           <i>$</i>
                                                         <input type="text" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />

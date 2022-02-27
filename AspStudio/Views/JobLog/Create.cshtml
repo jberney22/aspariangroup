@@ -77,6 +77,36 @@
     }
 </script>
 <style>
+    .input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+top: 50%;
+  pointer-events: none;
+  width: 40px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+	padding-right: 0;
+}
+
+.input-icon-right > i {
+  right: 0;
+}
+
+.input-icon-right > input {
+  padding-left: 0;
+  padding-right: 25px;
+  text-align: right;
+}
+
     input.input-validation-error {
         border-color: red;
     }
@@ -162,17 +192,6 @@
                                             </div>
 
                                         </div>
-                                        @*<div class="col-xl-6">
-                                            <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="exampleFormControlInput1">Status</label>
-                                                    <select class="form-control" id="Status" asp-for="Status" asp-items="@(new SelectList(ViewBag.JobStatus,"Id","Status"))">
-                                                        <option disabled selected>--- SELECT ---</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                        </div>*@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
@@ -246,31 +265,36 @@
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="exampleFormControlInput1">Competitor Price <span class="required">*</span></label>
+                                                 <label class="form-label" for="exampleFormControlInput1">Competitor Price <span class="required">*</span></label>
+                                                 <div class="input-icon">
+                                                     <i>$</i>
                                                     <input type="number" class="form-control" id="CompetitorPrice" asp-for="CompetitorPrice" />
-                                                    <span asp-validation-for="CompetitorPrice" class="text-danger"></span>
-                                                </div>
+                                                 </div>
+                                                 <span asp-validation-for="CompetitorPrice" class="text-danger"></span>
                                             </div>
 
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
+                                                <div class="input-icon">
+                                                    <i>$</i>
                                                     <input type="number" class="form-control" id="EagleBidPrice" asp-for="EagleBidPrice" />
-                                                    <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
                                                 </div>
+                                                <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
+
                                             </div>
 
                                         </div>
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
-                                                <div class="form-group mb-3">
-                                                    <label class="form-label" for="exampleFormControlInput1">Eagle Bid Form Sales <span class="required">*</span></label>
+                                                 <label class="form-label" for="exampleFormControlInput1">Eagle Bid Form Sales <span class="required">*</span></label>
+                                                 <div class="input-icon">
+                                                      <i>$</i>
                                                     <input type="text" class="form-control" id="EagleBidSales" asp-for="EagleBidSales" />
-                                                    <span asp-validation-for="EagleBidSales" class="text-danger"></span>
                                                 </div>
+                                                 <span asp-validation-for="EagleBidSales" class="text-danger"></span>
+
                                             </div>
 
                                         </div>
@@ -278,7 +302,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="exampleFormControlInput1">Missed By (Calculated) <span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="MissedBy" asp-for="MissedBy" />
+                                                    <input type="number" step="0.01" class="form-control" id="MissedBy" asp-for="MissedBy" />
                                                     <span asp-validation-for="MissedBy" class="text-danger"></span>
                                                 </div>
                                             </div>

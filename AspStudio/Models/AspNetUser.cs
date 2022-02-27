@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace EagleApp.Models
 {
     public partial class AspNetUser
@@ -11,10 +9,10 @@ namespace EagleApp.Models
         {
             AspNetUserClaims = new HashSet<AspNetUserClaim>();
             AspNetUserLogins = new HashSet<AspNetUserLogin>();
-            AspNetUserRoles = new HashSet<AspNetUserRole>();
             AspNetUserTokens = new HashSet<AspNetUserToken>();
             AuditLogs = new HashSet<AuditLog>();
             JobLogs = new HashSet<JobLog>();
+            Roles = new HashSet<AspNetRole>();
         }
 
         public string Id { get; set; }
@@ -37,9 +35,10 @@ namespace EagleApp.Models
 
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual ICollection<AspNetUserRole> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual ICollection<AuditLog> AuditLogs { get; set; }
         public virtual ICollection<JobLog> JobLogs { get; set; }
+
+        public virtual ICollection<AspNetRole> Roles { get; set; }
     }
 }

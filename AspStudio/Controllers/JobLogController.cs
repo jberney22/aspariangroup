@@ -226,7 +226,9 @@ namespace EagleApp.Controllers
 
 
                 bool isParent = !string.IsNullOrEmpty(jobLogModel.ParentBidNumber) ? true : false;
-                var result = await _jobLogService.AddJobLogAsync(jobLogModel, isParent, jobLogModel.ParentBidNumber);
+
+                var job = _mapper.Map<JobLog>(jobLogModel);
+                var result = await _jobLogService.AddJobLogAsync(job, isParent, jobLogModel.ParentBidNumber);
                 //await _auditLogService.AddAuditLog(new AuditLog() { DateCreated = DateTime.Now, LogAction = $"Created {jobLogModel.ProjectNumber}", UserId = jobLogModel.UserId, JobLogId = result.JobLog.Id });
                 return RedirectToAction(nameof(Edit), new { @Id = result.JobLog.Id });
             }
@@ -240,8 +242,10 @@ namespace EagleApp.Controllers
         public async Task<ActionResult> EditAsync(int id)
         {
             JobLog job = _jobLogService.GetJobLogbyId(id);
-           // job.MissedBy = job.MissedBy.Replace("%", "");
-          //  job.MissedBy = string.Format("{0:P2}", int.Parse(job.MissedBy));
+
+             job.MissedBy = job.MissedBy.Replace("%", "");
+           // var inputValue = Math.Round(Convert.ToDecimal(job.MissedBy), 2);
+            job.MissedBy = string.Format("{0:P2}", Convert.ToDecimal(job.MissedBy));
             ViewBag.Message = "";
 
             
@@ -355,8 +359,8 @@ namespace EagleApp.Controllers
 
             try
             {
-                JobLog job = _jobLogService.GetJobLogbyId(id);
-
+                //JobLog job = _jobLogService.GetJobLogbyId(id);
+                var job = _mapper.Map<JobLog>(jobLogModel);
 
 
                 if (job == null)
@@ -364,6 +368,9 @@ namespace EagleApp.Controllers
                     ViewBag.Message = "failed";
                     return View();
                 }
+
+                #region OLD CODE
+                /*
                 job.ClientName = jobLogModel.ClientName;
                 job.Department = jobLogModel.Department;
                 job.AwardedTo = jobLogModel.AwardedTo;
@@ -383,7 +390,7 @@ namespace EagleApp.Controllers
                 job.ProjectOc = jobLogModel.ProjectOc;
 
                 job.Rep = jobLogModel.Rep;
-                //job.Status = _jobLogService.GetJobStatusIdByName(jobLogModel.Status);  //obLogModel.Status;
+                
                 job.Contact = jobLogModel.Contact;
                 job.BidNumber = jobLogModel.BidNumber;
 
@@ -429,11 +436,10 @@ namespace EagleApp.Controllers
                 job.PercentageDone = jobLogModel.PercentageDone;
 
                 job.TotalComplete = jobLogModel.TotalComplete;
+                */
+                #endregion
 
-
-
-
-                // JobLogModel jobModel = _mapper.Map<JobLogModel>(jobLogModel);
+                
                 // jobModel.Status = _jobLogService.GetJobStatus().FirstOrDefault(o => o.Status.ToLower() == jobLogModel.Status.ToLower()).Id.ToString();
                 job.UserId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -445,7 +451,6 @@ namespace EagleApp.Controllers
                     return View();
                     
                 }
-               // await _auditLogService.AddAuditLog(new AuditLog() { DateCreated = DateTime.Now, LogAction = $"Modified {jobLogModel.ProjectNumber}", UserId = job.UserId, JobLogId = jobLogResponse.JobLog.Id});
                 return RedirectToAction(nameof(Index));
 
             }

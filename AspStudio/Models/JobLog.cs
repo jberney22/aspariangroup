@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace EagleApp.Models
 {
     public partial class JobLog
@@ -17,6 +15,7 @@ namespace EagleApp.Models
         public string Department { get; set; }
         public string Rep { get; set; }
         public string ProjectOc { get; set; }
+
         public string Contact { get; set; }
         public string ProductType { get; set; }
         public decimal? EagleBidPrice { get; set; }
