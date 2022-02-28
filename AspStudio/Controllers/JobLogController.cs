@@ -243,9 +243,10 @@ namespace EagleApp.Controllers
         {
             JobLog job = _jobLogService.GetJobLogbyId(id);
 
-             job.MissedBy = job.MissedBy.Replace("%", "");
+           //  job.MissedBy = job.MissedBy.Replace("%", "");
            // var inputValue = Math.Round(Convert.ToDecimal(job.MissedBy), 2);
-            job.MissedBy = string.Format("{0:P2}", Convert.ToDecimal(job.MissedBy));
+           // job.MissedBy = string.Format("{0:P2}", Convert.ToDecimal(job.MissedBy));
+            
             ViewBag.Message = "";
 
             
@@ -325,6 +326,7 @@ namespace EagleApp.Controllers
                   }).ToList();
 
             JobLogModel jobModel = _mapper.Map<JobLogModel>(job);
+            jobModel.MissedByDecimal = Convert.ToDecimal(job.MissedBy);
             jobModel.IsCheckedMobilazation = job.MobilizationDate != null ? true : false;
             jobModel.IsCheckedPrep12 = job.Prep12Date != null ? true : false;
             jobModel.IsCheckedPrep14 = job.Prep14Date != null ? true : false;
@@ -354,14 +356,17 @@ namespace EagleApp.Controllers
                 string messages = string.Join("; ", ModelState.Values
                                         .SelectMany(x => x.Errors)
                                         .Select(x => x.ErrorMessage));
-                return View();
+                return View(jobLogModel);
             }
 
             try
             {
+                //jobLogModel.MissedBy = jobLogModel.MissedBy.Replace("%", "");
+               // var tempMissed = double.Parse(jobLogModel.MissedBy.Replace("%", "")) / 100;
+               // jobLogModel.MissedBy = tempMissed.ToString();   
                 //JobLog job = _jobLogService.GetJobLogbyId(id);
                 var job = _mapper.Map<JobLog>(jobLogModel);
-
+                job.MissedBy = Convert.ToString(jobLogModel.MissedByDecimal);
 
                 if (job == null)
                 {

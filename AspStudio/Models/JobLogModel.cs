@@ -46,10 +46,14 @@ namespace EagleApp.Models
         [Required(ErrorMessage = "! Competitor Price Required")]
 
         public decimal? CompetitorPrice { get; set; }
-        [Required(ErrorMessage = "! MissedBy Required")]
+        
         public string MissedBy { get; set; }
         [Required(ErrorMessage = "! EagleBid Sales Required")]
         public decimal? EagleBidSales { get; set; }
+
+        [Required(ErrorMessage = "! MissedBy Required")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:P2}")]
+        public decimal MissedByDecimal { get; set; }
         public string FinalInvoice { get; set; }
         public decimal? CollectedAmount { get; set; }
         public string ProjectNumber { get; set; }
