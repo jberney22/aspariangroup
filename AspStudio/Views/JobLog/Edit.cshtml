@@ -24,8 +24,14 @@
           
             // Only ASCII character in that range allowed
             var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-                return false;
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)){
+                if(ASCIICode === 46){
+                    return true;
+                }else{
+                 return false;
+                }
+            }
+               
             return true;
         }
 
@@ -532,7 +538,7 @@
 
                                                  <div class="input-icon">
                                                       <i>$</i>
-                                                    <input type="text" class="form-control" id="CompetitorPrice"   onkeypress="return onlyNumberKey(event)" asp-format="{0:0.00}"  asp-for="CompetitorPrice" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="number" class="form-control" id="CompetitorPrice"   onkeypress="return onlyNumberKey(event)" asp-format="{0:0.00}"  asp-for="CompetitorPrice" asp-is-readonly="Model.CommPaidDate != null" />
                                                     @*<span asp-validation-for="CompetitorPrice" class="text-danger"></span>*@
                                                 </div>
                                             </div>
@@ -543,7 +549,7 @@
                                                 <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
                                                           <div class="input-icon">
                                                                 <i>$</i>
-                                                                 <input type="text" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                                 <input type="number" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
                                                                  <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
                                                             </div>
                                             </div>
@@ -680,7 +686,7 @@
                                                     <label class="form-label" for="CollectedAmount">Collected Amount</label>
                                                     <div class="input-icon">
                                                           <i>$</i>
-                                                        <input type="text" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <input type="number" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
                                                         <span asp-validation-for="CollectedAmount"  class="text-danger"></span>
                                                     </div>
                                             </div>
