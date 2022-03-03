@@ -52,11 +52,23 @@ namespace EagleApp.Service
             var projectOldVal = _context.Ocawas.FirstOrDefault(o => o.Id.ToString() == auditCompareModel.OldModel.ProjectOc);
             var projectNewVal = _context.Ocawas.FirstOrDefault(o => o.Id.ToString() == auditCompareModel.NewModel.ProjectOc);
 
+            var deptOldVal = _context.Departments.FirstOrDefault(o => o.Id.ToString() == auditCompareModel.OldModel.Department);
+            var deptNewVal = _context.Departments.FirstOrDefault(o => o.Id.ToString() == auditCompareModel.NewModel.Department);
+
+            var contactOldVal = _context.ContactTypes.FirstOrDefault(o => o.Id.ToString() == auditCompareModel.OldModel.Contact);
+            var contactNewVal = _context.ContactTypes.FirstOrDefault(o => o.Id.ToString() == auditCompareModel.NewModel.Contact);
+
             auditCompareModel.OldModel.Status = statusNameOld != null ? statusNameOld.Status : string.Empty;
             auditCompareModel.NewModel.Status = statusNameNew != null ? statusNameNew.Status : string.Empty;
 
-            auditCompareModel.OldModel.ProjectOc = projectOldVal != null ? projectOldVal.Ocawaname : string.Empty; // projectOldVal.Ocawaname;
-            auditCompareModel.NewModel.ProjectOc = projectNewVal != null ? projectNewVal.Ocawaname : string.Empty;  //projectNewVal.Ocawaname;
+            //auditCompareModel.OldModel.ProjectOc = projectOldVal != null ? projectOldVal.Ocawaname : string.Empty; // projectOldVal.Ocawaname;
+            //auditCompareModel.NewModel.ProjectOc = projectNewVal != null ? projectNewVal.Ocawaname : string.Empty;  //projectNewVal.Ocawaname;
+
+            //auditCompareModel.OldModel.Department = deptOldVal != null ? deptOldVal.Name : string.Empty;
+            //auditCompareModel.NewModel.Department = deptNewVal != null ? deptNewVal.Name : string.Empty;
+
+            //auditCompareModel.OldModel.Contact = contactOldVal != null ? contactOldVal.Type : string.Empty;
+            //auditCompareModel.NewModel.Contact = contactNewVal != null ? contactNewVal.Type : string.Empty;
             return auditCompareModel;
         }
 

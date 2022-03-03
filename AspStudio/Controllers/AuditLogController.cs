@@ -14,17 +14,24 @@ namespace EagleApp.Controllers
     {
         private readonly AuditLogService _auditLogService;
         private readonly JobLogService _jobLogService;
+        private readonly DepartmentService _deptService;
 
-        public AuditLogController(AuditLogService auditLogService, JobLogService jobLogService)
+        public AuditLogController(AuditLogService auditLogService, JobLogService jobLogService, DepartmentService deptService)
         {
             _auditLogService = auditLogService;
             _jobLogService = jobLogService;
+            _deptService = deptService;
         }
         // GET: AuditLogController
         public async Task<ActionResult> Index(int joblogId)
         {
             
             var auditLogs = _auditLogService.GetAllAuditLog().Where(o=>o.JobLog.Id == joblogId).ToList();
+            auditLogs.ForEach(auditLog => {
+                auditLog.DateCreated = TimeZoneInfo.ConvertTimeFromUtc(auditLog.DateCreated.Value, TimeZoneInfo.Local); //DateTime.SpecifyKind( DateTime.Parse(auditLog.DateCreated.ToString()),  DateTimeKind.Local);
+
+            });
+            
             return View(auditLogs);
         }
 
@@ -59,6 +66,7 @@ namespace EagleApp.Controllers
                 id = int.Parse(HttpContext.Request.Query["id"]);
 
             AuditCompareModel auditCompareModel = await _auditLogService.GetAuditById(id);
+
             var jobLog = await _jobLogService.UpdateJobLog(auditCompareModel.OldModel,false);
            // return View(auditCompareModel);
               return RedirectToAction(nameof(Index), new { joblogId = jobLog.JobLog.Id });

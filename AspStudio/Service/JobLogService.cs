@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
 
 namespace EagleApp.Service
 {
@@ -174,14 +175,86 @@ namespace EagleApp.Service
                // jobLogModel.ProjectOc = GetAllProjectOC().FirstOrDefault(obj => obj.Project)
                 jobLogModel.Status = GetJobStatusIdByName(jobLogModel.Status);
                 jobLogModel.DateModified = DateTime.Now;
-                _context.JobLog.Update(jobLogModel);
+                var job = await _context.JobLog.FindAsync(jobLogModel.Id);
+                job.ClientName = jobLogModel.ClientName;
+                job.Department = jobLogModel.Department;
+                job.AwardedTo = jobLogModel.AwardedTo;
+                job.CollectedAmount = jobLogModel.CollectedAmount;
+                job.CompetitorPrice = jobLogModel.CompetitorPrice;
+                job.Contact = jobLogModel.Department;
+                job.EagleBidPrice = jobLogModel.EagleBidPrice;
+                job.EagleBidSales = jobLogModel.EagleBidSales;
+                job.FinalInvoice = jobLogModel.FinalInvoice;
 
-                
+                job.JobFolderLink = jobLogModel.JobFolderLink;
+                job.MissedBy = jobLogModel.MissedBy;
+                job.Notes = jobLogModel.Notes;
+
+                job.ProductType = jobLogModel.ProductType;
+                job.ProjectNumber = jobLogModel.ProjectNumber;
+                job.ProjectOc = jobLogModel.ProjectOc;
+
+                job.Rep = jobLogModel.Rep;
+
+                job.Contact = jobLogModel.Contact;
+                job.BidNumber = jobLogModel.BidNumber;
+
+                job.JobFolderLink = jobLogModel.JobFolderLink;
+
+                job.ProjectNumber = jobLogModel.ProjectNumber;
+                job.ProjectOc = jobLogModel.ProjectOc;
+                job.Rejected = jobLogModel.Rejected;
+                job.StartDate = jobLogModel.StartDate;
+                job.Status = jobLogModel.Status;
+
+                job.CommPaidDate = jobLogModel.CommPaidDate;
+                job.ClosedDate = jobLogModel.ClosedDate;
+                job.JeipmeetingDate = jobLogModel.JeipmeetingDate;
+                job.FinishDate = jobLogModel.FinishDate;
+                job.OpenDate = jobLogModel.OpenDate;
+                job.PaidInFullDate = jobLogModel.PaidInFullDate;
+                job.InvoiceDate = jobLogModel.InvoiceDate;
+
+                job.FinalInvoiceDate = jobLogModel.FinalInvoiceDate;
+
+                job.AcceptedDate = jobLogModel.AcceptedDate;
+                job.Rejected = jobLogModel.Rejected;
+                job.JobName = jobLogModel.JobName;
+
+                // WIP
+                job.Mobilization = jobLogModel.Mobilization;
+                job.MobilizationDate = jobLogModel.MobilizationDate;
+                job.Prep12 = jobLogModel.Prep12;
+                job.Prep12Date = jobLogModel.Prep12Date;
+                job.Prep14 = jobLogModel.Prep14;
+                job.Prep14Date = jobLogModel.Prep14Date;
+                job.Prep34 = jobLogModel.Prep34;
+                job.Prep34Date = jobLogModel.Prep34Date;
+                job.PrepDone = jobLogModel.PrepDone;
+                job.PrepDoneDate = jobLogModel.PrepDoneDate;
+
+                job.DemoDone = jobLogModel.DemoDone;
+                job.DemoDoneDate = jobLogModel.DemoDoneDate;
+
+                job.InvReturnDate = jobLogModel.InvReturnDate;
+                job.Removal12 = jobLogModel.Removal12;
+                job.Removal12Date = jobLogModel.Removal12Date;
+                job.RemovalDone = jobLogModel.RemovalDone;
+                job.EquipReturnDate = jobLogModel.EquipReturnDate;
+                job.PercentageDone = jobLogModel.PercentageDone;
+
+                job.TotalComplete = jobLogModel.TotalComplete;
+
+                _context.Update(job);
+               // _context.Entry(oldProduct).CurrentValues.SetValues(jobLogModel);
+               //  _context.JobLog.Update(jobLogModel);
+
+
 
                 int result = 0;
                 if (!addAudit)
                 {
-                    jobLogModel.ProjectOc = _context.Ocawas.FirstOrDefault(obj => obj.Ocawaname == jobLogModel.ProjectOc).Id.ToString();
+                    //jobLogModel.ProjectOc = _context.Ocawas.FirstOrDefault(obj => obj.Ocawaname == jobLogModel.ProjectOc).Id.ToString();
                     result = await _context.SaveChangesAsync();
                 }
                 else
@@ -211,10 +284,9 @@ namespace EagleApp.Service
                     RemovalDoneDate = jobLogModel.RemovalDoneDate,
 
                 });
+
+
                 result = await _context.SaveChangesAsync();
-
-
-
 
                 //var result = await _context.SaveChangesAsync(jobLogModel.UserId, jobLogModel.Id);
                 response.Sucess = result > 0 ? true : false;

@@ -250,6 +250,7 @@ namespace EagleApp.Controllers
             ViewBag.Message = "";
 
             
+            
             var roles = ((ClaimsIdentity)User.Identity).Claims
                 .Where(c => c.Type == ClaimTypes.Role)
                 .Select(c => c.Value).FirstOrDefault();

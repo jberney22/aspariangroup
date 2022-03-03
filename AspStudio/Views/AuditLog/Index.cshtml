@@ -132,7 +132,7 @@
                                 {
                                 <tr>
                                     <td scope="col">@audit.LogAction</td>
-                                    <td scope="col">@audit.DateCreated</td>
+                                    <td scope="col">@audit.DateCreated.Value</td>
                                     <td scope="col">@audit.User</td>
                                     <td scope="col">  @Html.ActionLink("Details", "Details", new {  id=audit.AuditLogId, joblogId=Context.Request.Query["joblogId"].ToString() }) </td>
                                 </tr>
