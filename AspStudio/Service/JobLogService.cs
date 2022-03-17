@@ -70,49 +70,9 @@ namespace EagleApp.Service
             return _context.VGetJobLog.OrderByDescending(o=>o.DateAdded).AsQueryable();
         }
 
-        internal IQueryable<JobLog2> GetWIPReportData()
+        internal IQueryable<VWipReport> GetWIPReportData(string date)
         {
-
-             
-            var query = from post in _context.JobLog
-                        join meta in _context.JobStatus on post.Status equals meta.Id.ToString()
-                        join dept in _context.Departments on post.Department equals dept.Id.ToString()
-
-                        from wip in _context.Wips.Where(o=>o.JoblogId == post.Id).DefaultIfEmpty()
-                        from user in _context.Users.Where(o => o.Id == post.Rep).DefaultIfEmpty()
-                        where post.StartDate != null && post.EagleBidSales !=null && meta.Status.ToLower() == "started"
-                      
-                        select new JobLog2()
-                        {
-                            Id = post.Id,
-                            Department = dept.Name,
-                            Rep = user.FirstName + " " + user.LastName,
-                            ProjectOc = $"{post.BidNumber} : {post.JobName} : {post.ClientName}",
-                            StartDate = post.StartDate,
-                            FinishDate = post.FinishDate,
-                            Status = meta.Status,
-                            DaysWIP = ((DateTime.Now - post.StartDate.Value).Days - 1).ToString(),
-                            EagleBidSales = post.EagleBidSales,
-                            AmountDone = (((double)post.EagleBidSales / 100) * post.TotalComplete),
-                            Mobilization = post.Mobilization,
-                            CollectedAmount = post.CollectedAmount,
-                            ClosedDate = post.ClosedDate,
-                            OpenDate = post.OpenDate,
-                            EagleBidPrice = post.EagleBidPrice,
-                            PercentageDone = post.PercentageDone,
-                            Prep12 = post.Prep12,
-                            Prep14 = post.Prep14,
-                            Prep34 = post.Prep34,
-                            PrepDone = post.PrepDone,
-                            Removal12 = post.Removal12,
-                            RemovalDone = post.RemovalDone,
-                            DemoDone = post.DemoDone,
-                            DateAddedString = wip.DateAdded != null ? wip.DateAdded.Value.ToString("d") : null ,
-
-                        };
-                
-            return query;
-
+            return _context.Set<VWipReport>().FromSqlRaw("exec dbo.sp_WipReport {0}", date);
         }
 
         private string GetStatusName(string status)

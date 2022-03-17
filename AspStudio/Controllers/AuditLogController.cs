@@ -27,8 +27,9 @@ namespace EagleApp.Controllers
         {
             
             var auditLogs = _auditLogService.GetAllAuditLog().Where(o=>o.JobLog.Id == joblogId).ToList();
+            //TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
             auditLogs.ForEach(auditLog => {
-                auditLog.DateCreated = TimeZoneInfo.ConvertTimeFromUtc(auditLog.DateCreated.Value, TimeZoneInfo.Local); //DateTime.SpecifyKind( DateTime.Parse(auditLog.DateCreated.ToString()),  DateTimeKind.Local);
+                auditLog.DateCreated = auditLog.DateCreated.Value.AddHours(-8); //TimeZoneInfo.ConvertTimeFromUtc(auditLog.DateCreated.Value, TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time")); //DateTime.SpecifyKind( DateTime.Parse(auditLog.DateCreated.ToString()),  DateTimeKind.Local);
 
             });
             

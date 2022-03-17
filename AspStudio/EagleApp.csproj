@@ -20,6 +20,7 @@
     <Compile Remove="Models\AspNetUserRole.cs" />
     <Compile Remove="Models\AspNetUserToken.cs" />
     <Compile Remove="Models\EagleDBContext.cs" />
+    <Compile Remove="Models\eagleQAContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />

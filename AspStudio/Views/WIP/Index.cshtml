@@ -213,11 +213,11 @@
                         </thead>
                         <tbody>
 
-                            @foreach (var user in Model.JobLog2s)
+                            @foreach (var user in Model.VWipReport)
                             {
                             <tr>
-                                 <td scope="col" title="@user.ProjectOc">
-                                    <a href="/JobLog/Edit?id=@user.Id"> @String.Format("{0} ...", user.ProjectOc.Substring(0,20))</a>
+                                 <td scope="col" title="@user.ProjectNumber">
+                                    <a href="/JobLog/Edit?id=@user.Id"> @String.Format("{0} ...", user.ProjectNumber.Substring(0,20))</a>
                                 </td>
                                 <td scope="col" class="col-1">@user.Department</td>
                                 <td scope="col">@user.Rep</td>
@@ -225,17 +225,17 @@
                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.StartDate) </td>
                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
                                 <td scope="col">@user.Status</td>
-                                <td scope="col">@user.DaysWIP</td>
+                                @*<td scope="col">@user.DaysWIP</td>*@
                                 <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
                                 <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
                                 <td scope="col">@user.PercentageDone</td>
                                 <td scope="col">@user.Mobilization</td>
                                 <td scope="col">@user.Prep14</td>
                                 <td scope="col">@user.Prep12</td>
-                                <td scope="col">@user.Prep34</td>
+                                <td scope="col">@user.Prep13</td>
                                 <td scope="col">@user.PrepDone</td>
                                 <td scope="col">@user.Removal12</td>
-                                <td scope="col">@user.RemovalDone</td>
+                                <td scope="col">@user.Removal34</td>
                                 <td scope="col">@user.DemoDone</td>
                             </tr>
                             }

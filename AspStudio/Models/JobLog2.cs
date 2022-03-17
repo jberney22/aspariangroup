@@ -8,5 +8,7 @@ namespace EagleApp.Models
         public double? AmountDone { get; set; }
         public string DateAddedString { get; set; }
 
+        public DateTime? DateAddedMax { get; set; }
+
     }
 }

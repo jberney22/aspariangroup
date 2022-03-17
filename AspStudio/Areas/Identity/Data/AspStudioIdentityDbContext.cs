@@ -20,6 +20,71 @@ namespace EagleApp.Areas.Identity.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<VWipReport>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("v_WipReport");
+
+                entity.Property(e => e.AmountDone).HasColumnType("money");
+
+                entity.Property(e => e.ClosedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.CollectedAmount).HasColumnType("money");
+
+                entity.Property(e => e.DateAddedStr)
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.DemoDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Department)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.EagleBidPrice).HasColumnType("money");
+
+                entity.Property(e => e.EagleBidSales).HasColumnType("money");
+
+                entity.Property(e => e.EquipReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.FinishDate).HasColumnType("datetime");
+
+                entity.Property(e => e.InvReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.MobilizationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OpenDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PercentageDone).HasMaxLength(10);
+
+                entity.Property(e => e.Prep12).HasColumnName("Prep1/2");
+
+                entity.Property(e => e.Prep12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep13).HasColumnName("Prep1/3");
+
+                entity.Property(e => e.Prep14).HasColumnName("Prep1/4");
+
+                entity.Property(e => e.Prep14Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Prep34Date).HasColumnType("datetime");
+
+                entity.Property(e => e.PrepDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Removal12).HasColumnName("Removal 1/2");
+
+                entity.Property(e => e.Removal12Date).HasColumnType("datetime");
+
+                entity.Property(e => e.RemovalDoneDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TotalComplete)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+            });
+
             builder.Entity<Wip>(entity =>
             {
                 entity.ToTable("WIP");
@@ -438,6 +503,7 @@ namespace EagleApp.Areas.Identity.Data
         public virtual DbSet<AuditLog> AuditLogs { get; set; }
 
         public virtual DbSet<Wip> Wips { get; set; }
+        public virtual DbSet<VWipReport> VWipReports { get; set; }
 
         public virtual async Task<int> SaveChangesAsync(string userId = null, int jobId = 0, string logAction = null)
         {

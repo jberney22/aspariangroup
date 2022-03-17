@@ -26,11 +26,11 @@ namespace EagleApp.Controllers
         // GET: WIPController
         public ActionResult Index()
         {
-            var data = jblogService.GetWIPReportData();
+            var data = jblogService.GetWIPReportData(DateTime.Now.ToShortDateString()).ToList();
 
             var model = new WIPReportModel()
             {
-                JobLog2s = data.ToList(),
+                VWipReport = data.ToList(),
                 WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
                 WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
                 WIPSubTotalAmtLeft = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
@@ -42,17 +42,14 @@ namespace EagleApp.Controllers
         [HttpPost]
         public ActionResult Index(WIPReportModel postModel)
         {
-            var data = jblogService.GetWIPReportData().ToList();
-
-            var newdata = data.Where(i => i.DateAddedString == postModel.PostDate.Value.ToShortDateString()).ToList();
-                                                     
+            var data = jblogService.GetWIPReportData(postModel.PostDate.Value.ToShortDateString()).ToList();
 
             var model = new WIPReportModel()
             {
-                JobLog2s = newdata.ToList(),
-                WIPSubTotalFormSales = Convert.ToDecimal(newdata.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
-                WIPSubTotalAmtDone = Convert.ToDecimal(newdata.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
-                WIPSubTotalAmtLeft = Convert.ToDecimal(newdata.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(newdata.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
+                VWipReport = data.ToList(),
+                WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
+                WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
+                WIPSubTotalAmtLeft = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
 
             };
 

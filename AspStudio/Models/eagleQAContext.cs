@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EagleApp.Models
 {
-    public partial class eagledbContext : DbContext
+    public partial class eagleQAContext : DbContext
     {
-        public eagledbContext()
+        public eagleQAContext()
         {
         }
 
-        public eagledbContext(DbContextOptions<eagledbContext> options)
+        public eagleQAContext(DbContextOptions<eagleQAContext> options)
             : base(options)
         {
         }
@@ -58,7 +58,7 @@ namespace EagleApp.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=tcp:eagleappdbserver.database.windows.net,1433;Initial Catalog=eagledb;Persist Security Info=False;User ID=eagleadmin;Password=P@ssword#1;");
+                optionsBuilder.UseSqlServer("Server=tcp:eagleappdbserver.database.windows.net,1433;Initial Catalog=eagleQA;Persist Security Info=False;User ID=eagleadmin;Password=P@ssword#1;");
             }
         }
 
@@ -1693,12 +1693,6 @@ namespace EagleApp.Models
                 entity.Property(e => e.ClosedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.CollectedAmount).HasColumnType("money");
-
-                entity.Property(e => e.DateAddedStr)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.DaysWip).HasColumnName("DaysWIP");
 
                 entity.Property(e => e.DemoDoneDate).HasColumnType("datetime");
 

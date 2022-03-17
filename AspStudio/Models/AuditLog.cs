@@ -17,6 +17,6 @@ namespace EagleApp.Models
         public string Type { get; set; }
 
         public virtual JobLog JobLog { get; set; }
-      //  public virtual AspNetUser User { get; set; }
+        //public virtual AspNetUser User { get; set; }
     }
 }
