@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EagleApp.Helpers;
 using EagleApp.Models;
 using EagleApp.Service;
 using Microsoft.AspNetCore.Http;
@@ -26,14 +27,23 @@ namespace EagleApp.Controllers
         // GET: WIPController
         public ActionResult Index()
         {
-            var data = jblogService.GetWIPReportData(DateTime.Now.ToShortDateString()).ToList();
+            List<VWipReport> data = null;
+            data = jblogService.GetWIPReportData(null).ToList();
 
+            // var NoDuplicates =
+            var NoDuplicates = data
+                             .GroupBy(a => a.Id)
+                             .Select(g => g.OrderByDescending(a => a.DateAddedStr).First())
+                             .ToList();
+
+
+            // var NoDuplicates = data.Distinct(new JobLogComparer());
             var model = new WIPReportModel()
             {
-                VWipReport = data.ToList(),
-                WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
-                WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
-                WIPSubTotalAmtLeft = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
+                VWipReport = NoDuplicates.ToList(),
+                WIPSubTotalFormSales = Convert.ToDecimal(NoDuplicates.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
+                WIPSubTotalAmtDone = Convert.ToDecimal(NoDuplicates.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
+                WIPSubTotalAmtLeft = Convert.ToDecimal(NoDuplicates.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(NoDuplicates.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
              
             };
 
@@ -42,14 +52,28 @@ namespace EagleApp.Controllers
         [HttpPost]
         public ActionResult Index(WIPReportModel postModel)
         {
-            var data = jblogService.GetWIPReportData(postModel.PostDate.Value.ToShortDateString()).ToList();
+            List<VWipReport> data = null;
+            
+            if (postModel.PostDate != null) {
+                var dateToPost = postModel.PostDate.Value.AddHours(-7).ToShortDateString();
+                data = jblogService.GetWIPReportData(dateToPost).ToList();
+            }
+            else
+                data = jblogService.GetWIPReportData(null).ToList();
 
+           // var NoDuplicates = data.Distinct(new JobLogComparer());
+             var NoDuplicates = data
+                             .GroupBy(a => a.Id)
+                             .Select(g => g.OrderByDescending(a => a.DateAddedStr).First())
+                             .ToList();
+
+          
             var model = new WIPReportModel()
             {
-                VWipReport = data.ToList(),
-                WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
-                WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
-                WIPSubTotalAmtLeft = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
+                VWipReport = NoDuplicates.ToList(),
+                WIPSubTotalFormSales = Convert.ToDecimal(NoDuplicates.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
+                WIPSubTotalAmtDone = Convert.ToDecimal(NoDuplicates.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
+                WIPSubTotalAmtLeft = Convert.ToDecimal(NoDuplicates.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(NoDuplicates.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
 
             };
 

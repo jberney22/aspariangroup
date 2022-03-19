@@ -39,6 +39,6 @@ namespace EagleApp.Models
         public DateTime? DemoDoneDate { get; set; }
         public DateTime? Prep34Date { get; set; }
         public DateTime? RemovalDoneDate { get; set; }
-        public string DateAddedStr { get; set; }
+        public DateTime? DateAddedStr { get; set; }
     }
 }

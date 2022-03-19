@@ -60,12 +60,12 @@
 <div class="container">
 
     <div class="row" >
-        <div class="col-xl-10">
+        <div class="col-xl-12">
 				<!-- BEGIN row -->
 				<div class="row">
 					<!-- BEGIN col-6 -->
 					<div class="col-sm-4">
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-orange" style="min-height: 120px;">
+						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 120px;">
 								<!-- BEGIN card-img-overlay -->
 								<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
 									<img src="assets/img/icon/order.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
@@ -88,7 +88,7 @@
 					<!-- BEGIN col-6 -->
 					<div class="col-sm-4">
 						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-pink"  style="min-height: 120px;">
+						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue"  style="min-height: 120px;">
 							<!-- BEGIN card-img-overlay -->
 							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
 								<img src="assets/img/icon/email.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
@@ -113,7 +113,7 @@
                     <!-- BEGIN col-6 -->
 					<div class="col-sm-4">
 						<!-- BEGIN card -->
-						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-pink" style="min-height: 120px;">
+						<div class="card mb-3 overflow-hidden fs-13px border-0 bg-gradient-custom-blue" style="min-height: 120px;">
 							<!-- BEGIN card-img-overlay -->
 							<div class="card-img-overlay mb-n4 me-n4 d-flex" style="bottom: 0; top: auto;">
 								<img src="assets/img/icon/email.svg" alt="" class="ms-auto d-block mb-n3" style="max-height: 105px">
@@ -221,11 +221,11 @@
                                 </td>
                                 <td scope="col" class="col-1">@user.Department</td>
                                 <td scope="col">@user.Rep</td>
-                                @*<td scope="col">@user.ProjectOc</td>*@
+                                
                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.StartDate) </td>
                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
                                 <td scope="col">@user.Status</td>
-                                @*<td scope="col">@user.DaysWIP</td>*@
+                                <td scope="col">@user.DaysWip</td>
                                 <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
                                 <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
                                 <td scope="col">@user.PercentageDone</td>

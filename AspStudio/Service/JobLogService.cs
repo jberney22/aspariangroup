@@ -70,7 +70,7 @@ namespace EagleApp.Service
             return _context.VGetJobLog.OrderByDescending(o=>o.DateAdded).AsQueryable();
         }
 
-        internal IQueryable<VWipReport> GetWIPReportData(string date)
+        internal IQueryable<VWipReport> GetWIPReportData(string? date)
         {
             return _context.Set<VWipReport>().FromSqlRaw("exec dbo.sp_WipReport {0}", date);
         }

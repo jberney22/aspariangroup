@@ -73,7 +73,7 @@ namespace EagleApp.Controllers
         [HttpGet]
         public async Task<ActionResult<DataTableResponse>> GetAllJobLogs()
         {
-            var list = _jobLogService.GetAllJobLogs().Where(o => o.OpenDate != null).ToList();
+            var list = _jobLogService.GetAllJobLogs().ToList();
             var newList = list.Select(item =>
                  new JobLogDTO
                  {
