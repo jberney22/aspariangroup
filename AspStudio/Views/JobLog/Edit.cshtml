@@ -66,12 +66,20 @@
                 if (isChecked) {
                     $('#txtMobilization').removeAttr('readonly');
                     $('#dtMobilization').removeAttr('readonly');
+
+                     $('#txtMobilization').val('5');
+                     $('#dtMobilization').val(new Date().toLocaleDateString('en-CA'));
+                   
+                   // txtMobilization
+                   // dtMobilization
                 }
                 else {
 
 
                     $('#txtMobilization').attr('readonly', 'readonly');
                     $('#dtMobilization').attr('readonly', 'readonly');
+                     $('#txtMobilization').val('');
+                     $('#dtMobilization').val('');
 
                 }
 
@@ -95,11 +103,15 @@
 
                     $('#txtPrep14').removeAttr('readonly');
                     $('#dtPrep14').removeAttr('readonly');
+
+                     $('#txtPrep14').val('15');
+                     $('#dtPrep14').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtPrep14').attr('readonly', 'readonly');
                     $('#dtPrep14').attr('readonly', 'readonly');
-
+                      $('#txtPrep14').val('');
+                     $('#dtPrep14').val('');
                 }
 
             });
@@ -120,10 +132,16 @@
 
                     $('#txtPrep12').removeAttr('readonly');
                     $('#dtPrep12').removeAttr('readonly');
+
+                     $('#txtPrep12').val('15');
+                     $('#dtPrep12').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtPrep12').attr('readonly', 'readonly');
                     $('#dtPrep12').attr('readonly', 'readonly');
+
+                      $('#txtPrep12').val('');
+                     $('#dtPrep12').val('');
 
                 }
 
@@ -145,10 +163,16 @@
 
                     $('#txtPrep34').removeAttr('readonly');
                     $('#Prep34Date').removeAttr('readonly');
+
+                    $('#txtPrep34').val('15');
+                    $('#Prep34Date').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtPrep34').attr('readonly', 'readonly');
                     $('#Prep34Date').attr('readonly', 'readonly');
+
+                     $('#txtPrep34').val('');
+                     $('#Prep34Date').val('');
 
                 }
 
@@ -170,10 +194,14 @@
 
                     $('#txtPrepDone').removeAttr('readonly');
                     $('#dtPrepDone').removeAttr('readonly');
+                    $('#txtPrepDone').val('15');
+                    $('#dtPrepDone').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtPrepDone').attr('readonly', 'readonly');
                     $('#dtPrepDone').attr('readonly', 'readonly');
+                      $('#txtPrepDone').val('');
+                     $('#dtPrepDone').val('');
 
                 }
 
@@ -194,11 +222,14 @@
 
                     $('#txtRemoval12').removeAttr('readonly');
                     $('#dtRemoval12').removeAttr('readonly');
+                     $('#txtRemoval12').val('15');
+                    $('#dtRemoval12').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtRemoval12').attr('readonly', 'readonly');
                     $('#dtRemoval12').attr('readonly', 'readonly');
-
+                      $('#txtRemoval12').val('');
+                     $('#dtRemoval12').val('');
                 }
 
             });
@@ -218,10 +249,14 @@
 
                     $('#txtRemoval34').removeAttr('readonly');
                     $('#dtRemoval34').removeAttr('readonly');
+                    $('#txtRemoval34').val('15');
+                    $('#dtRemoval34').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtRemoval34').attr('readonly', 'readonly');
                     $('#dtRemoval34').attr('readonly', 'readonly');
+                    $('#txtRemoval34').val('');
+                    $('#dtRemoval34').val('');
 
                 }
 
@@ -242,10 +277,14 @@
 
                     $('#txtDemoDone').removeAttr('readonly');
                     $('#dtDemoDone').removeAttr('readonly');
+                    $('#txtDemoDone').val('15');
+                    $('#dtDemoDone').val(new Date().toLocaleDateString('en-CA'));
                 }
                 else {
                     $('#txtDemoDone').attr('readonly', 'readonly');
                     $('#dtDemoDone').attr('readonly', 'readonly');
+                     $('#txtDemoDone').val('');
+                    $('#dtDemoDone').val('');
 
                 }
 
@@ -291,18 +330,18 @@
 
              // Equipment  Return end
             // Total  Return
-            $('#chkBoxTotal').change(function () {
-                var isChecked = $(this).is(':checked');
+            //$('#chkBoxTotal').change(function () {
+            //    var isChecked = $(this).is(':checked');
 
-                if (isChecked) {
-                    $('#dtTotal').removeAttr('readonly');
-                }
-                else {
-                    $('#dtTotal').attr('readonly', 'readonly');
+            //    if (isChecked) {
+            //        $('#dtTotal').removeAttr('readonly');
+            //    }
+            //    else {
+            //        $('#dtTotal').attr('readonly', 'readonly');
 
-                }
+            //    }
 
-            });
+            //});
 
              // Total  Return end
 
@@ -334,7 +373,8 @@
         }
     </script>
 <div>
-    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index">Back to JobLog List</a>
+    <a class="btn btn-primary" asp-controller="WIP" asp-action="Index">Back to WIP Report</a>
     <a class="btn btn-primary" asp-all-route-data="@(new Dictionary<string, string> { { "joblogId", Context.Request.Query["id"].ToString() } })" asp-controller="AuditLog" asp-action="Index">Audit Log</a>
 </div>
 
@@ -1103,13 +1143,14 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Total %</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxTotal" asp-for="IsTotalComplete" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxTotal" asp-for="IsTotalComplete" />*@
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4">
                                                 <div class="form-group mb-3">
-                                                    @if (Model.IsTotalComplete)
+                                                    <input type="text" class="form-control" id="dtTotal" asp-for="TotalComplete" placeholder="Total % Complete" readonly />
+                                                    @*@if (Model.IsTotalComplete)
                                                     {
                                                         <input type="text" class="form-control" id="dtTotal" asp-for="TotalComplete" placeholder="Total % Complete" />
 
@@ -1117,7 +1158,7 @@
                                                     else
                                                     {
                                                         <input type="text" class="form-control" id="dtTotal" asp-for="TotalComplete" placeholder="Total % Complete" readonly />
-                                                    }
+                                                    }*@
 
                                                 </div>
                                             </div>

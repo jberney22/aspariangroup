@@ -1,6 +1,7 @@
 ﻿@model WIPReportModel
 @{
     ViewData["Title"] = "WIP Report";
+    TempData["ReferredUrl"] = "/WIP";
 }
 
 @section Scripts {
@@ -228,7 +229,7 @@
                                 <td scope="col">@user.DaysWip</td>
                                 <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
                                 <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
-                                <td scope="col">@user.PercentageDone</td>
+                                <td scope="col">@user.TotalComplete</td>
                                 <td scope="col">@user.Mobilization</td>
                                 <td scope="col">@user.Prep14</td>
                                 <td scope="col">@user.Prep12</td>

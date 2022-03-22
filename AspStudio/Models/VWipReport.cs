@@ -30,7 +30,7 @@ namespace EagleApp.Models
         public int? DemoDone { get; set; }
         public DateTime? InvReturnDate { get; set; }
         public DateTime? EquipReturnDate { get; set; }
-        public string TotalComplete { get; set; }
+        public int? TotalComplete { get; set; }
         public DateTime? MobilizationDate { get; set; }
         public DateTime? Prep14Date { get; set; }
         public DateTime? Prep12Date { get; set; }

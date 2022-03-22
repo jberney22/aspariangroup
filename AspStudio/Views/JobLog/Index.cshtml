@@ -2,6 +2,10 @@
 @using DataTables.AspNetCore.Mvc
 @model IQueryable<VGetJobLog>
 
+﻿@{
+   TempData["ReferredUrl"] = "/JobLog";
+}
+
 @section Scripts {
 
 
@@ -46,6 +50,7 @@
            
             var tableData = $('#example').DataTable({
                 processing: true,
+                 stateSave: true,
                 ordering: true,
                 paging: true,
                 searching: true,

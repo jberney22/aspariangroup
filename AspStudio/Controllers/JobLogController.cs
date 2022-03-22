@@ -25,6 +25,9 @@ namespace EagleApp.Controllers
         private readonly IMapper _mapper;
         private readonly StatusService _statusService;
 
+        private string ReferringUrl { get; set; }
+             
+
 
 
 
@@ -241,6 +244,8 @@ namespace EagleApp.Controllers
         // GET: JobLogController/Edit/5
         public async Task<ActionResult> EditAsync(int id)
         {
+
+            ReferringUrl = HttpContext.Request.Headers["Referer"];
             JobLog job = _jobLogService.GetJobLogbyId(id);
 
            //  job.MissedBy = job.MissedBy.Replace("%", "");
@@ -457,7 +462,19 @@ namespace EagleApp.Controllers
                     return View();
                     
                 }
-                return RedirectToAction(nameof(Index));
+
+                string url = TempData["ReferredUrl"].ToString();
+                switch (url)
+                {
+                    case "/JobLog":
+                        return RedirectToAction(nameof(Index));
+
+                    case "/WIP":
+                        return RedirectToAction(nameof(Index), "WIP");
+                }
+
+                //return Redirect(ReferringUrl);
+                return View();
 
             }
             catch

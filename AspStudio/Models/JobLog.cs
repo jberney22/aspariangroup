@@ -37,7 +37,7 @@ namespace EagleApp.Models
         public DateTime? PaidInFullDate { get; set; }
         public DateTime? CommPaidDate { get; set; }
         public string BidNumber { get; set; }
-        public bool? Rejected { get; set; }
+        public bool Rejected { get; set; }
         public DateTime? FinishDate { get; set; }
         public DateTime? InvoiceDate { get; set; }
         public DateTime? DateAdded { get; set; }

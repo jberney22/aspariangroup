@@ -27,6 +27,7 @@ namespace EagleApp.Controllers
         // GET: WIPController
         public ActionResult Index()
         {
+           
             List<VWipReport> data = null;
             data = jblogService.GetWIPReportData(null).ToList();
 
@@ -55,17 +56,23 @@ namespace EagleApp.Controllers
             List<VWipReport> data = null;
             
             if (postModel.PostDate != null) {
-                var dateToPost = postModel.PostDate.Value.AddHours(-7).ToShortDateString();
+#if DEBUG
+                var dateToPost = postModel.PostDate.Value.ToShortDateString();
                 data = jblogService.GetWIPReportData(dateToPost).ToList();
+#else
+                   var dateToPost = postModel.PostDate.Value.AddHours(-7).ToShortDateString();
+                data = jblogService.GetWIPReportData(dateToPost).ToList();
+#endif
+              
             }
             else
                 data = jblogService.GetWIPReportData(null).ToList();
 
-           // var NoDuplicates = data.Distinct(new JobLogComparer());
-             var NoDuplicates = data
-                             .GroupBy(a => a.Id)
-                             .Select(g => g.OrderByDescending(a => a.DateAddedStr).First())
-                             .ToList();
+            var NoDuplicates = data;
+             //var NoDuplicates = data
+             //                .GroupBy(a => a.Id)
+             //                .Select(g => g.OrderByDescending(a => a.DateAddedStr).First())
+             //                .ToList();
 
           
             var model = new WIPReportModel()

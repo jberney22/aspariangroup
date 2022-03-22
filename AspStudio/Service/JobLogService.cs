@@ -203,7 +203,7 @@ namespace EagleApp.Service
                 job.EquipReturnDate = jobLogModel.EquipReturnDate;
                 job.PercentageDone = jobLogModel.PercentageDone;
 
-                job.TotalComplete = jobLogModel.TotalComplete;
+                job.TotalComplete = CalculateTotalComplete(jobLogModel); //jobLogModel.TotalComplete;
 
                 _context.Update(job);
                // _context.Entry(oldProduct).CurrentValues.SetValues(jobLogModel);
@@ -242,6 +242,7 @@ namespace EagleApp.Service
                     Removal12Date = jobLogModel.Removal12Date,
                     Removal34 = jobLogModel.RemovalDone,
                     RemovalDoneDate = jobLogModel.RemovalDoneDate,
+                  
 
                 });
 
@@ -258,6 +259,23 @@ namespace EagleApp.Service
                 response.Sucess = false;
             }
             return response;
+        }
+
+        private int? CalculateTotalComplete(JobLog jobLogModel)
+        {
+            //  int totalComplete = 0;
+            var nums = new int?[] { jobLogModel.Mobilization,
+                        jobLogModel.Prep14,
+                        jobLogModel.Prep12,
+                        jobLogModel.Prep34,
+                        jobLogModel.PrepDone,
+                        jobLogModel.Removal12,
+                        jobLogModel.RemovalDone,
+                        jobLogModel.DemoDone };
+
+            var total = nums.Sum(i => i ?? 0);
+            return total;
+                        
         }
 
         internal async Task<JobLogResponse> DeleteJobLog(JobLog job)
