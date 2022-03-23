@@ -457,7 +457,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="exampleFormControlInput1">Client Name<span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="clientName" asp-for="ClientName" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="text" class="form-control" id="clientName" asp-for="ClientName" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="ClientName" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -466,7 +466,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="Department">Department <span class="required">*</span></label>
-                                                <select class="form-control" id="Department" asp-for="Department" asp-items="ViewBag.departments" asp-is-readonly="Model.CommPaidDate != null">
+                                                <select class="form-control" id="Department" asp-for="Department" asp-items="ViewBag.departments"  asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" >
                                                     <option selected>--- SELECT ---</option>
                                                 </select>
 
@@ -476,7 +476,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="Rep">Estimator <span class="required">*</span></label>
-                                                <select class="form-control" id="Department" asp-for="Rep" asp-items="ViewBag.Users" asp-is-readonly="Model.CommPaidDate != null">
+                                                <select class="form-control" id="Department" asp-for="Rep" asp-items="ViewBag.Users"  asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" >
                                                     <option selected>--- SELECT ---</option>
                                                 </select>
                                                 <span asp-validation-for="Rep" class="text-danger"></span>
@@ -488,7 +488,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="exampleFormControlSelect1">Project OC/AWA <span class="required">*</span></label>
-                                                <select class="form-control" id="ProjectOc" asp-for="ProjectOc" asp-items="ViewBag.ProjectOc" asp-is-readonly="Model.CommPaidDate != null">
+                                                <select class="form-control" id="ProjectOc" asp-for="ProjectOc" asp-items="ViewBag.ProjectOc" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )">
                                                     <option selected>--- SELECT ---</option>
                                                 </select>
 
@@ -500,7 +500,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="JobName">Job Name<span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="JobName" asp-for="JobName" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="text" class="form-control" id="JobName" asp-for="JobName" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="JobName" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -518,7 +518,8 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3" style="margin-top: 31px;text-align: center;">
                                                 <div class="form-group mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="defaultCheck1" asp-for="Rejected" asp-is-readonly="Model.CommPaidDate != null" />
+                                                 
+                                                    <input class="form-check-input" type="checkbox" id="defaultCheck1" asp-for="Rejected" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <label class="form-check-label" for="defaultCheck1">Is Rejected</label>
                                                 </div>
                                             </div>
@@ -542,7 +543,7 @@
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="exampleFormControlSelect1">Contact <span class="required">*</span></label>
 
-                                                <select class="form-control" id="Contact" asp-for="Contact" asp-items="ViewBag.Contact" asp-is-readonly="Model.CommPaidDate != null">
+                                                <select class="form-control" id="Contact" asp-for="Contact" asp-items="ViewBag.Contact" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )">
                                                     <option disabled selected>--- SELECT ---</option>
                                                 </select>
 
@@ -552,7 +553,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="exampleFormControlSelect2">Product Type <span class="required">*</span></label>
-                                                <select class="form-control" id="exampleFormControlSelect2" asp-for="ProductType" asp-items="ViewBag.ProductType" asp-is-readonly="Model.CommPaidDate != null">
+                                                <select class="form-control" id="exampleFormControlSelect2" asp-for="ProductType" asp-items="ViewBag.ProductType" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )">
                                                     <option value="" selected>-- Select --</option>
                                                 </select>
                                                 <span asp-validation-for="ProductType" class="text-danger"></span>
@@ -566,7 +567,7 @@
                                         <div class="col-xl-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label" for="exampleFormControlSelect1">Awarded To</label>
-                                                <select class="form-control" id="exampleFormControlSelect1" asp-for="AwardedTo" asp-items="ViewBag.AwardedTo" asp-is-readonly="Model.CommPaidDate != null">
+                                                <select class="form-control" id="exampleFormControlSelect1" asp-for="AwardedTo" asp-items="ViewBag.AwardedTo" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )">
                                                     <option value="" selected>-- Select --</option>
                                                 </select>
                                             </div>
@@ -578,7 +579,8 @@
 
                                                  <div class="input-icon">
                                                       <i>$</i>
-                                                    <input type="number" class="form-control" id="CompetitorPrice"   onkeypress="return onlyNumberKey(event)" asp-format="{0:0.00}"  asp-for="CompetitorPrice" asp-is-readonly="Model.CommPaidDate != null" />
+                                                       <input type="number" class="form-control" id="CompetitorPrice"  onkeypress="return onlyNumberKey(event)" asp-for="CompetitorPrice" asp-format="{0:0.00}" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
+                                                  @*  <input type="number" class="form-control" id="CompetitorPrice"   onkeypress="return onlyNumberKey(event)" asp-format="{0:0.00}"  asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )"  />*@
                                                     @*<span asp-validation-for="CompetitorPrice" class="text-danger"></span>*@
                                                 </div>
                                             </div>
@@ -589,7 +591,7 @@
                                                 <label class="form-label" for="EagleBidPrice">Eagle Bid Original Bid Price <span class="required">*</span></label>
                                                           <div class="input-icon">
                                                                 <i>$</i>
-                                                                 <input type="number" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                                 <input type="number" class="form-control" id="EagleBidPrice"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidPrice" asp-format="{0:0.00}" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                                  <span asp-validation-for="EagleBidPrice" class="text-danger"></span>
                                                             </div>
                                             </div>
@@ -601,7 +603,7 @@
                                                     <label class="form-label" for="EagleBidSales">Eagle Bid Form Sales <span class="required">*</span></label>
                                                     <div class="input-icon">
                                                           <i>$</i>
-                                                        <input type="text" class="form-control" id="EagleBidSales"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidSales" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <input type="text" class="form-control" id="EagleBidSales"  onkeypress="return onlyNumberKey(event)" asp-for="EagleBidSales" asp-format="{0:0.00}" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                         <span asp-validation-for="EagleBidSales"  class="text-danger"></span>
                                                     </div>
                                             </div>
@@ -611,7 +613,7 @@
                                                     <label class="form-label" for="CollectedAmount">Collected Amount <span class="required">*</span></label>
                                                     <div class="input-icon">
                                                           <i>$</i>
-                                                        <input type="text" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <input type="text" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                         <span asp-validation-for="CollectedAmount"  class="text-danger"></span>
                                                     </div>
                                             </div>
@@ -621,7 +623,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="MissedBy">% Missed By (Calculated)</label>
-                                                      <input type="number" step="any"  max="100"   class="form-control" id="MissedBy" asp-for="MissedByDecimal" asp-is-readonly="Model.CommPaidDate != null" />
+                                                      <input type="number" step="any"  max="100"   class="form-control" id="MissedBy" asp-for="MissedByDecimal" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     @*<span asp-validation-for="MissedByDecimal" class="text-danger"></span>*@
                                                 </div>
                                             </div>
@@ -631,7 +633,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="OpenDate">Open Date <span class="required">*</span></label>
-                                                    <input type="date" class="form-control" id="OpenDate" asp-for="OpenDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="OpenDate" asp-for="OpenDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="OpenDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -642,7 +644,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="AcceptedDate">Accepted Date </label>
-                                                    <input type="date" class="form-control" id="AcceptedDate" asp-for="AcceptedDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="AcceptedDate" asp-for="AcceptedDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="AcceptedDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -652,7 +654,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="StartDate">Start Date </label>
-                                                    <input type="date" class="form-control" id="StartDate" asp-for="StartDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="StartDate" asp-for="StartDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="StartDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -662,7 +664,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="FinishDate">Finish Date </label>
-                                                    <input type="date" class="form-control" id="FinishDate" asp-for="FinishDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="FinishDate" asp-for="FinishDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="FinishDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -672,7 +674,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="FinalInvoiceDate">Final Invoice Date </label>
-                                                    <input type="date" class="form-control" id="FinalInvoiceDate" asp-for="FinalInvoiceDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="FinalInvoiceDate" asp-for="FinalInvoiceDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="FinalInvoiceDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -682,7 +684,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="ClosedDate">Closeout Date </label>
-                                                    <input type="date" class="form-control" id="ClosedDate" asp-for="ClosedDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="ClosedDate" asp-for="ClosedDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="ClosedDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -692,7 +694,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="JeipmeetingDate">JEIP Meeting Date </label>
-                                                    <input type="date" class="form-control" id="JeipmeetingDate" asp-for="JeipmeetingDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="JeipmeetingDate" asp-for="JeipmeetingDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="JeipmeetingDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -702,7 +704,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="PaidInFullDate">Paid In Full Date </label>
-                                                    <input type="date" class="form-control" id="PaidInFullDate" asp-for="PaidInFullDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="PaidInFullDate" asp-for="PaidInFullDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="PaidInFullDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -712,7 +714,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="CommPaidDate">Comm Paid Date </label>
-                                                    <input type="date" class="form-control" id="CommPaidDate" asp-for="CommPaidDate" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="date" class="form-control" id="CommPaidDate" asp-for="CommPaidDate" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="CommPaidDate" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -726,7 +728,7 @@
                                                     <label class="form-label" for="CollectedAmount">Collected Amount</label>
                                                     <div class="input-icon">
                                                           <i>$</i>
-                                                        <input type="number" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="Model.CommPaidDate != null" />
+                                                        <input type="number" class="form-control" id="CollectedAmount"  onkeypress="return onlyNumberKey(event)" asp-for="CollectedAmount" asp-format="{0:0.00}" asp-is-readonly="@(Model.CommPaidDate != null &&  ViewBag.CurrentRole != "superuser")" />
                                                         <span asp-validation-for="CollectedAmount"  class="text-danger"></span>
                                                     </div>
                                             </div>
@@ -740,7 +742,7 @@
 
                         </div>
 
-                        @if (ViewBag.CurrentRole == "Estimator" || ViewBag.CurrentRole == "Admin")
+                        @if (ViewBag.CurrentRole == "Estimator" || ViewBag.CurrentRole == "Admin" || ViewBag.CurrentRole == "superuser")
                         {
 
 
@@ -756,7 +758,15 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Mobilization</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxMobilization" asp-for="IsCheckedMobilazation" />
+                                                         @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input" id="chkBoxMobilization" asp-for="IsCheckedMobilazation" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                              <input type="checkbox" class="form-check-input" id="chkBoxMobilization" asp-for="IsCheckedMobilazation" />
+                                                         }
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -798,7 +808,14 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Prep 1/4</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrep14" asp-for="IsCheckedPrep12" />
+                                                         @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input" id="chkBoxPrep14" asp-for="IsCheckedPrep14" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input" id="chkBoxPrep14" asp-for="IsCheckedPrep14" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -842,7 +859,15 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Prep 1/2</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrep12" asp-for="IsCheckedPrep14" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxPrep12" asp-for="IsCheckedPrep14" />*@
+                                                         @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input" id="chkBoxPrep12" asp-for="IsCheckedPrep12" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input" id="chkBoxPrep12" asp-for="IsCheckedPrep12" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -883,7 +908,16 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Prep 3/4</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrep34" asp-for="IsCheckedPrep34" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxPrep34" asp-for="IsCheckedPrep34" />*@
+
+                                                         @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input" id="chkBoxPrep34" asp-for="IsCheckedPrep34" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input" id="chkBoxPrep34" asp-for="IsCheckedPrep34" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -924,7 +958,16 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Prep Done</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxPrepDone" asp-for="IsPrepDone" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxPrepDone" asp-for="IsPrepDone" />*@
+
+                                                        @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input" id="chkBoxPrepDone" asp-for="IsPrepDone" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input" id="chkBoxPrepDone" asp-for="IsPrepDone" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -966,7 +1009,16 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Removal 1/2</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval12" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval12" />*@
+
+                                                        @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval12" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input" id="chkBoxRemoval12" asp-for="IsRemoval12" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -1008,7 +1060,16 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Removal 3/4</label>
-                                                        <input type="checkbox" class="form-check-input" asp-for="IsRemoval34" />
+                                                        @*<input type="checkbox" class="form-check-input" asp-for="IsRemoval34" />*@
+
+                                                        @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input"  asp-for="IsRemoval34" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input"  asp-for="IsRemoval34" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -1049,7 +1110,17 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Demo done</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxDemoDone" asp-for="IsDemoDone" />
+                                                       @* <input type="checkbox" class="form-check-input" id="chkBoxDemoDone" asp-for="IsDemoDone" />*@
+
+                                                         @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input"  id="chkBoxDemoDone"  asp-for="IsDemoDone" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input"  id="chkBoxDemoDone"  asp-for="IsDemoDone" />
+                                                         }
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -1090,7 +1161,16 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Inventory Return</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxInventory" asp-for="IsInvReturnDate" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxInventory" asp-for="IsInvReturnDate" />*@
+
+                                                        @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input"  id="chkBoxInventory"  asp-for="IsInvReturnDate" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input"  id="chkBoxInventory"  asp-for="IsInvReturnDate" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -1116,7 +1196,15 @@
                                                 <div class="form-group mb-3">
                                                     <div class="form-group mb-3">
                                                         <label class="form-check-label" for="exampleFormControlInput1">Equipment Return</label>
-                                                        <input type="checkbox" class="form-check-input" id="chkBoxEquipment" asp-for="IsEquipReturnDate" />
+                                                        @*<input type="checkbox" class="form-check-input" id="chkBoxEquipment" asp-for="IsEquipReturnDate" />*@
+                                                        @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
+                                                         {
+                                                            <input type="checkbox" class="form-check-input"  id="chkBoxEquipment"  asp-for="IsEquipReturnDate" disabled="disabled" />
+                                                         }
+                                                         else
+                                                         {
+                                                               <input type="checkbox" class="form-check-input"  id="chkBoxEquipment"  asp-for="IsEquipReturnDate" />
+                                                         }
                                                     </div>
                                                 </div>
                                             </div>
@@ -1181,7 +1269,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="project#">Project # <span class="required">*</span></label>
-                                                    <input type="text" class="form-control" id="project#" asp-for="ProjectNumber" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="text" class="form-control" id="project#" asp-for="ProjectNumber" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                     <span asp-validation-for="ProjectNumber" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -1191,7 +1279,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="exampleFormControlInput1">Job Folder Link</label>
-                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="JobFolderLink" asp-is-readonly="Model.CommPaidDate != null" />
+                                                    <input type="text" class="form-control" id="exampleFormControlInput1" asp-for="JobFolderLink" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )" />
                                                 </div>
                                             </div>
 
@@ -1211,7 +1299,7 @@
                                             <div class="form-group mb-3">
                                                 <div class="form-group mb-3">
                                                     <label class="form-label" for="exampleFormControlTextarea1">Notes</label>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" asp-for="Notes" asp-is-readonly="Model.CommPaidDate != null"></textarea>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" asp-for="Notes" asp-is-readonly="@(Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser" )"></textarea>
                                                 </div>
                                             </div>
 
@@ -1231,7 +1319,7 @@
                             <div class="col-xl-12">
                                 <div class="form-group mb-3">
                                     <div class="form-group">
-                                        @if (Model.CommPaidDate != null)
+                                        @if (Model.CommPaidDate != null && ViewBag.CurrentRole != "superuser")
                                         {
                                              <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLg" disabled >Save</button>
                                             @*<input type="submit" value="Save" class="btn btn-primary" disabled />*@

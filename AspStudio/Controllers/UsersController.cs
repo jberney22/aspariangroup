@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EagleApp.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,superuser")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
