@@ -101,7 +101,7 @@ namespace EagleApp.Service
 
 
             // get base- remove "rejected status" 
-            var baseData = _context.VDashboardData.Where(o => o.Status != "6").Where(o=>o.Status != "Rejected").Where(o => o.OpenDate!= null && o.Department != "VOID").ToList();
+            var baseData = _context.VDashboardData.Where(o=>o.Status == viewType).Where(o => o.OpenDate!= null && o.Department != "VOID").ToList();
             if(!string.IsNullOrEmpty(viewType) && !string.IsNullOrEmpty(viewDataType))
             {
                 #region OLD CODE

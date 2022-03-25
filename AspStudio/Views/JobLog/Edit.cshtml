@@ -42,6 +42,25 @@
                   return false;
                 }
              });
+             
+            var isChanged = false;
+            var isSubmit = false;
+            $('input,select,textarea').change(function() {
+              isChanged = true;
+            });
+
+            $(window).bind('beforeunload', function() { 
+              if (isChanged && !isSubmit) {
+                return 'You have changed the form, are you sure?';
+              } else {
+                return undefined;
+              }
+            });
+
+            $('#btnSavechanges').click(function() {
+              isSubmit = true;
+            });
+            
             
 
             BindControls();
@@ -1359,7 +1378,8 @@
           </div>
           <div class="modal-footer">
            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+          @*  <button type="submit" class="btn btn-primary">Save changes</button>*@
+            <button id="btnSavechanges" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
