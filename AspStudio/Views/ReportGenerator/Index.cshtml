@@ -1,0 +1,239 @@
+﻿@model WIPReportModel
+@{
+    ViewData["Title"] = "WIP Report";
+    TempData["ReferredUrl"] = "/WIP";
+}
+
+@section Scripts {
+    <link href="https://unpkg.com/bootstrap-table@1.19.1/dist/bootstrap-table.min.css" rel="stylesheet">
+    @*<link href="https://philippemarcmeyer.github.io/vanillaSelectBox/vanillaSelectBox.css" rel="stylesheet">*@
+
+    
+     <link href="~/lib/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <link href="~/css/multi-select.dist.css" rel="stylesheet" />
+    <script src="~/js~/js/jquery.multi-select.js"></script>
+
+    <link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+    @*<script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    @*<script src="https://philippemarcmeyer.github.io/vanillaSelectBox/vanillaSelectBox.js?v1.0.2"></script>*@
+     <script src="~/js/jquery.multi-select.js"></script>
+
+     <script type="text/javascript">
+        let result = [];
+      $("#btnSubmit").click(function (e) {
+        e.preventDefault();
+       
+        var postData = { values: result }; 
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Index", "ReportGenerator")",
+            data: postData, 
+            success: function (data) { 
+                alert(data); 
+            }, 
+            dataType: "json", 
+            traditional: true 
+        }); 
+    });
+
+      
+  // run callbacks
+      $('#example').multiSelect({
+        afterSelect: function(values){
+          //  alert("Select value: "+values);
+           result.push(values);
+         },
+        afterDeselect: function(values){
+
+            for (let i = 0; i < result.length; i++) {
+                if (result[i] == values[0] ) {
+                 result.pop();
+                 break;
+                }
+              }
+          //console.log(filteredArray);
+        }
+    });
+  </script>
+
+
+
+    <script>
+         $('#datepicker').datepicker({
+            autoclose: true
+        });
+        var $table = $('#table')
+
+      
+
+        $(function () {
+            $table.bootstrapTable('destroy').bootstrapTable({
+                exportDataType: $(this).val(),
+                exportTypes: ['csv', 'excel'],
+               
+            })
+        })
+    </script>
+    <style>
+         table {
+              overflow-x: auto;
+        }
+
+         table > * > tr > th:first-child,
+         table > * > tr > td:first-child {
+              position: sticky;
+                left: 0;
+                z-index: 2;
+                background-color: lightgrey;
+        }
+    </style>
+}
+
+
+
+<h1 class="page-header mb-3">
+    Hi, @User.Identity.Name.
+</h1>
+
+
+ <form method="post" enctype="multipart/form-data" asp-controller="ReportGenerator" asp-action="Index" style="margin-top: 1rem;">
+    <div class="container">
+
+        <div class="row" >
+            <div class="col-xl-12">
+				    <!-- BEGIN row -->
+				    <div class="row">
+					    <!-- BEGIN col-6 -->
+					   <div class="col-xl-6">
+						<div class="form-group mb-3">
+                            <label class="form-label" for="exampleFormControlInput1">Estimator</label>
+                            <input type="text" class="form-control" asp-for="Estimator" name="Estimator"  placeholder="name@example.com">
+                        </div>
+					   </div>
+
+                       <div class="col-xl-6">
+						<div class="form-group mb-3">
+                            <label class="form-label" for="exampleFormControlInput1">Department</label>
+                            <input type="text" class="form-control" asp-for="Department" name="Department" placeholder="name@example.com">
+                        </div>
+					   </div>
+
+                        <div class="col-xl-6">
+						    <div class="form-group mb-3">
+                                <strong>Select Start Date Range</strong>
+                                <div class="input-group input-daterange" id="datepicker">
+                                    <input type="text" class="form-control" asp-for="StartDate" name="StartDate" placeholder="start date" />
+                                    <span class="input-group-text">to</span>
+                                    <input type="text" class="form-control" asp-for="EndDate" name="EndDate" placeholder="end date" />
+                                </div>
+                            </div>
+					    </div>
+
+                        <div class="col-xl-6">
+						    <div class="form-group mb-3">
+                                <label class="form-label" for="exampleFormControlInput1">Project</label>
+                                <input type="text" class="form-control" asp-for="ProjectOc" name="ProjectOc" placeholder="name@example.com">
+                            </div>
+					    </div>
+                        
+                          <input type="submit" value="Execute" class="btn btn-primary" />  
+					    <!-- END col-6 -->
+				    </div>
+				    <!-- END row -->
+			    </div>
+        </div>
+   
+    </div>
+</form>
+
+
+<div class="row">
+    <!-- BEGIN col-6 -->
+    <!-- END col-6 -->
+    <!-- BEGIN col-6 -->
+    <div class="col-xl-12">
+        <!-- BEGIN card -->
+        <!-- END card -->
+        <div id="bootstrapTable" class="mb-5">
+            <h4>WIP</h4>
+
+            <div class="card">
+                <div class="card-body">
+                    <table id="table" class="table-sm table-striped"
+                           data-page-size="100"
+                           data-search="true"
+                           data-toggle="table"
+                           data-pagination="true"
+                           data-height="500"
+                           data-show-export="true"
+                           data-show-columns="true"
+                           data-sortable="true">
+                        <thead>
+                              <tr>
+                                <th scope="col" data-sortable="true">Project#:Job:Client</th>
+                                <th scope="col" data-sortable="true">Department</th>
+                                <th scope="col" data-sortable="true">Rep</th>
+                                <th scope="col" data-sortable="true">Start Date</th>
+                                <th scope="col" data-sortable="true">Scheduled Finish Date</th>
+                                <th scope="col" data-sortable="true">Status</th>
+                                <th scope="col" data-sortable="true">Days in WIP</th>
+                                <th scope="col" data-sortable="true">Eagle Bid Form Sales</th>
+                                <th scope="col" data-sortable="true">Amount Done</th>
+                                <th scope="col" data-sortable="true">% Done</th>
+                                <th scope="col" data-sortable="true">5% Mobilization</th>
+                                <th scope="col" data-sortable="true">15% Prep 1/4</th>
+                                <th scope="col" data-sortable="true">15% Prep 1/2</th>
+                                <th scope="col" data-sortable="true">15% Prep 3/4</th>
+                                <th scope="col" data-sortable="true">15% Prep Done</th>
+                                <th scope="col" data-sortable="true">15% Removal 1/2</th>
+                                <th scope="col" data-sortable="true">15% Removal 3/4</th>
+                                <th scope="col" data-sortable="true">5% Done</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var user in Model.VWipReport)
+                            {
+                            <tr>
+                                 <td scope="col" title="@user.ProjectNumber">
+                                    <a href="/JobLog/Edit?id=@user.Id"> @String.Format("{0} ...", user.ProjectNumber.Substring(0,20))</a>
+                                </td>
+                                <td scope="col" class="col-1">@user.Department</td>
+                                <td scope="col">@user.Rep</td>
+                                
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.StartDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
+                                <td scope="col">@user.Status</td>
+                                <td scope="col">@user.DaysWip</td>
+                                <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
+                                <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
+                                <td scope="col">@user.TotalComplete</td>
+                                <td scope="col">@user.Mobilization</td>
+                                <td scope="col">@user.Prep14</td>
+                                <td scope="col">@user.Prep12</td>
+                                <td scope="col">@user.Prep13</td>
+                                <td scope="col">@user.PrepDone</td>
+                                <td scope="col">@user.Removal12</td>
+                                <td scope="col">@user.Removal34</td>
+                                <td scope="col">@user.DemoDone</td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                     <div>
+               
+
+            </div>
+        </div>
+    </div>
+    <!-- END col-6 -->
+</div>
+<!-- END row -->

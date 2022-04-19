@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Newtonsoft.Json;
+using Microsoft.Data.SqlClient;
+using System.Linq.Expressions;
 
 namespace EagleApp.Service
 {
@@ -62,6 +64,69 @@ namespace EagleApp.Service
             }
             response.JobLog = jobLogModel;
             return response;
+        }
+
+        internal IQueryable<VWipReport> GetDataByDynamic(WIPReportModel model)
+        {
+            //string csv = String.Join(",", model.Values.Select(x => x.ToString()).ToArray());
+            //var result = _context.VGetJobLog.Select(EagleApp.Helpers.Helpers.DynamicSelectGenerator<VGetJobLog>(csv)).ToList();
+            //return result;
+
+            var data = _context.Set<VWipReport>().FromSqlRaw("exec dbo.usp_GeneratedReport").AsEnumerable();
+            if(!string.IsNullOrEmpty(model.Department))
+            {
+                data = data.Where(o=> o.Department.ToLower().Contains(model.Department.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(model.Estimator))
+            {
+                data = data.Where(o => o.Rep.ToLower().Contains(model.Estimator.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(model.ProjectOc))
+            {
+                data = data.Where(o => o.ProjectNumber.ToLower().Contains(model.ProjectOc.ToLower()));
+            }
+
+#if DEBUG
+            if (model.StartDate != null && model.EndDate != null)
+            {
+                data = data.Where(o => o.StartDate >= model.StartDate && o.StartDate <= model.EndDate);
+            }
+#else
+              if (model.StartDate != null && model.EndDate != null)
+              {
+                data = data.Where(o => o.StartDate.AddHours(-7) >= model.StartDate.AddHours(-7) && o.StartDate.AddHours(-7) <= model.EndDate.AddHours(-7));
+              }
+#endif
+
+
+            return data.AsQueryable();
+        }
+
+        
+
+        public List<string> GetDataColumns()
+        {
+            List<string> columnsList = new List<string>();
+            var sql = @"SELECT COLUMN_NAME 
+                        FROM information_schema.columns 
+                        WHERE table_name = 'v_GetJobLogs' AND COLUMN_NAME <> 'Id'";
+
+            _context.Database.ExecuteSqlRaw(sql);
+
+            using SqlConnection myCon = new SqlConnection(_context.Database.GetConnectionString());
+            myCon.Open();
+            using SqlCommand myCommand = new SqlCommand(sql, myCon);
+            using SqlDataReader rdr = myCommand.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                columnsList.Add(Convert.ToString(rdr["COLUMN_NAME"]));
+            }
+
+            return columnsList;
+
         }
 
         internal IQueryable<VGetJobLog> GetAllJobLogs()

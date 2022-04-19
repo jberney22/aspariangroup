@@ -55,6 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Shared\_LoginPartial.cshtml" />
     <Content Remove="wwwroot\lib\bootstrap-slider\dependencies\js\highlight.min.js" />
     <Content Remove="wwwroot\lib\bootstrap-slider\dependencies\css\highlightjs-github-theme.css" />
     <Content Remove="wwwroot\lib\bootstrap-slider\dependencies\js\jquery.min.js" />

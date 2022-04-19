@@ -18,5 +18,20 @@ namespace EagleApp.Models
         public List<JobLog2> JobLog2s { get; set; }
         public List<VWipReport> VWipReport { get; set; }
         public DateTime? PostDate { get; set; }
+
+        public string Department { get; set; }
+        public string ProjectOc { get; set; }
+        public string Estimator { get; set; }
+
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+
+    }
+
+   
+
+    public class ListValues {
+        public List<string> Values { get; set; }
     }
 }

@@ -61,14 +61,7 @@ namespace EagleApp.Service
             auditCompareModel.OldModel.Status = statusNameOld != null ? statusNameOld.Status : string.Empty;
             auditCompareModel.NewModel.Status = statusNameNew != null ? statusNameNew.Status : string.Empty;
 
-            //auditCompareModel.OldModel.ProjectOc = projectOldVal != null ? projectOldVal.Ocawaname : string.Empty; // projectOldVal.Ocawaname;
-            //auditCompareModel.NewModel.ProjectOc = projectNewVal != null ? projectNewVal.Ocawaname : string.Empty;  //projectNewVal.Ocawaname;
-
-            //auditCompareModel.OldModel.Department = deptOldVal != null ? deptOldVal.Name : string.Empty;
-            //auditCompareModel.NewModel.Department = deptNewVal != null ? deptNewVal.Name : string.Empty;
-
-            //auditCompareModel.OldModel.Contact = contactOldVal != null ? contactOldVal.Type : string.Empty;
-            //auditCompareModel.NewModel.Contact = contactNewVal != null ? contactNewVal.Type : string.Empty;
+         
             return auditCompareModel;
         }
 
