@@ -88,16 +88,19 @@ namespace EagleApp.Service
                 data = data.Where(o => o.ProjectNumber.ToLower().Contains(model.ProjectOc.ToLower()));
             }
 
+            
+
+
 #if DEBUG
             if (model.StartDate != null && model.EndDate != null)
             {
                 data = data.Where(o => o.StartDate >= model.StartDate && o.StartDate <= model.EndDate);
             }
 #else
-              if (model.StartDate != null && model.EndDate != null)
-              {
-                data = data.Where(o => o.StartDate.AddHours(-7) >= model.StartDate.AddHours(-7) && o.StartDate.AddHours(-7) <= model.EndDate.AddHours(-7));
-              }
+             if (model.StartDate != null && model.EndDate != null)
+             {
+                data = data.Where(o => o.StartDate.Value.AddHours(-7) >= model.StartDate.Value.AddHours(-7) && o.StartDate.Value.AddHours(-7) <= model.EndDate.Value.AddHours(-7));
+             }
 #endif
 
 
