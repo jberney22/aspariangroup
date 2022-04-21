@@ -200,7 +200,9 @@ namespace EagleApp.Service
                 if (jobLogModel.PaidInFullDate != null) jobLogModel.Status = "Paid in Full";
                 if (jobLogModel.CommPaidDate != null) jobLogModel.Status = "Comm Paid";
 
-               // jobLogModel.ProjectOc = GetAllProjectOC().FirstOrDefault(obj => obj.Project)
+                if (jobLogModel.Rejected) jobLogModel.Status = "Rejected";
+
+                // jobLogModel.ProjectOc = GetAllProjectOC().FirstOrDefault(obj => obj.Project)
                 jobLogModel.Status = GetJobStatusIdByName(jobLogModel.Status);
                 jobLogModel.DateModified = DateTime.Now;
                 var job = await _context.JobLog.FindAsync(jobLogModel.Id);

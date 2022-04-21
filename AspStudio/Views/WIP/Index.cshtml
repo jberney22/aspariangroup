@@ -234,13 +234,13 @@
                                 <td scope="col">@user.TotalComplete</td>
                                  @*<td scope="col">@user.Mobilization</td>*@
                                 <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0.0"+user.Mobilization))</td>
-                                <td scope="col">@user.Prep14</td>
-                                <td scope="col">@user.Prep12</td>
-                                <td scope="col">@user.Prep13</td>
-                                <td scope="col">@user.PrepDone</td>
-                                <td scope="col">@user.Removal12</td>
-                                <td scope="col">@user.Removal34</td>
-                                <td scope="col">@user.DemoDone</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep14))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep12))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep13))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.PrepDone))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Removal12))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Removal34))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0.0"+user.DemoDone))</td>
                             </tr>
                             }
 
