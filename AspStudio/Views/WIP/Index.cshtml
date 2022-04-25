@@ -231,8 +231,9 @@
                                 <td scope="col">@user.DaysWip</td>
                                 <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
                                 <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
-                                <td scope="col">@user.TotalComplete</td>
-                                 @*<td scope="col">@user.Mobilization</td>*@
+                               @* <td scope="col">@String.Format("{0:P1}", Convert.ToDouble(user.TotalComplete))</td>*@
+                                 @*<td scope="col">@user.TotalComplete</td>*@
+                                <td scope="col">@String.Format("{0}.0%", user.TotalComplete)</td>
                                 <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0.0"+user.Mobilization))</td>
                                 <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep14))</td>
                                 <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep12))</td>

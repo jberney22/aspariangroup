@@ -80,7 +80,9 @@ namespace EagleApp.Service
 
             if (!string.IsNullOrEmpty(model.Estimator))
             {
-                data = data.Where(o => o.Rep.ToLower().Contains(model.Estimator.ToLower()));
+                data = data.Where(i => i.Rep != null)
+                           .Where(o => o.Rep.ToLower().Contains(model.Estimator.ToLower()));
+
             }
 
             if (!string.IsNullOrEmpty(model.ProjectOc))
