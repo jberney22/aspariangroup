@@ -113,20 +113,20 @@
 					   <div class="col-xl-6">
 						<div class="form-group mb-3">
                             <label class="form-label" for="exampleFormControlInput1">Estimator</label>
-                            <input type="text" class="form-control" asp-for="Estimator" name="Estimator"  placeholder="name@example.com">
+                            <input type="text" class="form-control" asp-for="Estimator" name="Estimator"  placeholder="John Smith">
                         </div>
 					   </div>
 
                        <div class="col-xl-6">
 						<div class="form-group mb-3">
                             <label class="form-label" for="exampleFormControlInput1">Department</label>
-                            <input type="text" class="form-control" asp-for="Department" name="Department" placeholder="name@example.com">
+                            <input type="text" class="form-control" asp-for="Department" name="Department" placeholder="PRIDE  ">
                         </div>
 					   </div>
 
                         <div class="col-xl-6">
 						    <div class="form-group mb-3">
-                                <strong>Select Start Date Range</strong>
+                               <label class="form-label" for="exampleFormControlInput1">Start Date(s)</label>
                                 <div class="input-group input-daterange" id="datepicker">
                                     <input type="text" class="form-control" asp-for="StartDate" name="StartDate" placeholder="start date" />
                                     <span class="input-group-text">to</span>
@@ -137,8 +137,74 @@
 
                         <div class="col-xl-6">
 						    <div class="form-group mb-3">
+                               <label class="form-label" for="exampleFormControlInput1">Open Date(s)</label>
+                                <div class="input-group input-daterange" id="datepicker">
+                                    <input type="text" class="form-control" asp-for="OpenDtStart" name="OpenDtStart" placeholder="start date" />
+                                    <span class="input-group-text">to</span>
+                                    <input type="text" class="form-control" asp-for="OpenDtEnd" name="OpenDtEnd" placeholder="end date" />
+                                </div>
+                            </div>
+					    </div>
+
+                        <div class="col-xl-6">
+						    <div class="form-group mb-3">
+                               <label class="form-label" for="exampleFormControlInput1">Finish Date(s)</label>
+                                <div class="input-group input-daterange" id="datepicker">
+                                    <input type="text" class="form-control" asp-for="FinishDtStart" name="FinishDStart" placeholder="start date" />
+                                    <span class="input-group-text">to</span>
+                                    <input type="text" class="form-control" asp-for="FinishDtEnd" name="FinishDtEnd" placeholder="end date" />
+                                </div>
+                            </div>
+					    </div>
+
+                       <div class="col-xl-6">
+						<div class="form-group mb-3">
+                            <label class="form-label" for="exampleFormControlInput1">Customer Name</label>
+                            <input type="text" class="form-control" asp-for="CustomerName" name="CustomerName" placeholder="Utah State University">
+                        </div>
+					   </div>
+
+                        <div class="col-xl-6">
+						    <div class="form-group mb-3">
                                 <label class="form-label" for="exampleFormControlInput1">Project</label>
-                                <input type="text" class="form-control" asp-for="ProjectOc" name="ProjectOc" placeholder="name@example.com">
+                                <input type="text" class="form-control" asp-for="ProjectOc" name="ProjectOc" placeholder="22759-TM : Huntsman Cancer Fireproofing Removal : Layton Construction">
+                            </div>
+					    </div>
+
+                         <div class="col-xl-6">
+						    <div class="form-group mb-3">
+                                <label class="form-label" for="exampleFormControlInput1">Status</label>
+                                @*<input type="text" class="form-control" asp-for="Status" name="Status" >*@
+                                <select class="form-control"  asp-for="Status">
+                                    <option value="">-- Select --</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Closed">Closed</option>
+                                    <option value="Comm Paid">Comm Paid</option>
+                                    <option value="Finished">Finished</option>
+
+                                    <option value="Accepted">Accepted</option>
+                                    <option value="Rejected">Rejected</option>
+                                    <option value="Invoiced">Invoiced</option>
+                                    <option value="Unapplied">Unapplied</option>
+
+                                    <option value="Done">Done</option>
+                                    <option value="Started">Started</option>
+                                    <option value="JEIP">JEIP</option>
+                                    <option value="Paid in Full">Paid in Full</option>
+                                </select>
+                            </div>
+					    </div>
+
+                          <div class="col-xl-6">
+						    <div class="form-group mb-3">
+                                <label class="form-label" for="exampleFormControlInput1">Contact Type</label>
+                               @* <input type="text" class="form-control" asp-for="ContactType" name="ContactType" >*@
+
+                                 <select class="form-control"  asp-for="ContactType">
+                                    <option value="">-- Select --</option>
+                                    <option value="Existing Client">Existing Client</option>
+                                    <option value="New Client">New Client</option>
+                                </select>
                             </div>
 					    </div>
                         
@@ -181,6 +247,7 @@
                                 <th scope="col" data-sortable="true">Rep</th>
                                 <th scope="col" data-sortable="true">Start Date</th>
                                 <th scope="col" data-sortable="true">Scheduled Finish Date</th>
+                                 <th scope="col" data-sortable="true">Open Date</th>
                                 <th scope="col" data-sortable="true">Status</th>
                                 <th scope="col" data-sortable="true">Days in WIP</th>
                                 <th scope="col" data-sortable="true">Eagle Bid Form Sales</th>
@@ -194,6 +261,11 @@
                                 <th scope="col" data-sortable="true">15% Removal 1/2</th>
                                 <th scope="col" data-sortable="true">15% Removal 3/4</th>
                                 <th scope="col" data-sortable="true">5% Done</th>
+                                 
+                                  <th scope="col" data-sortable="true">Customer Name</th>
+                                   <th scope="col" data-sortable="true">Customer Date Created</th>
+                                    <th scope="col" data-sortable="true">Contact Type</th>
+                                    <th scope="col" data-sortable="true">Contact Date Created</th>
 
                             </tr>
                         </thead>
@@ -210,6 +282,7 @@
                                 
                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.StartDate) </td>
                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
+                                 <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.OpenDate) </td>
                                 <td scope="col">@user.Status</td>
                                 <td scope="col">@user.DaysWip</td>
                                 <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
@@ -223,6 +296,10 @@
                                 <td scope="col">@user.Removal12</td>
                                 <td scope="col">@user.Removal34</td>
                                 <td scope="col">@user.DemoDone</td>
+                                  <td scope="col">@user.CustomerName</td>
+                                  <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.CustomerDateCreated) </td>
+                                   <td scope="col">@user.ContactType</td>
+                                  <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.ContactTypeDateCreated) </td>
                             </tr>
                             }
 

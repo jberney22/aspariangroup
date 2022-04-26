@@ -25,6 +25,20 @@ namespace EagleApp.Models
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? FinishDtStart { get; set; }
+        public DateTime? FinishDtEnd { get; set; }
+
+        public DateTime? OpenDtStart { get; set; }
+        public DateTime? OpenDtEnd { get; set; }
+
+        public string? CustomerName { get;set; }
+        public DateTime? CustomerDateCreated { get; set; }
+        public string? ContactType { get; set; }
+
+        public DateTime? ContactTypeDateCreated { get; set; }
+
+        public string? Status { get; set; }
+      
 
 
     }

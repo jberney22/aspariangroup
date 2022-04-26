@@ -40,5 +40,13 @@ namespace EagleApp.Models
         public DateTime? Prep34Date { get; set; }
         public DateTime? RemovalDoneDate { get; set; }
         public DateTime? DateAddedStr { get; set; }
+
+        public string? CustomerName { get; set; }
+        public DateTime? CustomerDateCreated { get; set; }
+
+        public string? ContactType { get; set; }
+        public DateTime? ContactTypeDateCreated { get; set; }
+
+       
     }
 }

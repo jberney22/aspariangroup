@@ -38,8 +38,8 @@ namespace EagleApp.Controllers
 
 
 
-            List<VWipReport> data = null;
-            data = jblogService.GetWIPReportData(null).ToList();
+           // List<VWipReport> data = null;
+           var  data = jblogService.GetDataByDynamic(new WIPReportModel()).ToList();
 
             // var NoDuplicates =
             var NoDuplicates = data
