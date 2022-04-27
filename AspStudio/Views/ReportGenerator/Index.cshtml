@@ -24,55 +24,22 @@
     @*<script src="https://philippemarcmeyer.github.io/vanillaSelectBox/vanillaSelectBox.js?v1.0.2"></script>*@
      <script src="~/js/jquery.multi-select.js"></script>
 
-     <script type="text/javascript">
-        let result = [];
-      $("#btnSubmit").click(function (e) {
-        e.preventDefault();
-       
-        var postData = { values: result }; 
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("Index", "ReportGenerator")",
-            data: postData, 
-            success: function (data) { 
-                alert(data); 
-            }, 
-            dataType: "json", 
-            traditional: true 
-        }); 
-    });
-
-      
-  // run callbacks
-      $('#example').multiSelect({
-        afterSelect: function(values){
-          //  alert("Select value: "+values);
-           result.push(values);
-         },
-        afterDeselect: function(values){
-
-            for (let i = 0; i < result.length; i++) {
-                if (result[i] == values[0] ) {
-                 result.pop();
-                 break;
-                }
-              }
-          //console.log(filteredArray);
-        }
-    });
-  </script>
-
-
 
     <script>
-         $('#datepicker').datepicker({
-            autoclose: true
-        });
-        var $table = $('#table')
-
-      
 
         $(function () {
+           var $table = $('#table')
+
+           $('#datepicker').datepicker({
+            autoclose: true
+           });
+      
+
+            $(".kot").click(function(){
+                 $("#slide6").toggle("slow");
+                // $(".kot").text('hide');
+            }); 
+
             $table.bootstrapTable('destroy').bootstrapTable({
                 exportDataType: $(this).val(),
                 exportTypes: ['csv', 'excel'],
@@ -95,13 +62,10 @@
     </style>
 }
 
-
-
-<h1 class="page-header mb-3">
-    Hi, @User.Identity.Name.
-</h1>
-
-
+<div id="slide5" >
+    <div class="kot"> Hide / Show </div>
+</div>
+<div id="slide6" >
  <form method="post" enctype="multipart/form-data" asp-controller="ReportGenerator" asp-action="Index" style="margin-top: 1rem;">
     <div class="container">
 
@@ -217,9 +181,9 @@
    
     </div>
 </form>
+</div>
 
-
-<div class="row">
+<div class="row" style="margin-top:2rem;">
     <!-- BEGIN col-6 -->
     <!-- END col-6 -->
     <!-- BEGIN col-6 -->
@@ -227,8 +191,6 @@
         <!-- BEGIN card -->
         <!-- END card -->
         <div id="bootstrapTable" class="mb-5">
-            <h4>WIP</h4>
-
             <div class="card">
                 <div class="card-body">
                     <table id="table" class="table-sm table-striped"
@@ -236,7 +198,7 @@
                            data-search="true"
                            data-toggle="table"
                            data-pagination="true"
-                           data-height="500"
+                          
                            data-show-export="true"
                            data-show-columns="true"
                            data-sortable="true">
