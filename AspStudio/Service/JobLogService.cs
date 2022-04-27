@@ -124,24 +124,28 @@ namespace EagleApp.Service
             {
                 data = data.Where(o => o.OpenDate >= model.OpenDtStart && o.OpenDate <= model.OpenDtEnd);
             }
+
+
 #else
              if (model.StartDate != null && model.EndDate != null)
              {
                 data = data.Where(o => o.StartDate.Value.AddHours(-7) >= model.StartDate.Value.AddHours(-7) && o.StartDate.Value.AddHours(-7) <= model.EndDate.Value.AddHours(-7));
              }
 
-             // Fisnish Date
+            
+            // Fisnish Date
             if (model.FinishDtStart != null && model.FinishDtEnd != null)
             {
-                data = data.Where(o => o.FinishDate.Value.AddHours(-7) >= model.FinishDate.Value.AddHours(-7) && o.FinishDate.Value.AddHours(-7) <= model.FinishDate.Value.AddHours(-7));
+                data = data.Where(o => o.FinishDate.Value.AddHours(-7) >= model.FinishDtStart.Value.AddHours(-7) && o.FinishDate.Value.AddHours(-7) <= model.FinishDtEnd.Value.AddHours(-7));
             }
 
             // Open Date
             if (model.OpenDtStart != null && model.OpenDtEnd != null)
             {
-                data = data.Where(o => o.OpenDate.Value.AddHours(-7) >= model.OpenDate.Value.AddHours(-7) && o.OpenDate.Value.AddHours(-7) <= model.OpenDate.Value.AddHours(-7));
+                data = data.Where(o => o.OpenDate.Value.AddHours(-7) >= model.OpenDtStart.Value.AddHours(-7) && o.OpenDate.Value.AddHours(-7) <= model.OpenDtEnd.Value.AddHours(-7));
             }
 #endif
+
 
 
             return data.AsQueryable();
