@@ -68,20 +68,24 @@ namespace EagleApp.Service
 
         internal IQueryable<VWipReport> GetDataByDynamic(WIPReportModel model)
         {
-            //string csv = String.Join(",", model.Values.Select(x => x.ToString()).ToArray());
-            //var result = _context.VGetJobLog.Select(EagleApp.Helpers.Helpers.DynamicSelectGenerator<VGetJobLog>(csv)).ToList();
-            //return result;
+            
 
             var data = _context.Set<VWipReport>().FromSqlRaw("exec dbo.usp_GeneratedReport").AsEnumerable();
             if(!string.IsNullOrEmpty(model.Department))
             {
-                data = data.Where(o=> o.Department.ToLower().Contains(model.Department.ToLower()));
+                if(model.Department != "--- SELECT ---")
+                {
+                   data = data.Where(o=> o.Department.ToLower().Contains(model.Department.ToLower()));
+                }
             }
 
             if (!string.IsNullOrEmpty(model.Estimator))
             {
-                data = data.Where(i => i.Rep != null)
-                           .Where(o => o.Rep.ToLower().Contains(model.Estimator.ToLower()));
+                if (model.Estimator != "--- SELECT ---")
+                {
+                    data = data.Where(i => i.Rep != null)
+                            .Where(o => o.Rep.ToLower().Contains(model.Estimator.ToLower()));
+                }
 
             }
 

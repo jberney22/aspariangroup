@@ -41,7 +41,23 @@ namespace EagleApp.Controllers
            // List<VWipReport> data = null;
            var  data = jblogService.GetDataByDynamic(new WIPReportModel()).ToList();
 
-            // var NoDuplicates =
+            ViewBag.Estimator = data.Where(o=>o.Rep != null)
+                                    .GroupBy(a => a.Rep)
+                                    .Select(g => new SelectListItem
+                                    {
+                                        Value = g.Key.ToString(),
+                                        Text = g.Key.ToString()
+                                    }).ToList();
+
+            ViewBag.Departments = data.Where(o => o.Department != null)
+                                  .GroupBy(a => a.Department)
+                                  .Select(g => new SelectListItem
+                                  {
+                                      Value = g.Key.ToString(),
+                                      Text = g.Key.ToString()
+                                  }).ToList();
+
+
             var NoDuplicates = data
                              .GroupBy(a => a.Id)
                              .Select(g => g.OrderByDescending(a => a.DateAddedStr).First())
@@ -64,15 +80,27 @@ namespace EagleApp.Controllers
         [HttpPost]
         public IActionResult Index(WIPReportModel model)
         {
+            
             var data = jblogService.GetDataByDynamic(model);
-            //var model1 = new WIPReportModel()
-            //{
-            //    VWipReport = data.ToList(),
-            //    WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)),
-            //    WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone)),
-            //    WIPSubTotalAmtLeft = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales)) - Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone))
 
-            //};
+            var dataColumns = jblogService.GetDataByDynamic(new WIPReportModel()).ToList();
+
+              ViewBag.Estimator = dataColumns.Where(o=>o.Rep != null)
+                                    .GroupBy(a => a.Rep)
+                                    .Select(g => new SelectListItem
+                                    {
+                                        Value = g.Key.ToString(),
+                                        Text = g.Key.ToString()
+                                    }).ToList();
+
+            ViewBag.Departments = dataColumns.Where(o => o.Department != null)
+                                  .GroupBy(a => a.Department)
+                                  .Select(g => new SelectListItem
+                                  {
+                                      Value = g.Key.ToString(),
+                                      Text = g.Key.ToString()
+                                  }).ToList();
+
             model.VWipReport = data.ToList();
             model.WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales));
             model.WIPSubTotalAmtDone = Convert.ToDecimal(data.Where(o => o.AmountDone != null).Sum(p => p.AmountDone));
