@@ -48,6 +48,7 @@ namespace AspStudio
             services.AddScoped<StatusService>();
             services.AddScoped<TypeService>();
             services.AddScoped<AuditLogService>();
+            services.AddScoped<SavedViewService>();
 
             services.AddAntiforgery(p => p.SuppressXFrameOptionsHeader = true);
             services.AddAutoMapper(typeof(MappingProfile));

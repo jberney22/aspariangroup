@@ -505,6 +505,8 @@ namespace EagleApp.Areas.Identity.Data
         public virtual DbSet<Wip> Wips { get; set; }
         public virtual DbSet<VWipReport> VWipReports { get; set; }
 
+        public virtual DbSet<SavedViews> SavedViews { get; set; }
+
         public virtual async Task<int> SaveChangesAsync(string userId = null, int jobId = 0, string logAction = null)
         {
             if (jobId != 0)

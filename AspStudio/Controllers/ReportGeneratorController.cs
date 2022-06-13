@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,18 @@ namespace EagleApp.Controllers
 
         private readonly JobLogService jblogService;
         private readonly DashboardService dashboardService;
+        private readonly SavedViewService _savedViewService;
+
+        
 
         private readonly ILogger<WIPController> _logger;
 
-        public ReportGeneratorController(ILogger<WIPController> logger, JobLogService _jblogService, DashboardService _dashboardService)
+        public ReportGeneratorController(ILogger<WIPController> logger, JobLogService _jblogService, DashboardService _dashboardService, SavedViewService savedViewService)
         {
             _logger = logger;
             dashboardService = _dashboardService;
             jblogService = _jblogService;
+            _savedViewService = savedViewService;
         }
         // GET: WIPController
         public ActionResult Index()
@@ -58,6 +63,14 @@ namespace EagleApp.Controllers
                                   }).ToList();
 
 
+            ViewBag.Views = _savedViewService.GetAllSavedViews()
+                            .Select(g => new SelectListItem
+                            {
+                                Value = g.Id.ToString(),
+                                Text = g.ViewName.ToString()
+                            }).ToList();
+
+
             var NoDuplicates = data
                              .GroupBy(a => a.Id)
                              .Select(g => g.OrderByDescending(a => a.DateAddedStr).First())
@@ -81,6 +94,31 @@ namespace EagleApp.Controllers
         public IActionResult Index(WIPReportModel model)
         {
             
+           
+
+            if(!string.IsNullOrEmpty(model.ViewName))
+            {
+                var savedViews = _savedViewService.GetAllSavedViews().FirstOrDefault(i => i.ViewName == model.ViewName);
+                if (savedViews != null)
+                {
+                  return View(model);
+                }
+
+                _savedViewService.AddSaveView(new SavedViews() { 
+                    ViewName = model.ViewName,
+                    SavedJsonCriteria = JsonConvert.SerializeObject(model),
+                });
+            }
+
+            if (!string.IsNullOrEmpty(model.ViewNameSelected))
+            {
+               var savedViews = _savedViewService.GetAllSavedViews().FirstOrDefault(i => i.Id.ToString() == model.ViewNameSelected);
+                if (savedViews != null)
+                {
+                    model = null;
+                    model = JsonConvert.DeserializeObject<WIPReportModel>(savedViews.SavedJsonCriteria);
+                }
+            }
             var data = jblogService.GetDataByDynamic(model);
 
             var dataColumns = jblogService.GetDataByDynamic(new WIPReportModel()).ToList();
@@ -100,6 +138,13 @@ namespace EagleApp.Controllers
                                       Value = g.Key.ToString(),
                                       Text = g.Key.ToString()
                                   }).ToList();
+
+            ViewBag.Views = _savedViewService.GetAllSavedViews()
+                            .Select(g => new SelectListItem
+                            {
+                                Value = g.Id.ToString(),
+                                Text = g.ViewName.ToString()
+                            }).ToList();
 
             model.VWipReport = data.ToList();
             model.WIPSubTotalFormSales = Convert.ToDecimal(data.Where(o => o.EagleBidSales != null).Sum(p => p.EagleBidSales));
