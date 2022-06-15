@@ -177,10 +177,10 @@ namespace EagleApp.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_AuditLog_JobLog");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AuditLogs)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_AuditLog_AspNetUsers");
+                //entity.HasOne(d => d.User)
+                //    .WithMany(p => p.AuditLogs)
+                //    .HasForeignKey(d => d.UserId)
+                //    .HasConstraintName("FK_AuditLog_AspNetUsers");
             });
 
             modelBuilder.Entity<BidLog>(entity =>
@@ -458,10 +458,10 @@ namespace EagleApp.Models
 
                 entity.Property(e => e.UserId).HasMaxLength(450);
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.JobLogs)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_JobLog_AspNetUsers");
+                //entity.HasOne(d => d.User)
+                //    .WithMany(p => p.JobLogs)
+                //    .HasForeignKey(d => d.UserId)
+                //    .HasConstraintName("FK_JobLog_AspNetUsers");
             });
 
             modelBuilder.Entity<JobLog1222021>(entity =>

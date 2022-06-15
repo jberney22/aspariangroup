@@ -12,6 +12,13 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'ColorAdmin' " />
 
   <ItemGroup>
+    <Compile Remove="Views\NewFolder\**" />
+    <Content Remove="Views\NewFolder\**" />
+    <EmbeddedResource Remove="Views\NewFolder\**" />
+    <None Remove="Views\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Models\AspNetRole.cs" />
     <Compile Remove="Models\AspNetRoleClaim.cs" />
     <Compile Remove="Models\AspNetUser.cs" />
@@ -77,7 +84,6 @@
     <Folder Include="css\" />
     <Folder Include="Data\Migrations\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Views\NewFolder\" />
   </ItemGroup>
 
   <ItemGroup>

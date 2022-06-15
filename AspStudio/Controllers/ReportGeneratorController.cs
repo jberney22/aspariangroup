@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,18 @@ namespace EagleApp.Controllers
 
         private readonly JobLogService jblogService;
         private readonly DashboardService dashboardService;
+        private readonly SavedViewService _savedViewService;
+
+        
 
         private readonly ILogger<WIPController> _logger;
 
-        public ReportGeneratorController(ILogger<WIPController> logger, JobLogService _jblogService, DashboardService _dashboardService)
+        public ReportGeneratorController(ILogger<WIPController> logger, JobLogService _jblogService, DashboardService _dashboardService, SavedViewService savedViewService)
         {
             _logger = logger;
             dashboardService = _dashboardService;
             jblogService = _jblogService;
+            _savedViewService = savedViewService;
         }
         // GET: WIPController
         public ActionResult Index()
@@ -59,6 +64,14 @@ namespace EagleApp.Controllers
                                       Value = g.Key.ToString(),
                                       Text = g.Key.ToString()
                                   }).ToList();
+
+
+            ViewBag.Views = _savedViewService.GetAllSavedViews()
+                            .Select(g => new SelectListItem
+                            {
+                                Value = g.Id.ToString(),
+                                Text = g.ViewName.ToString()
+                            }).ToList();
 
 
             var NoDuplicates = data

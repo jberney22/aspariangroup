@@ -79,15 +79,17 @@ namespace EagleApp.Service
                 }
             }
 
-            if (!string.IsNullOrEmpty(model.Estimator))
-            {
-                if (model.Estimator != "--- SELECT ---")
-                {
-                    data = data.Where(i => i.Rep != null)
-                            .Where(o => o.Rep.ToLower().Contains(model.Estimator.ToLower()));
-                }
+            if (model.Estimator2 != null)
 
+            {
+                if(model.Estimator2.Count > 0)
+                {
+
+                    data = data.Where(i => i.Rep != null)
+                               .Where(x => model.Estimator2.Any(y => x.Rep.Contains(y)));
+                }
             }
+          
 
             if (!string.IsNullOrEmpty(model.ProjectOc))
             {

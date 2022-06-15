@@ -22,6 +22,7 @@ namespace EagleApp.Models
         public string Department { get; set; }
         public string ProjectOc { get; set; }
         public string Estimator { get; set; }
+        public List<string> Estimator2 { get; set; }
 
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -38,7 +39,10 @@ namespace EagleApp.Models
         public DateTime? ContactTypeDateCreated { get; set; }
 
         public string? Status { get; set; }
-      
+
+        public string? ViewName { get; set; }
+        public string? ViewNameSelected { get; set; }
+
 
 
     }
