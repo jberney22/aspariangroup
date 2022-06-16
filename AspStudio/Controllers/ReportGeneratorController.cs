@@ -96,7 +96,31 @@ namespace EagleApp.Controllers
         [HttpPost]
         public IActionResult Index(WIPReportModel model)
         {
-            
+            if (!string.IsNullOrEmpty(model.ViewName))
+            {
+                var savedViews = _savedViewService.GetAllSavedViews().FirstOrDefault(i => i.ViewName == model.ViewName);
+                if (savedViews != null)
+                {
+                    return View(model);
+                }
+
+                _savedViewService.AddSaveView(new SavedViews()
+                {
+                    ViewName = model.ViewName,
+                    SavedJsonCriteria = JsonConvert.SerializeObject(model),
+                });
+            }
+
+            if (!string.IsNullOrEmpty(model.ViewNameSelected))
+            {
+                var savedViews = _savedViewService.GetAllSavedViews().FirstOrDefault(i => i.Id.ToString() == model.ViewNameSelected);
+                if (savedViews != null)
+                {
+                    model = null;
+                    model = JsonConvert.DeserializeObject<WIPReportModel>(savedViews.SavedJsonCriteria);
+                }
+            }
+
             var data = jblogService.GetDataByDynamic(model); 
 
             var dataColumns = jblogService.GetDataByDynamic(new WIPReportModel()).ToList();
