@@ -33,6 +33,7 @@
 
         $(function () {
            $('#Estimator2').picker();
+             $('#Department2').picker();
            var $table = $('#table')
 
             $('#datepicker, #opendatepicker, #finishdatepicker').datepicker({
@@ -119,8 +120,8 @@
                            <div class="form-group mb-3">
                                <label class="form-label" for="exampleFormControlInput1">Department</label>
                                @*<input type="text" class="form-control" asp-for="Department" name="Department" placeholder="PRIDE  ">*@
-                               <select class="form-control"  asp-for="Department" asp-items="ViewBag.Departments">
-                                   <option selected>--- SELECT ---</option>
+                               <select class="form-control"  asp-for="Department2" asp-items="ViewBag.Departments" multiple>
+                                  @* <option selected>--- SELECT ---</option>*@
                                </select>
                            </div>
 					   </div>

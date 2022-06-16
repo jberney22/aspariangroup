@@ -20,6 +20,7 @@ namespace EagleApp.Models
         public DateTime? PostDate { get; set; }
 
         public string Department { get; set; }
+        public List<string> Department2 { get; set; }
         public string ProjectOc { get; set; }
         public string Estimator { get; set; }
         public List<string> Estimator2 { get; set; }

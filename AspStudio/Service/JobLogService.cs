@@ -89,7 +89,18 @@ namespace EagleApp.Service
                                .Where(x => model.Estimator2.Any(y => x.Rep.Contains(y)));
                 }
             }
-          
+
+            if (model.Department2 != null)
+
+            {
+                if (model.Department2.Count > 0)
+                {
+
+                    data = data.Where(i => i.Department != null)
+                               .Where(x => model.Department2.Any(y => x.Department.Contains(y)));
+                }
+            }
+
 
             if (!string.IsNullOrEmpty(model.ProjectOc))
             {
