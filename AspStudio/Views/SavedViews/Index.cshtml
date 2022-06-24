@@ -1,0 +1,52 @@
+﻿@model IEnumerable<SavedViews>
+@{
+    ViewData["Title"] = "Users";
+}
+
+@section Scripts {
+    <link href="~/lib/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap-table/dist/bootstrap-table.min.js"></script>
+
+}
+
+<style>
+    .bootstrap-table.bootstrap5 .float-right {
+        right: 14px !important;
+    }
+</style>
+
+<h1>Saved Views</h1>
+
+
+<div class="row">
+        <table id="example" class="table" data-toggle="table"
+               data-sort-class="table-active"
+               data-sortable="true"
+               data-search="false"
+               data-pagination="true">
+            <thead>
+                <tr>
+                    <th data-sortable="true">View Name</th>
+                    @*<th data-sortable="true">Saved Json Criteria</th>*@
+                    <th data-sortable="false" data-width="100"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var savedViews in Model)
+                {
+                    <tr>
+                        <td>@savedViews.ViewName</td>
+                        @*<td>@savedViews.SavedJsonCriteria</td>*@
+                        <td>
+                            @*<a href="#modalEdit" data-bs-toggle="modal" data-id="@user.Id"  data-bs class="btn btn-default w-100px">Edit</a>*@
+                           @* <a href="/Users/Edit?id=@savedViews.Id" class="btn btn-default w-50px">Edit</a>*@
+                            @Html.ActionLink("Delete", "Delete", new {  id=savedViews.Id  }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>

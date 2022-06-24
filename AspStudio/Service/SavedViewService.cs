@@ -36,6 +36,13 @@ namespace EagleApp.Service
             return response;
         }
 
+        internal void DeleteView(int Id)
+        {
+            var savedViews = _context.SavedViews.Find(Id);
+            _context.SavedViews.Remove(savedViews);
+            _context.SaveChanges();          
+        }
+
         //internal async Task<AuditCompareModel> GetAuditById(int id)
         //{
         //    var auditCompareModel = new AuditCompareModel();
@@ -60,7 +67,7 @@ namespace EagleApp.Service
         //    auditCompareModel.OldModel.Status = statusNameOld != null ? statusNameOld.Status : string.Empty;
         //    auditCompareModel.NewModel.Status = statusNameNew != null ? statusNameNew.Status : string.Empty;
 
-         
+
         //    return auditCompareModel;
         //}
 
