@@ -40,6 +40,8 @@ namespace EagleApp.Models
         public DateTime? ContactTypeDateCreated { get; set; }
 
         public string? Status { get; set; }
+        public List<string> Status2 { get; set; }
+
 
         public string? ViewName { get; set; }
         public string? ViewNameSelected { get; set; }

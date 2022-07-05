@@ -80,7 +80,6 @@ namespace EagleApp.Service
             }
 
             if (model.Estimator2 != null)
-
             {
                 if(model.Estimator2.Count > 0)
                 {
@@ -91,13 +90,22 @@ namespace EagleApp.Service
             }
 
             if (model.Department2 != null)
-
             {
                 if (model.Department2.Count > 0)
                 {
 
                     data = data.Where(i => i.Department != null)
                                .Where(x => model.Department2.Any(y => x.Department.Contains(y)));
+                }
+            }
+
+            if (model.Status2 != null)
+            {
+                if (model.Status2.Count > 0)
+                {
+
+                    data = data.Where(i => i.Status != null)
+                               .Where(x => model.Status2.Any(y => x.Status.Contains(y)));
                 }
             }
 

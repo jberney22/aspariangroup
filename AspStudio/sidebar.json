@@ -70,7 +70,11 @@
           "text": "WIP Report"
         },
         {
-          "text": "New Bid Form"
+
+          "controller": "ReportGenerator",
+          "action": "Index",
+          "text": "Report Generator"
+
         },
         {
           "text": "New LO#"
