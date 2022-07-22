@@ -265,6 +265,51 @@
                         <thead>
                               <tr>
                                 <th scope="col" data-sortable="true">Project#:Job:Client</th>
+                                <th scope="col" data-sortable="true">Bid Number</th>
+                                <th scope="col" data-sortable="true">Job Name</th>
+                                <th scope="col" data-sortable="true">Estimator Name</th>
+                                <th scope="col" data-sortable="true">Dept Name</th>
+                                <th scope="col" data-sortable="true">Product Type</th>
+                                <th scope="col" data-sortable="true">Eagle Bid Price</th>
+                                <th scope="col" data-sortable="true">Awarded To</th>
+                                <th scope="col" data-sortable="true">Competitor Price</th>
+                                <th scope="col" data-sortable="true">Missed By</th>
+                                <th scope="col" data-sortable="true">Eagle Bid Sales</th>
+                                <th scope="col" data-sortable="true">Open Date</th>
+                                <th scope="col" data-sortable="true">Accepted Date</th>
+                                <th scope="col" data-sortable="true">Start Date</th>
+                                <th scope="col" data-sortable="true">Finish Date</th>
+                                <th scope="col" data-sortable="true">Final Invoice Date</th>
+                                <th scope="col" data-sortable="true">Closed Date</th>
+                                <th scope="col" data-sortable="true">Jeip Meeting Date</th>
+                                <th scope="col" data-sortable="true">Paid In Full Date</th>
+                                <th scope="col" data-sortable="true">Comm Paid Date</th>
+                                <th scope="col" data-sortable="true">Collected Amount</th>
+                                <th scope="col" data-sortable="true">Status</th>
+                                <th scope="col" data-sortable="true">Notes</th>
+                                <th scope="col" data-sortable="true">Scheduled Finish Date</th>
+                                <th scope="col" data-sortable="true">Days in WIP</th>
+                                <th scope="col" data-sortable="true">Amount Done</th>
+                                <th scope="col" data-sortable="true">% Done</th>
+                                <th scope="col" data-sortable="true">5% Mobilization</th>
+                                <th scope="col" data-sortable="true">15% Prep 1/4</th>
+                                <th scope="col" data-sortable="true">15% Prep 1/2</th>
+                                <th scope="col" data-sortable="true">15% Prep 3/4</th>
+                                <th scope="col" data-sortable="true">15% Prep Done</th>
+                                <th scope="col" data-sortable="true">15% Removal 1/2</th>
+                                <th scope="col" data-sortable="true">15% Removal 3/4</th>
+                                <th scope="col" data-sortable="true">5% Done</th>
+                                  <th scope="col" data-sortable="true">Customer Name</th>
+                                   <th scope="col" data-sortable="true">Customer Date Created</th>
+                                    <th scope="col" data-sortable="true">Contact Type</th>
+                                    <th scope="col" data-sortable="true">Contact Date Created</th>
+
+
+
+
+
+
+                                @*<th scope="col" data-sortable="true">Project#:Job:Client</th>
                                 <th scope="col" data-sortable="true">Department</th>
                                 <th scope="col" data-sortable="true">Rep</th>
                                 <th scope="col" data-sortable="true">Start Date</th>
@@ -287,7 +332,7 @@
                                   <th scope="col" data-sortable="true">Customer Name</th>
                                    <th scope="col" data-sortable="true">Customer Date Created</th>
                                     <th scope="col" data-sortable="true">Contact Type</th>
-                                    <th scope="col" data-sortable="true">Contact Date Created</th>
+                                    <th scope="col" data-sortable="true">Contact Date Created</th>*@
 
                             </tr>
                         </thead>
@@ -296,7 +341,47 @@
                             @foreach (var user in Model.VWipReport)
                             {
                             <tr>
-                                 <td scope="col" title="@user.ProjectNumber">
+                                <td scope="col" title="@user.ProjectNumber"> <a href="/JobLog/Edit?id=@user.Id"> @String.Format("{0} ...", user.ProjectNumber.Substring(0,20))</a>                                </td>
+                                <td scope="col" class="col-1">@user.BidNumber</td>
+                                <td scope="col" class="col-1">@user.JobName</td>
+                                <td scope="col" class="col-1">@user.Rep</td>
+                                <td scope="col" class="col-1">@user.Department</td>
+                                <td scope="col" class="col-1">@user.ProductType</td>
+                                <td scope="col">@String.Format("{0:C2}", user.EagleBidPrice) </td>
+                                <td scope="col" class="col-1">@user.AwardedTo</td>
+                                <td scope="col">@String.Format("{0:C2}", user.CompetitorPrice) </td>
+                                <td scope="col" class="col-1">@user.MissedBy</td>
+                                <td scope="col">@String.Format("{0:C2}", user.EagleBidSales) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.OpenDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.AcceptedDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.StartDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinalInvoiceDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.ClosedDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.JEIPMeetingDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.PaidInFullDate) </td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.CommPaidDate) </td>
+                                <td scope="col">@String.Format("{0:C2}", user.CollectedAmount) </td>
+                                <td scope="col">@user.Status</td>
+                                <td scope="col">@user.Notes</td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.FinishDate) </td>
+                                <td scope="col">@user.DaysWip</td>
+                                <td scope="col">@String.Format("{0:C2}", user.AmountDone) </td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0.0"+user.TotalComplete))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0.0"+user.Mobilization))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep14))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep12))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Prep13))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.PrepDone))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Removal12))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0."+user.Removal34))</td>
+                                <td scope="col">@String.Format("{0:P1}", Convert.ToDouble("0.0"+user.DemoDone))</td>
+                                <td scope="col">@user.CustomerName</td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.CustomerDateCreated) </td>
+                                <td scope="col">@user.ContactType</td>
+                                <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.ContactTypeDateCreated) </td>
+
+                                 @*<td scope="col" title="@user.ProjectNumber">
                                     <a href="/JobLog/Edit?id=@user.Id"> @String.Format("{0} ...", user.ProjectNumber.Substring(0,20))</a>
                                 </td>
                                 <td scope="col" class="col-1">@user.Department</td>
@@ -321,7 +406,7 @@
                                   <td scope="col">@user.CustomerName</td>
                                   <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.CustomerDateCreated) </td>
                                    <td scope="col">@user.ContactType</td>
-                                  <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.ContactTypeDateCreated) </td>
+                                  <td scope="col">@String.Format("{0:MM/dd/yyyy}", user.ContactTypeDateCreated) </td>*@
                             </tr>
                             }
 

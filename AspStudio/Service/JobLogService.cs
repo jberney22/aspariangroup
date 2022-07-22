@@ -70,7 +70,7 @@ namespace EagleApp.Service
         {
             
 
-            var data = _context.Set<VWipReport>().FromSqlRaw("exec dbo.usp_GeneratedReport").AsEnumerable();
+            var data = _context.Set<VWipReport>().FromSqlRaw("exec dbo.usp_GeneratedReport2").AsEnumerable();
             if(!string.IsNullOrEmpty(model.Department))
             {
                 if(model.Department != "--- SELECT ---")

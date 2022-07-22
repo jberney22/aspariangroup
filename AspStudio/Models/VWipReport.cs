@@ -7,11 +7,20 @@ namespace EagleApp.Models
     {
         public int Id { get; set; }
         public string Department { get; set; }
+        public string JobName { get; set; }
+        public string AwardedTo { get; set; }
+
         public string Rep { get; set; }
         public string ProjectNumber { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? FinishDate { get; set; }
+        public DateTime? AcceptedDate { get; set; }
+        public DateTime? FinalInvoiceDate { get; set; }
+        public DateTime? JEIPMeetingDate { get; set; }
+        public DateTime? PaidInFullDate { get; set; }
+        public DateTime? CommPaidDate { get; set; }
         public string Status { get; set; }
+        public string Notes { get; set; }
         public int? DaysWip { get; set; }
         public decimal? EagleBidSales { get; set; }
         public decimal? AmountDone { get; set; }
@@ -44,9 +53,15 @@ namespace EagleApp.Models
         public string? CustomerName { get; set; }
         public DateTime? CustomerDateCreated { get; set; }
 
+        public string ProductType { get; set; }
+
         public string? ContactType { get; set; }
         public DateTime? ContactTypeDateCreated { get; set; }
 
-       
+        public decimal? CompetitorPrice { get; set; }
+        public string MissedBy { get; set; }
+        public string BidNumber { get; set; }
+
+
     }
 }
