@@ -58,10 +58,10 @@ namespace EagleApp.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                 _emailSender.Send("no-reply@eagleenvironmentalinc.com",
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                 //_emailSender.Send("no-reply@eagleenvironmentalinc.com",
+                 //   Input.Email,
+                 //   "Reset Password",
+                 //   $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
